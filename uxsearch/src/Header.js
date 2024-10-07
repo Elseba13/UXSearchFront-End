@@ -12,8 +12,8 @@ const Navbar = () => {
                  </button>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
-                        <a className="nav-link" href="#">Metodos de evaluación UX</a>
-                        <a className="nav-link" href="#">Iniciar Sesión como administrador</a>
+                        <a className="nav-link text-white" href="#">Metodos de evaluación UX</a>
+                        <a className="nav-link text-white" href="#">Iniciar Sesión como administrador</a>
                     </div>
                 </div>
             </div>
