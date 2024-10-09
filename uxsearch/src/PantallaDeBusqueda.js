@@ -1,8 +1,18 @@
 import React from "react";
 import Filtros from "./Filtros"; 
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 
-const pantallaPrincipal = () => {
+
+function PantallaPrincipal() {
+
+    const navigate = useNavigate(); 
+
+    const handleStart = () => {
+        navigate('/info-metodo'); 
+    }
+
+
     return(
         <>
         
@@ -31,7 +41,7 @@ const pantallaPrincipal = () => {
                                         <Card.Body>
                                             <Card.Title>Título</Card.Title>
                                             <Card.Text>Resumen</Card.Text>
-                                            <Button variant="primary">Leer más</Button>
+                                            <Button variant="primary" onClick={handleStart}>Leer más</Button>
                                         </Card.Body>
                                     </Card>
                                 </Col>
@@ -41,7 +51,7 @@ const pantallaPrincipal = () => {
                                         <Card.Body>
                                             <Card.Title>Título</Card.Title>
                                             <Card.Text>Resumen</Card.Text>
-                                            <Button variant="primary">Leer más</Button>
+                                            <Button variant="primary" onClick={handleStart}>Leer más</Button>
                                         </Card.Body>
                                     </Card>
                                 </Col>
@@ -51,7 +61,7 @@ const pantallaPrincipal = () => {
                                         <Card.Body>
                                             <Card.Title>Título</Card.Title>
                                             <Card.Text>Resumen</Card.Text>
-                                            <Button variant="primary">Leer más</Button>
+                                            <Button variant="primary" onClick={handleStart}>Leer más</Button>
                                         </Card.Body>
                                     </Card>
                                 </Col>
@@ -61,7 +71,7 @@ const pantallaPrincipal = () => {
                                         <Card.Body>
                                             <Card.Title>Título</Card.Title>
                                             <Card.Text>Resumen</Card.Text>
-                                            <Button variant="primary">Leer más</Button>
+                                            <Button variant="primary" onClick={handleStart}>Leer más</Button>
                                         </Card.Body>
                                     </Card>
                                  </Col>
@@ -74,4 +84,4 @@ const pantallaPrincipal = () => {
     );
 }
 
-export default pantallaPrincipal; 
+export default PantallaPrincipal; 

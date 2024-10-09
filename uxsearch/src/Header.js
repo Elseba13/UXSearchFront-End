@@ -6,7 +6,7 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-dark bg-primary">
             <div className="container-fluid">
-                <a className="navbar-brand" href="#">UXSearch</a>
+                <a className="navbar-brand" href="/">UXSearch</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                  </button>
@@ -14,7 +14,7 @@ const Navbar = () => {
                     <div className="navbar-nav">
                         <a className="nav-link text-white" href="#">Metodos de evaluación UX</a>
                         <a className="nav-link text-white" href="#">Explicación filtros</a>
-                        <a className="nav-link text-white" href="#">Iniciar Sesión como administrador</a>
+                        <a className="nav-link text-white" href="/login-admin">Iniciar Sesión como administrador</a>
                     </div>
                 </div>
             </div>
