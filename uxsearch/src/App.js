@@ -1,44 +1,22 @@
-import React from 'react'; 
+import React from "react";
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'; 
 import Header from './Header'; 
+import PantallaPrincipal from './PantallaDeBusqueda'; 
+import Home from './Home'; 
 
 const App = () => {
   return (
-    <div>
-      <Header/> 
-      <main className='d-flex flex-column justify-content-center align-items-center text-center'
-        style={{
-          backgroundImage: 'url("https://www.itdo.com/blog/content/images/2020/12/ITDO-diseno.jpg")',
-          backgroundSize: 'cover', 
-          backgroundPosition: 'center', 
-          height: 'calc(100vh - 56px)', 
-          color: 'white',
-        }}
-      > 
-
-      <div 
-        style={{
-          width: '80%',
-          height: '40%',
-          backgroundColor:'white',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderRadius: '20px',
-          overflow: 'hidden',
-          textAlign: 'center',
-          marginBottom: '5%'
-        }}
-      >
-        <p style={{fontSize: '0.9rem', margin: '10%',flexGrow: 1, color: 'black', textAlign: 'center'}}>
-          En UX Search podras encontrar información acerca de diferentes métodos de evaluación UX, en conjunto a sus fuentes de origen, y un apartado para la selección de filtros de búsqueda los cuales permitirán encontrar el método acertado para tu proyecto.
-        </p>
+    <Router>
+      <div>
+        <Header/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/pantalla-principal" element = {<PantallaPrincipal/>} /> 
+        </Routes>
       </div>
-      <div> 
-        <button type='button' className='btn btn-primary btn lg'>Comenzar</button>
-      </div>
-      </main>
-    </div>
+    </Router>
   );
 }
 
 export default App; 
+
