@@ -13,6 +13,7 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
                         <a className="nav-link text-white" href="#">Metodos de evaluación UX</a>
+                        <a className="nav-link text-white" href="#">Explicación filtros</a>
                         <a className="nav-link text-white" href="#">Iniciar Sesión como administrador</a>
                     </div>
                 </div>
