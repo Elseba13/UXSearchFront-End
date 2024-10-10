@@ -8,6 +8,7 @@ import Login from './LoginAdmin';
 import Footer from './Footer';
 import ExplicacionFiltros from './ExplicacionFiltros';
 import DashboardCircular from "./Dashboard";
+import AgregarMetodo from "./AgregarMetodo";
 
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/login-admin" element ={<Login/>} />
             <Route path="/explicacion-filtros" element ={<ExplicacionFiltros/>} />
             <Route path="/dashboard" element = {<DashboardCircular/>} />
+            <Route path="/agregar-metodo" element = {<AgregarMetodo/>} />
           </Routes>
         </div>
         <Footer/>
