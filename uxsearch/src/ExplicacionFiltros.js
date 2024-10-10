@@ -46,9 +46,9 @@ const ExplicacionFiltros = () => {
           <div className="card-body">
             <p>Considera el tiempo que se tiene para aplicar el método.</p>
             <ul>
-              <li><strong>Corto plazo:</strong> Pocos días: Métodos rápidos que ofrecen resultados inmediatos.</li>
-              <li><strong>Mediano plazo:</strong> Varios días: Métodos que requieren más tiempo y profundidad.</li>
-              <li><strong>Largo plazo:</strong> Semanas: Métodos que se extienden durante un periodo prolongado.</li>
+              <li><strong>Corto plazo - Pocos días:</strong> Métodos rápidos que ofrecen resultados inmediatos.</li>
+              <li><strong>Mediano plazo - Varios días:</strong> Métodos que requieren más tiempo y profundidad.</li>
+              <li><strong>Largo plazo - Semanas:</strong> Métodos que se extienden durante un periodo prolongado.</li>
             </ul>
           </div>
         </div>
