@@ -11,7 +11,7 @@ const Login = () => {
             <div className="card bg-primary text-white" style={{ borderRadius: "1rem" }}>
               <div className="card-body p-5 text-center">
                 <div className="mb-md-5 mt-md-4 pb-5">
-                  <h2 className="fw-bold mb-2 text-uppercase">Inicar Sesión</h2>
+                  <h2 className="fw-bold mb-2 text-uppercase">Iniciar Sesión</h2>
                   <p className="text-white-50 mb-5">
                     Ingresa tu correo y contraseña
                   </p>
