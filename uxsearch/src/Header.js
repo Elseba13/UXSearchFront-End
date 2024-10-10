@@ -14,6 +14,7 @@ const Navbar = () => {
                     <div className="navbar-nav">
                         <a className="nav-link text-white" href="/pantalla-principal">Metodos de evaluación UX</a>
                         <a className="nav-link text-white" href="/explicacion-filtros">Explicación filtros</a>
+                        <a className="nav-link text-white" href="/dashboard">Metodos disponibles por filtros</a>
                         <a className="nav-link text-white" href="/login-admin">Iniciar Sesión como administrador</a>
                     </div>
                 </div>

@@ -7,6 +7,8 @@ import InfoMetodo from './InfoMetodo';
 import Login from './LoginAdmin';
 import Footer from './Footer';
 import ExplicacionFiltros from './ExplicacionFiltros';
+import DashboardCircular from "./Dashboard";
+
 
 const App = () => {
   return (
@@ -20,6 +22,7 @@ const App = () => {
             <Route path="/info-metodo" element ={<InfoMetodo/>} />
             <Route path="/login-admin" element ={<Login/>} />
             <Route path="/explicacion-filtros" element ={<ExplicacionFiltros/>} />
+            <Route path="/dashboard" element = {<DashboardCircular/>} />
           </Routes>
         </div>
         <Footer/>
