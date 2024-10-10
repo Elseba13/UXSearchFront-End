@@ -3,7 +3,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 
 const InfoMetodo = () => {
   return (
-    <Container fluid className="mt-5"> {/* Aumento de margen superior */}
+    <Container fluid className="mt-5"> 
       <Row className="justify-content-center">
         <Col xs={12} md={10} lg={8}>
           <Card className="mb-4" style={{ borderRadius: '15px' }}>

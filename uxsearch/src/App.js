@@ -5,19 +5,24 @@ import PantallaPrincipal from './PantallaDeBusqueda';
 import Home from './Home'; 
 import InfoMetodo from './InfoMetodo';
 import Login from './LoginAdmin'
+import Footer from './Footer'
 
 const App = () => {
   return (
     <Router>
-      <div>
+      <div className="d-flex flex-column min-vh-100">
         <Header/>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/pantalla-principal" element = {<PantallaPrincipal/>} /> 
-          <Route path="/info-metodo" element ={<InfoMetodo/>} />
-          <Route path="/login-admin" element ={<Login/>} />
-        </Routes>
+        <div className="flex-grow-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/pantalla-principal" element = {<PantallaPrincipal/>} /> 
+            <Route path="/info-metodo" element ={<InfoMetodo/>} />
+            <Route path="/login-admin" element ={<Login/>} />
+          </Routes>
+        </div>
+        <Footer/>
       </div>
+      
     </Router>
   );
 }
