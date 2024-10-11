@@ -1,7 +1,15 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from "react-router-dom"; 
 
 const Login = () => {
+
+  const navigate = useNavigate(); 
+
+  const handleStart = () => {
+    navigate('/agregar-metodo')
+  }
+
   return (
     <section className="vh-60">
       <div className="container py-5 h-60">
@@ -41,6 +49,7 @@ const Login = () => {
                   <button
                     className="btn btn-outline-light btn-lg px-5"
                     type="submit"
+                    onClick={handleStart}
                   >
                     Ingresar
                   </button>
