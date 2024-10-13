@@ -75,7 +75,6 @@ const ExplicacionFiltros = () => {
             <ul>
               <li><strong>Usuarios:</strong> Personas que usan el producto en su vida diaria.</li>
               <li><strong>Expertos:</strong> Especialistas con conocimientos específicos en el área.</li>
-              <li><strong>Ambos:</strong> Métodos que combinan la participación de usuarios finales y expertos.</li>
             </ul>
           </div>
         </div>

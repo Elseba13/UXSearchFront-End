@@ -9,6 +9,7 @@ import Footer from './Footer';
 import ExplicacionFiltros from './ExplicacionFiltros';
 import DashboardCircular from "./Dashboard";
 import AgregarMetodo from "./AgregarMetodo";
+import EditarMetodo from "./EditarMetodo";
 
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/explicacion-filtros" element ={<ExplicacionFiltros/>} />
             <Route path="/dashboard" element = {<DashboardCircular/>} />
             <Route path="/agregar-metodo" element = {<AgregarMetodo/>} />
+            <Route path="/editar-metodo" element = {<EditarMetodo/>} />
           </Routes>
         </div>
         <Footer/>
