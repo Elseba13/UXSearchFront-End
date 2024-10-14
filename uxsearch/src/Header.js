@@ -16,6 +16,7 @@ const Navbar = () => {
                         <a className="nav-link text-white" href="/explicacion-filtros">Explicación filtros</a>
                         <a className="nav-link text-white" href="/dashboard">Metodos disponibles por filtros</a>
                         <a className="nav-link text-white" href="/login-admin">Iniciar Sesión como administrador</a>
+                        <a className="nav-link text-white" href="/editar-metodo">Editar Metodo</a>
                     </div>
                 </div>
             </div>
