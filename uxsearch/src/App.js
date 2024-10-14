@@ -10,6 +10,8 @@ import ExplicacionFiltros from './ExplicacionFiltros';
 import DashboardCircular from "./Dashboard";
 import AgregarMetodo from "./AgregarMetodo";
 import EditarMetodo from "./EditarMetodo";
+import PantallaPrincipalAdmin from "./PantallaPrincipalAdmin";
+
 
 
 const App = () => {
@@ -19,6 +21,7 @@ const App = () => {
         <Header/>
         <div className="flex-grow-1">
           <Routes>
+
             <Route path="/" element={<Home />} />
             <Route path="/pantalla-principal" element = {<PantallaPrincipal/>} /> 
             <Route path="/info-metodo" element ={<InfoMetodo/>} />
@@ -27,6 +30,8 @@ const App = () => {
             <Route path="/dashboard" element = {<DashboardCircular/>} />
             <Route path="/agregar-metodo" element = {<AgregarMetodo/>} />
             <Route path="/editar-metodo" element = {<EditarMetodo/>} />
+            <Route path="/pantalla-principal-admin" element = {< PantallaPrincipalAdmin/>} /> 
+
           </Routes>
         </div>
         <Footer/>

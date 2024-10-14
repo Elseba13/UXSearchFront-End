@@ -1,15 +1,23 @@
 import React from "react";
 import Filtros from "./Filtros"; 
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import CardAdmin from "./Card"; 
 
-
-function PantallaPrincipal() {
+function PantallaPrincipalAdmin() {
 
     const navigate = useNavigate(); 
 
     const handleStart = () => {
         navigate('/info-metodo'); 
+    }
+
+    const handleEdit = () => {
+        console.log("editar"); 
+    }
+
+    const handleDelete = () => {
+        console.log("eliminar"); 
     }
 
 
@@ -37,43 +45,19 @@ function PantallaPrincipal() {
                          
                             <Row className="justify-content-center" style={{width: '80%'}}>
                                 <Col xs={12} md={10} lg={12} className="mb-4">
-                                    <Card style={{borderRadius: '15px'}}>
-                                        <Card.Body>
-                                            <Card.Title>Título</Card.Title>
-                                            <Card.Text>Resumen</Card.Text>
-                                            <Button variant="primary" onClick={handleStart}>Leer más</Button>
-                                        </Card.Body>
-                                    </Card>
+                                    <CardAdmin handleStart={handleStart} handleEdit={handleEdit} handleDelete={handleDelete}/> 
                                 </Col>
 
                                 <Col xs={12} md={10} lg={12}  className="mb-4">
-                                    <Card style={{borderRadius: '15px'}}>
-                                        <Card.Body>
-                                            <Card.Title>Título</Card.Title>
-                                            <Card.Text>Resumen</Card.Text>
-                                            <Button variant="primary" onClick={handleStart}>Leer más</Button>
-                                        </Card.Body>
-                                    </Card>
+                                    <CardAdmin handleStart={handleStart} handleEdit={handleEdit} handleDelete={handleDelete}/>
                                 </Col>
 
                                 <Col xs={12} md={10} lg={12} className="mb-4">
-                                    <Card style = {{borderRadius: '15px'}}>
-                                        <Card.Body>
-                                            <Card.Title>Título</Card.Title>
-                                            <Card.Text>Resumen</Card.Text>
-                                            <Button variant="primary" onClick={handleStart}>Leer más</Button>
-                                        </Card.Body>
-                                    </Card>
+                                    <CardAdmin handleStart={handleStart} handleEdit={handleEdit} handleDelete={handleDelete}/>
                                 </Col>
 
                                 <Col xs={12} md={10} lg={12} className="mb-4">
-                                    <Card style={{borderRadius: '15px'}}>
-                                        <Card.Body>
-                                            <Card.Title>Título</Card.Title>
-                                            <Card.Text>Resumen</Card.Text>
-                                            <Button variant="primary" onClick={handleStart}>Leer más</Button>
-                                        </Card.Body>
-                                    </Card>
+                                    <CardAdmin handleStart={handleStart} handleEdit={handleEdit} handleDelete={handleDelete}/>
                                  </Col>
                             </Row>
                         </div>
@@ -84,4 +68,4 @@ function PantallaPrincipal() {
     );
 }
 
-export default PantallaPrincipal; 
+export default PantallaPrincipalAdmin; 
