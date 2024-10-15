@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Col, Card as BootstrapCard, Button } from 'react-bootstrap';
+import { Col, Card as BootstrapCard, Button, Modal } from 'react-bootstrap';
 import { FaEdit, FaTrash } from 'react-icons/fa'; // Asegúrate de instalar react-icons
 
 const CardAdmin = ({ handleStart, handleEdit, handleDelete }) => {
     const [showMenu, setShowMenu] = useState(false);
+    const [showModal, setShowModal] = useState(false); 
     const menuRef = useRef(null);
 
     const toggleMenu = () => {
@@ -16,6 +17,15 @@ const CardAdmin = ({ handleStart, handleEdit, handleDelete }) => {
         }
     };
 
+    const handleDeleteClick = () => {
+        setShowModal(true); 
+    }
+
+    const confirmDelete = () => {
+        setShowModal(false); 
+        handleDelete(); 
+    }
+
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
@@ -24,7 +34,9 @@ const CardAdmin = ({ handleStart, handleEdit, handleDelete }) => {
     }, []);
 
     return (
-        <Col xs={12} md={10} lg={12} className="mb-4">
+
+        <>
+            <Col xs={12} md={10} lg={12} className="mb-4">
             <BootstrapCard style={{ borderRadius: '15px' }}>
                 <BootstrapCard.Body>
                     <BootstrapCard.Title>Título</BootstrapCard.Title>
@@ -47,7 +59,7 @@ const CardAdmin = ({ handleStart, handleEdit, handleDelete }) => {
                                 <Button variant="link" onClick={handleEdit} style={{ display: 'flex', alignItems: 'center' }} href="/editar-metodo">
                                     <FaEdit style={{ marginRight: '5px' }} /> Editar
                                 </Button>  
-                                <Button variant="link" onClick={handleDelete} style={{ display: 'flex', alignItems: 'center' }}>
+                                <Button variant="link" onClick={handleDeleteClick} style={{ display: 'flex', alignItems: 'center' }}>
                                     <FaTrash style={{ marginRight: '5px' }} /> Eliminar
                                 </Button>
                             </div>
@@ -56,7 +68,25 @@ const CardAdmin = ({ handleStart, handleEdit, handleDelete }) => {
                     <Button variant="primary" onClick={handleStart}>Leer más</Button>
                 </BootstrapCard.Body>
             </BootstrapCard>
-        </Col>
+            </Col>
+
+            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                        <Modal.Title>Confirmar eliminación</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    ¿Estás seguro de que deseas eliminar este método?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        Cancelar
+                    </Button>
+                    <Button variant="danger" onClick={confirmDelete}>
+                        Eliminar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>   
     );
 }; 
 
