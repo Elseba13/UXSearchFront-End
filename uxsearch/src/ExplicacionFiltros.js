@@ -1,9 +1,13 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from './Header';
 
 const ExplicacionFiltros = () => {
   return (
+    <>
+    <Navbar /> 
     <div className="container my-4">
+      
       <div className="bg-secondary-subtle text-dark p-3 rounded">
         <p className="lead">
           En esta página encontrarás información acerca de los filtros de búsqueda de los métodos de evaluación, los cuales te permitirán seleccionar la mejor opción según tus necesidades y los distintos filtros disponibles.
@@ -158,6 +162,7 @@ const ExplicacionFiltros = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

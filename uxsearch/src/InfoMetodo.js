@@ -1,8 +1,11 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import Navbar from './Header';
 
 const InfoMetodo = () => {
   return (
+    <>
+    <Navbar />
     <Container fluid className="mt-5"> 
       <Row className="justify-content-center">
         <Col xs={12} md={10} lg={8}>
@@ -40,6 +43,7 @@ const InfoMetodo = () => {
         </Col>
       </Row>
     </Container>
+    </>
   );
 };
 

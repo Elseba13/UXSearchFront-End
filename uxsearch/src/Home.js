@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./Header";
 
 const Home = () => {
     
@@ -10,7 +11,9 @@ const Home = () => {
     }; 
 
     return(
-        <main className='d-flex flex-column justify-content-center align-items-center text-center'
+        <>
+            <Navbar/>
+            <main className='d-flex flex-column justify-content-center align-items-center text-center'
             style={{
                 backgroundImage: 'url("https://www.itdo.com/blog/content/images/2020/12/ITDO-diseno.jpg")',
                 backgroundSize: 'cover', 
@@ -19,21 +22,22 @@ const Home = () => {
                 height: 'calc(100vh - 56px)', 
                 color: 'white',
              }}
-        > 
-        <div 
-            style={{
-                width: '80%',
-                height: '40%',
-                backgroundColor:'white',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: '20px',
-                overflow: 'hidden',
-                textAlign: 'center',
-                marginBottom: '5%'
-            }}
-        >
+            > 
+
+            <div 
+                style={{
+                    width: '80%',
+                    height: '40%',
+                    backgroundColor:'white',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: '20px',
+                    overflow: 'hidden',
+                    textAlign: 'center',
+                    marginBottom: '5%'
+                }}
+            >
             <p style={{fontSize: '1.2rem', margin: '10%', flexGrow: 1, color: 'black', textAlign: 'center'}}>
                 En UX Search podras encontrar información acerca de diferentes métodos de evaluación UX, en conjunto a sus fuentes de origen, y un apartado para la selección de filtros de búsqueda los cuales permitirán encontrar el método acertado para tu proyecto.
             </p>
@@ -49,6 +53,9 @@ const Home = () => {
             </button>
         </div>
         </main>
+        </>
+        
+        
     );
 
 }

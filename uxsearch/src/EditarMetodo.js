@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
+import HeaderAdmin from './HeaderAdmin';
 
 const EditarMetodo = () => {
   const [nombreMetodo, setNombreMetodo] = useState('Nombre del Método');
@@ -14,6 +15,7 @@ const EditarMetodo = () => {
 
   return (
     <Container fluid className="mt-5">
+      <HeaderAdmin/> 
       <Row className="justify-content-center">
         <Col xs={12} md={10} lg={8}>
           {/* Título de la página */}

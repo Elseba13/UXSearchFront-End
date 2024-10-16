@@ -4,6 +4,7 @@ import { Pie } from 'react-chartjs-2';
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';  
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import Filtros from "./Filtros";
+import Header from "./Header"; 
 
 Chart.register(ArcElement, Tooltip, Legend);
 
@@ -49,22 +50,27 @@ const DashboardCircular = () => {
     }, []);
 
     return (
-        <Container fluid className="mt-4" >
-            <Row>
-                {/* Filtros */}
-                <Col xs={12} md={3} lg={2} className="bg-light">
-                    <Filtros />
-                </Col>
+        <>
+            <Header/>
+            <Container fluid className="mt-4" >
 
-                {/* Gráfico circular centrado */}
-                <Col xs={12} md={9} className="d-flex justify-content-center align-items-center">
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', maxWidth: '800px', height: '600px', marginTop:'40px' }}>
+                <Row>
+                
+                    <Col xs={12} md={3} lg={2} className="bg-light">
+                        <Filtros />
+                    </Col>
 
-                        <Pie ref={chartRef} data={data} options={options} />
-                    </div>
-                </Col>
-            </Row>
-        </Container>
+                
+                    <Col xs={12} md={9} className="d-flex justify-content-center align-items-center">
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', maxWidth: '800px', height: '600px', marginTop:'40px' }}>
+
+                            <Pie ref={chartRef} data={data} options={options} />
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
+        </>
+       
     );
 };
 

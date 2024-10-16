@@ -3,6 +3,7 @@ import Filtros from "./Filtros";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import CardAdmin from "./Card"; 
+import HeaderAdmin from "./HeaderAdmin";
 
 function PantallaPrincipalAdmin() {
 
@@ -23,7 +24,8 @@ function PantallaPrincipalAdmin() {
 
     return(
         <>
-        
+            <HeaderAdmin/>
+            
             <Container fluid>
                 <Row>
                  

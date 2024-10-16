@@ -2,7 +2,7 @@ import React from "react";
 import Filtros from "./Filtros"; 
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
-
+import Navbar from "./Header";
 
 function PantallaPrincipal() {
 
@@ -15,7 +15,7 @@ function PantallaPrincipal() {
 
     return(
         <>
-        
+            <Navbar/>
             <Container fluid>
                 <Row>
                  

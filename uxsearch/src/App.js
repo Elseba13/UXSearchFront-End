@@ -18,10 +18,8 @@ const App = () => {
   return (
     <Router>
       <div className="d-flex flex-column min-vh-100">
-        <Header/>
         <div className="flex-grow-1">
           <Routes>
-
             <Route path="/" element={<Home />} />
             <Route path="/pantalla-principal" element = {<PantallaPrincipal/>} /> 
             <Route path="/info-metodo" element ={<InfoMetodo/>} />

@@ -1,9 +1,13 @@
 import React from 'react';
 import { Form, Button, Row, Col, Container } from 'react-bootstrap';
+import HeaderAdmin from './HeaderAdmin';
 
 const AgregarMetodo = () => {
   return (
     <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+      
+      <HeaderAdmin />
+
       <Form className="p-4 w-100" style={{ maxWidth: '600px', backgroundColor: '#f8f9fa', borderRadius: '8px' }}>
         
         <div className="bg-secondary-subtle text-dark p-3 rounded mb-4 text-center">

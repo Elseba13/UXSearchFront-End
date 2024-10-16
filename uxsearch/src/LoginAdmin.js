@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom"; 
+import Navbar from './Header';
 
 const Login = () => {
 
@@ -44,6 +45,7 @@ const Login = () => {
 
   return (
     <section className="vh-60">
+      <Navbar/>
       <div className="container py-5 h-60">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-12 col-md-8 col-lg-6 col-xl-5">
