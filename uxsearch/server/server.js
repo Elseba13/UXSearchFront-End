@@ -56,6 +56,15 @@ app.post('/api/methods', async (req, res) => {
   });
   
   
+app.get('/api/methods', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM métodos');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error al obtener los métodos:', error);
+    res.status(500).json({ error: 'Error al obtener los métodos' });
+  }
+});
   
 
 const PORT = process.env.PORT || 5000;

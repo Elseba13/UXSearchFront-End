@@ -1,80 +1,61 @@
-import React from "react";
-import Filtros from "./Filtros"; 
+import React, { useEffect, useState } from "react";
+import Filtros from "./Filtros";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import Navbar from "./Header";
 
 function PantallaPrincipal() {
+    const navigate = useNavigate();
+    const [metodos, setMetodos] = useState([]);
 
-    const navigate = useNavigate(); 
+    useEffect(() => {
+        const fetchMethods = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/methods');
+                const data = await response.json();
+                setMetodos(data);
+            } catch (error) {
+                console.error('Error al obtener los métodos:', error);
+            }
+        };
+
+        fetchMethods();
+    }, []);
 
     const handleStart = () => {
-        navigate('/info-metodo'); 
-    }
+        navigate('/info-metodo');
+    };
 
-
-    return(
+    return (
         <>
-            <Navbar/>
+            <Navbar />
             <Container fluid>
                 <Row>
-                 
                     <Col xs={12} md={3} lg={2} className="bg-light">
-                         <Filtros />
+                        <Filtros />
                     </Col>
 
-                 
                     <Col xs={12} md={9} lg={10}>
-                        <div className="d-flex flex-column align-items-center p-3"> 
-                         
-                            <Form.Control 
+                        <div className="d-flex flex-column align-items-center p-3">
+                            <Form.Control
                                 type="text"
                                 placeholder="Ingresar nombre del método de evaluación"
                                 className="mb-4"
-                                style={{width: '100%'}}
+                                style={{ width: '100%' }}
                             />
 
-                         
-                            <Row className="justify-content-center" style={{width: '80%'}}>
-                                <Col xs={12} md={10} lg={12} className="mb-4">
-                                    <Card style={{borderRadius: '15px'}}>
-                                        <Card.Body>
-                                            <Card.Title>Título</Card.Title>
-                                            <Card.Text>Resumen</Card.Text>
-                                            <Button variant="primary" onClick={handleStart}>Leer más</Button>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-
-                                <Col xs={12} md={10} lg={12}  className="mb-4">
-                                    <Card style={{borderRadius: '15px'}}>
-                                        <Card.Body>
-                                            <Card.Title>Título</Card.Title>
-                                            <Card.Text>Resumen</Card.Text>
-                                            <Button variant="primary" onClick={handleStart}>Leer más</Button>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-
-                                <Col xs={12} md={10} lg={12} className="mb-4">
-                                    <Card style = {{borderRadius: '15px'}}>
-                                        <Card.Body>
-                                            <Card.Title>Título</Card.Title>
-                                            <Card.Text>Resumen</Card.Text>
-                                            <Button variant="primary" onClick={handleStart}>Leer más</Button>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-
-                                <Col xs={12} md={10} lg={12} className="mb-4">
-                                    <Card style={{borderRadius: '15px'}}>
-                                        <Card.Body>
-                                            <Card.Title>Título</Card.Title>
-                                            <Card.Text>Resumen</Card.Text>
-                                            <Button variant="primary" onClick={handleStart}>Leer más</Button>
-                                        </Card.Body>
-                                    </Card>
-                                 </Col>
+                            <Row className="justify-content-center" style={{ width: '80%' }}>
+                                {metodos.map((metodo) => (
+                                    <Col key={metodo.id_metodo} xs={12} md={10} lg={12} className="mb-4">
+                                        <Card style={{ borderRadius: '15px' }}>
+                                            <Card.Body>
+                                                <Card.Title>{metodo.nombre_metodo}</Card.Title>
+                                                <Card.Text>{metodo.resumen_metodo}</Card.Text>
+                                                <Button variant="primary" onClick={handleStart}>Leer más</Button>
+                                            </Card.Body>
+                                        </Card>
+                                    </Col>
+                                ))}
                             </Row>
                         </div>
                     </Col>
@@ -84,4 +65,4 @@ function PantallaPrincipal() {
     );
 }
 
-export default PantallaPrincipal; 
+export default PantallaPrincipal;
