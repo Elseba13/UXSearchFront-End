@@ -88,10 +88,13 @@ const AgregarMetodo = () => {
       <br />
       <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
         <div className="border p-4 bg-light rounded">
-          <h1 className="text-center">Formulario para<br/>agregar un método</h1><br/>
+          <div className="text-center">
+            <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>Formulario para<br/>agregar un método</div>
+          </div>
+          <br/>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <h3 className="text-center">Ingrese el nombre del método</h3>
+              <div className="text-center" style={{ fontSize: '1.2rem' }}>Ingrese el nombre del método</div>
               <input
                 type="text"
                 className="form-control"
@@ -102,7 +105,7 @@ const AgregarMetodo = () => {
               />
             </div>
             <div className="mb-3">
-              <h3 className="text-center">Ingrese un resumen del método</h3>
+              <div className="text-center" style={{ fontSize: '1.2rem' }}>Ingrese un resumen del método</div>
               <textarea
                 className="form-control"
                 value={resumenMetodo}
@@ -112,7 +115,7 @@ const AgregarMetodo = () => {
               />
             </div>
             <div className="mb-3">
-              <h3 className="text-center">Ingrese las ventajas del método</h3>
+              <div className="text-center" style={{ fontSize: '1.2rem' }}>Ingrese las ventajas del método</div>
               <textarea
                 className="form-control"
                 value={ventajasMetodo}
@@ -122,7 +125,7 @@ const AgregarMetodo = () => {
               />
             </div>
             <div className="mb-3">
-              <h3 className="text-center">Ingrese las desventajas del método</h3>
+              <div className="text-center" style={{ fontSize: '1.2rem' }}>Ingrese las desventajas del método</div>
               <textarea
                 className="form-control"
                 value={desventajasMetodo}
@@ -132,7 +135,7 @@ const AgregarMetodo = () => {
               />
             </div>
             <div className="mb-3">
-              <h3 className="text-center">Ingrese la referencia del método</h3>
+              <div className="text-center" style={{ fontSize: '1.2rem' }}>Ingrese la referencia del método</div>
               <input
                 type="text"
                 className="form-control"
@@ -142,11 +145,12 @@ const AgregarMetodo = () => {
                 required
               />
             </div>
+            <br />
 
-            <h2 className="text-center">Filtros</h2>
+            <div className="text-center" style={{ fontSize: '2rem', fontWeight: 'bold' }}>Ingresar filtros<br />del método</div><br />
 
             <div className="mb-3">
-              <h3>Fase del desarrollo del producto</h3>
+              <div style={{ fontSize: '1.5rem' }}>Fase del desarrollo del producto</div>
               <label>
                 <input
                   type="checkbox"
@@ -178,7 +182,7 @@ const AgregarMetodo = () => {
             </div>
 
             <div className="mb-3">
-              <h3>Fase de la experiencia del usuario</h3>
+              <div style={{ fontSize: '1.5rem' }}>Fase de la experiencia del usuario</div>
               <label>
                 <input
                   type="checkbox"
@@ -212,7 +216,7 @@ const AgregarMetodo = () => {
             </div>
 
             <div className="mb-3">
-              <h3>Tiempo disponible</h3>
+              <div style={{ fontSize: '1.5rem' }}>Tiempo disponible</div>
               <label>
                 <input
                   type="checkbox"
@@ -242,7 +246,7 @@ const AgregarMetodo = () => {
             </div>
 
             <div className="mb-3">
-              <h3>Formato</h3>
+              <div style={{ fontSize: '1.5rem' }}>Formato</div>
               <label>
                 <input
                   type="checkbox"
@@ -262,7 +266,7 @@ const AgregarMetodo = () => {
             </div>
 
             <div className="mb-3">
-              <h3>Tipo de participantes</h3>
+              <div style={{ fontSize: '1.5rem' }}>Tipo de participantes</div>
               <label>
                 <input
                   type="checkbox"
@@ -282,12 +286,14 @@ const AgregarMetodo = () => {
             </div>
 
             <div className="mb-3">
-              <h3>Cantidad específica de participantes</h3>
+              <div style={{ fontSize: '1.5rem' }}>Cantidad específica de participantes</div>
               <label>
                 <input
                   type="checkbox"
                   checked={filtros.cantidadParticipantes.includes('Pocos participantes')}
-                  onChange={() => handleCheckboxChange('cantidadParticipantes', 'Pocos participantes')}
+                  onChange={() =>
+                    handleCheckboxChange('cantidadParticipantes', 'Pocos participantes')
+                  }
                 />
                 Pocos participantes
               </label><br />
@@ -295,7 +301,9 @@ const AgregarMetodo = () => {
                 <input
                   type="checkbox"
                   checked={filtros.cantidadParticipantes.includes('Medianos grupos')}
-                  onChange={() => handleCheckboxChange('cantidadParticipantes', 'Medianos grupos')}
+                  onChange={() =>
+                    handleCheckboxChange('cantidadParticipantes', 'Medianos grupos')
+                  }
                 />
                 Medianos grupos
               </label><br />
@@ -303,14 +311,16 @@ const AgregarMetodo = () => {
                 <input
                   type="checkbox"
                   checked={filtros.cantidadParticipantes.includes('Gran cantidad')}
-                  onChange={() => handleCheckboxChange('cantidadParticipantes', 'Gran cantidad')}
+                  onChange={() =>
+                    handleCheckboxChange('cantidadParticipantes', 'Gran cantidad')
+                  }
                 />
                 Gran cantidad
               </label>
             </div>
 
             <div className="mb-3">
-              <h3>Presupuesto/costos</h3>
+              <div style={{ fontSize: '1.5rem' }}>Presupuesto/costos</div>
               <label>
                 <input
                   type="checkbox"
@@ -346,7 +356,7 @@ const AgregarMetodo = () => {
             </div>
 
             <div className="mb-3">
-              <h3>Tipo de estudio</h3>
+              <div style={{ fontSize: '1.5rem' }}>Tipo de estudio</div>
               <label>
                 <input
                   type="checkbox"
@@ -366,7 +376,7 @@ const AgregarMetodo = () => {
             </div>
 
             <div className="mb-3">
-              <h3>Períodos de experiencia</h3>
+              <div style={{ fontSize: '1.5rem' }}>Períodos de experiencia</div>
               <label>
                 <input
                   type="checkbox"
@@ -400,7 +410,7 @@ const AgregarMetodo = () => {
             </div>
 
             <div className="mb-3">
-              <h3>Componentes de la experiencia del usuario</h3>
+              <div style={{ fontSize: '1.5rem' }}>Componentes de la experiencia del usuario</div>
               <label>
                 <input
                   type="checkbox"
@@ -420,7 +430,7 @@ const AgregarMetodo = () => {
             </div>
 
             <div className="mb-3">
-              <h3>Popularidad de utilización</h3>
+              <div style={{ fontSize: '1.5rem' }}>Popularidad de utilización</div>
               <label>
                 <input
                   type="checkbox"
@@ -447,7 +457,9 @@ const AgregarMetodo = () => {
               </label>
             </div>
 
-            <button type="submit" className="btn btn-primary">Agregar Método</button>
+            <div className="text-center">
+              <button type="submit" className="btn btn-primary">Agregar Método</button>
+            </div>
           </form>
         </div>
       </div>
