@@ -1,75 +1,457 @@
-import React from 'react';
-import { Form, Button, Row, Col, Container } from 'react-bootstrap';
-import HeaderAdmin from './HeaderAdmin';
+import React, { useState } from 'react';
+import Header from "./Header"; 
 
 const AgregarMetodo = () => {
+  const [nombreMetodo, setNombreMetodo] = useState('');
+  const [resumenMetodo, setResumenMetodo] = useState('');
+  const [ventajasMetodo, setVentajasMetodo] = useState('');
+  const [desventajasMetodo, setDesventajasMetodo] = useState('');
+  const [referenciaMetodo, setReferenciaMetodo] = useState('');
+  const [filtros, setFiltros] = useState({
+    faseDesarrollo: [],
+    faseExperiencia: [],
+    tiempoDisponible: [],
+    formato: [],
+    tipoParticipantes: [],
+    cantidadParticipantes: [],
+    presupuesto: [],
+    tipoEstudio: [],
+    periodosExperiencia: [],
+    componentesExperiencia: [],
+    popularidad: [],
+  });
+
+  const handleCheckboxChange = (categoria, valor) => {
+    setFiltros((prevFiltros) => {
+      const nuevaCategoria = prevFiltros[categoria].includes(valor)
+        ? prevFiltros[categoria].filter((v) => v !== valor)
+        : [...prevFiltros[categoria], valor];
+      return { ...prevFiltros, [categoria]: nuevaCategoria };
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    const metodo = {
+      nombreMetodo,
+      resumenMetodo,
+      ventajasMetodo,
+      desventajasMetodo,
+      referenciaMetodo,
+      filtros,
+    };
+  
+    try {
+      const response = await fetch('http://localhost:5000/api/methods', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(metodo),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Método agregado:', data);
+  
+        // Reinicia los estados del formulario para limpiarlo
+        setNombreMetodo('');
+        setResumenMetodo('');
+        setVentajasMetodo('');
+        setDesventajasMetodo('');
+        setReferenciaMetodo('');
+        setFiltros({
+          faseDesarrollo: [],
+          faseExperiencia: [],
+          tiempoDisponible: [],
+          formato: [],
+          tipoParticipantes: [],
+          cantidadParticipantes: [],
+          presupuesto: [],
+          tipoEstudio: [],
+          periodosExperiencia: [],
+          componentesExperiencia: [],
+          popularidad: [],
+        });
+      } else {
+        console.error('Error al agregar el método');
+      }
+    } catch (error) {
+      console.error('Error al conectar con el servidor:', error);
+    }
+  };
+
   return (
-    <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
-      
-      <HeaderAdmin />
+    <>
+      <Header />
+      <br />
+      <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
+        <div className="border p-4 bg-light rounded">
+          <h1 className="text-center">Formulario para<br/>agregar un método</h1><br/>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <h3 className="text-center">Ingrese el nombre del método</h3>
+              <input
+                type="text"
+                className="form-control"
+                value={nombreMetodo}
+                onChange={(e) => setNombreMetodo(e.target.value)}
+                placeholder="Nombre del método"
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <h3 className="text-center">Ingrese un resumen del método</h3>
+              <textarea
+                className="form-control"
+                value={resumenMetodo}
+                onChange={(e) => setResumenMetodo(e.target.value)}
+                placeholder="Resumen del Método"
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <h3 className="text-center">Ingrese las ventajas del método</h3>
+              <textarea
+                className="form-control"
+                value={ventajasMetodo}
+                onChange={(e) => setVentajasMetodo(e.target.value)}
+                placeholder="Ventajas del Método"
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <h3 className="text-center">Ingrese las desventajas del método</h3>
+              <textarea
+                className="form-control"
+                value={desventajasMetodo}
+                onChange={(e) => setDesventajasMetodo(e.target.value)}
+                placeholder="Desventajas del Método"
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <h3 className="text-center">Ingrese la referencia del método</h3>
+              <input
+                type="text"
+                className="form-control"
+                value={referenciaMetodo}
+                onChange={(e) => setReferenciaMetodo(e.target.value)}
+                placeholder="Referencia del Método"
+                required
+              />
+            </div>
 
-      <Form className="p-4 w-100" style={{ maxWidth: '600px', backgroundColor: '#f8f9fa', borderRadius: '8px' }}>
-        
-        <div className="bg-secondary-subtle text-dark p-3 rounded mb-4 text-center">
-          <h4 className="m-0 font-weight-bold">Formulario para<br />Agregar Método</h4>
+            <h2 className="text-center">Filtros</h2>
+
+            <div className="mb-3">
+              <h3>Fase del desarrollo del producto</h3>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.faseDesarrollo.includes('Conceptual')}
+                  onChange={() => handleCheckboxChange('faseDesarrollo', 'Conceptual')}
+                />
+                Conceptual
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.faseDesarrollo.includes('Prototipo no funcional')}
+                  onChange={() =>
+                    handleCheckboxChange('faseDesarrollo', 'Prototipo no funcional')
+                  }
+                />
+                Prototipo no funcional
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.faseDesarrollo.includes('Prototipo funcional')}
+                  onChange={() =>
+                    handleCheckboxChange('faseDesarrollo', 'Prototipo funcional')
+                  }
+                />
+                Prototipo funcional
+              </label>
+            </div>
+
+            <div className="mb-3">
+              <h3>Fase de la experiencia del usuario</h3>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.faseExperiencia.includes('Antes de interactuar/usar el producto')}
+                  onChange={() =>
+                    handleCheckboxChange('faseExperiencia', 'Antes de interactuar/usar el producto')
+                  }
+                />
+                Antes de interactuar/usar el producto
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.faseExperiencia.includes('Durante el uso del producto')}
+                  onChange={() =>
+                    handleCheckboxChange('faseExperiencia', 'Durante el uso del producto')
+                  }
+                />
+                Durante el uso del producto
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.faseExperiencia.includes('Después de usar el producto')}
+                  onChange={() =>
+                    handleCheckboxChange('faseExperiencia', 'Después de usar el producto')
+                  }
+                />
+                Después de usar el producto
+              </label>
+            </div>
+
+            <div className="mb-3">
+              <h3>Tiempo disponible</h3>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.tiempoDisponible.includes('Corto plazo - Pocos días')}
+                  onChange={() => handleCheckboxChange('tiempoDisponible', 'Corto plazo - Pocos días')}
+                />
+                Corto plazo - Pocos días
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.tiempoDisponible.includes('Mediano plazo - Varios días')}
+                  onChange={() =>
+                    handleCheckboxChange('tiempoDisponible', 'Mediano plazo - Varios días')
+                  }
+                />
+                Mediano plazo - Varios días
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.tiempoDisponible.includes('Largo plazo - Semanas')}
+                  onChange={() => handleCheckboxChange('tiempoDisponible', 'Largo plazo - Semanas')}
+                />
+                Largo plazo - Semanas
+              </label>
+            </div>
+
+            <div className="mb-3">
+              <h3>Formato</h3>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.formato.includes('Presencial')}
+                  onChange={() => handleCheckboxChange('formato', 'Presencial')}
+                />
+                Presencial
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.formato.includes('Remoto')}
+                  onChange={() => handleCheckboxChange('formato', 'Remoto')}
+                />
+                Remoto
+              </label>
+            </div>
+
+            <div className="mb-3">
+              <h3>Tipo de participantes</h3>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.tipoParticipantes.includes('Usuarios finales')}
+                  onChange={() => handleCheckboxChange('tipoParticipantes', 'Usuarios finales')}
+                />
+                Usuarios finales
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.tipoParticipantes.includes('Expertos')}
+                  onChange={() => handleCheckboxChange('tipoParticipantes', 'Expertos')}
+                />
+                Expertos
+              </label>
+            </div>
+
+            <div className="mb-3">
+              <h3>Cantidad específica de participantes</h3>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.cantidadParticipantes.includes('Pocos participantes')}
+                  onChange={() => handleCheckboxChange('cantidadParticipantes', 'Pocos participantes')}
+                />
+                Pocos participantes
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.cantidadParticipantes.includes('Medianos grupos')}
+                  onChange={() => handleCheckboxChange('cantidadParticipantes', 'Medianos grupos')}
+                />
+                Medianos grupos
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.cantidadParticipantes.includes('Gran cantidad')}
+                  onChange={() => handleCheckboxChange('cantidadParticipantes', 'Gran cantidad')}
+                />
+                Gran cantidad
+              </label>
+            </div>
+
+            <div className="mb-3">
+              <h3>Presupuesto/costos</h3>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.presupuesto.includes('Gratuito')}
+                  onChange={() => handleCheckboxChange('presupuesto', 'Gratuito')}
+                />
+                Gratuito
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.presupuesto.includes('Bajo costo')}
+                  onChange={() => handleCheckboxChange('presupuesto', 'Bajo costo')}
+                />
+                Bajo costo
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.presupuesto.includes('Mediano costo')}
+                  onChange={() => handleCheckboxChange('presupuesto', 'Mediano costo')}
+                />
+                Mediano costo
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.presupuesto.includes('Alto costo')}
+                  onChange={() => handleCheckboxChange('presupuesto', 'Alto costo')}
+                />
+                Alto costo
+              </label>
+            </div>
+
+            <div className="mb-3">
+              <h3>Tipo de estudio</h3>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.tipoEstudio.includes('Cualitativo')}
+                  onChange={() => handleCheckboxChange('tipoEstudio', 'Cualitativo')}
+                />
+                Cualitativo
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.tipoEstudio.includes('Cuantitativo')}
+                  onChange={() => handleCheckboxChange('tipoEstudio', 'Cuantitativo')}
+                />
+                Cuantitativo
+              </label>
+            </div>
+
+            <div className="mb-3">
+              <h3>Períodos de experiencia</h3>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.periodosExperiencia.includes('Corto plazo - Inmediata')}
+                  onChange={() =>
+                    handleCheckboxChange('periodosExperiencia', 'Corto plazo - Inmediata')
+                  }
+                />
+                Corto plazo - Inmediata
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.periodosExperiencia.includes('Mediano plazo')}
+                  onChange={() =>
+                    handleCheckboxChange('periodosExperiencia', 'Mediano plazo')
+                  }
+                />
+                Mediano plazo
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.periodosExperiencia.includes('Largo plazo')}
+                  onChange={() =>
+                    handleCheckboxChange('periodosExperiencia', 'Largo plazo')
+                  }
+                />
+                Largo plazo
+              </label>
+            </div>
+
+            <div className="mb-3">
+              <h3>Componentes de la experiencia del usuario</h3>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.componentesExperiencia.includes('Emociones')}
+                  onChange={() => handleCheckboxChange('componentesExperiencia', 'Emociones')}
+                />
+                Emociones
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.componentesExperiencia.includes('Atributos')}
+                  onChange={() => handleCheckboxChange('componentesExperiencia', 'Atributos')}
+                />
+                Atributos
+              </label>
+            </div>
+
+            <div className="mb-3">
+              <h3>Popularidad de utilización</h3>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.popularidad.includes('Baja popularidad')}
+                  onChange={() => handleCheckboxChange('popularidad', 'Baja popularidad')}
+                />
+                Baja popularidad
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.popularidad.includes('Media popularidad')}
+                  onChange={() => handleCheckboxChange('popularidad', 'Media popularidad')}
+                />
+                Media popularidad
+              </label><br />
+              <label>
+                <input
+                  type="checkbox"
+                  checked={filtros.popularidad.includes('Alta popularidad')}
+                  onChange={() => handleCheckboxChange('popularidad', 'Alta popularidad')}
+                />
+                Alta popularidad
+              </label>
+            </div>
+
+            <button type="submit" className="btn btn-primary">Agregar Método</button>
+          </form>
         </div>
-
-        <div className="mt-4">
-
-          <Form.Group controlId="nombreMetodo" className="mb-3 text-center">
-            <Form.Label>Ingresar nombre del método</Form.Label>
-            <Form.Control type="text" placeholder="Nombre del método" className="text-center" />
-          </Form.Group>
-
-          <Form.Group controlId="resumen" className="mb-3 text-center">
-            <Form.Label>Ingresar resumen</Form.Label>
-            <Form.Control as="textarea" rows={3} placeholder="Resumen del método" className="text-center" />
-          </Form.Group>
-
-          <Form.Group controlId="ventajas" className="mb-3 text-center">
-            <Form.Label>Ingresar ventajas</Form.Label>
-            <Form.Control as="textarea" rows={2} placeholder="Ventajas del método" className="text-center" />
-          </Form.Group>
-
-          <Form.Group controlId="desventajas" className="mb-3 text-center">
-            <Form.Label>Ingresar desventajas</Form.Label>
-            <Form.Control as="textarea" rows={2} placeholder="Desventajas del método" className="text-center" />
-          </Form.Group>
-
-          <Form.Group controlId="referencia" className="mb-3 text-center">
-            <Form.Label>Ingresar referencia en formato IEEE</Form.Label>
-            <Form.Control type="text" placeholder="Referencia en formato IEEE" className="text-center" />
-          </Form.Group>
-
-          <div className="p-3 bg-light rounded mb-4 text-center">
-            <h5 className="mb-3">Filtros</h5>
-            <Row>
-              {['Filtro 1', 'Filtro 2', 'Filtro 3'].map((filtro, index) => (
-                <Col key={index} md={4} className="mb-3">
-                  <Form.Group controlId={`filtro${index}`}>
-                    <Form.Label>{filtro}</Form.Label>
-                    <div className="text-start"> {/* Alínea a la izquierda los checkboxes */}
-                      {['Opción 1', 'Opción 2', 'Opción 3'].map((opcion, i) => (
-                        <Form.Check 
-                          key={i} 
-                          type="checkbox" 
-                          label={opcion} 
-                          name={filtro.toLowerCase().replace(" ", "")} 
-                        />
-                      ))}
-                    </div>
-                  </Form.Group>
-                </Col>
-              ))}
-            </Row>
-          </div>
-
-          <Button variant="primary" type="submit" className="d-block mx-auto mb-4">
-            Agregar método
-          </Button>
-        </div>
-      </Form>
-    </Container>
+      </div>
+    </>
   );
 };
 
