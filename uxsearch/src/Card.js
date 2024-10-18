@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Col, Card as BootstrapCard, Button, Modal } from 'react-bootstrap';
 import { FaEdit, FaTrash } from 'react-icons/fa'; // Asegúrate de instalar react-icons
 
-const CardAdmin = ({ handleStart, handleEdit, handleDelete }) => {
+const CardAdmin = ({nombreMetodo, resumenMetodo, handleStart, handleEdit, handleDelete }) => {
     const [showMenu, setShowMenu] = useState(false);
     const [showModal, setShowModal] = useState(false); 
     const menuRef = useRef(null);
@@ -39,8 +39,8 @@ const CardAdmin = ({ handleStart, handleEdit, handleDelete }) => {
             <Col xs={12} md={10} lg={12} className="mb-4">
             <BootstrapCard style={{ borderRadius: '15px' }}>
                 <BootstrapCard.Body>
-                    <BootstrapCard.Title>Título</BootstrapCard.Title>
-                    <BootstrapCard.Text>Resumen</BootstrapCard.Text>
+                    <BootstrapCard.Title>{nombreMetodo}</BootstrapCard.Title>
+                    <BootstrapCard.Text>{resumenMetodo}</BootstrapCard.Text>
                     <div style={{ position: 'absolute', top: '10px', right: '10px' }} ref={menuRef}>
                         <svg 
                             xmlns="http://www.w3.org/2000/svg" 

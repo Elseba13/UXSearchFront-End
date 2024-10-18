@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from "./Header"; 
+import HeaderAdmin from "./HeaderAdmin"; 
 
 const AgregarMetodo = () => {
   const [nombreMetodo, setNombreMetodo] = useState('');
@@ -84,7 +84,7 @@ const AgregarMetodo = () => {
 
   return (
     <>
-      <Header />
+      <HeaderAdmin />
       <br />
       <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
         <div className="border p-4 bg-light rounded">

@@ -14,8 +14,10 @@ const EditarMetodo = () => {
   };
 
   return (
+
+    <>
+    <HeaderAdmin /> 
     <Container fluid className="mt-5">
-      <HeaderAdmin/> 
       <Row className="justify-content-center">
         <Col xs={12} md={10} lg={8}>
           {/* Título de la página */}
@@ -104,6 +106,8 @@ const EditarMetodo = () => {
         </Col>
       </Row>
     </Container>
+    </>
+    
   );
 };
 
