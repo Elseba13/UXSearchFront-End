@@ -66,6 +66,21 @@ app.get('/api/methods', async (req, res) => {
   }
 });
   
+app.get('/api/methods/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query('SELECT * FROM métodos WHERE id_metodo = $1', [id]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Método no encontrado' });
+    }
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Error al obtener el método:', error);
+    res.status(500).json({ error: 'Error al obtener el método' });
+  }
+});
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
