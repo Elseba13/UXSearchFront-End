@@ -22,8 +22,15 @@ const InfoMetodo = () => {
   }, [id]); 
 
   if (!metodo) {
-    return <p>Se está cargando la información</p>; 
+    return <p>Se está cargando la información...</p>; 
   }
+
+  const parseList = (input) => {
+    // Reemplazar saltos de línea y comas por punto y coma
+    const normalizedInput = input.replace(/\n/g, ';').replace(/,/g, ';');
+    // Dividir por punto y coma y eliminar espacios adicionales
+    return normalizedInput.split(';').map(item => item.trim()).filter(item => item); // filtrar elementos vacíos
+  };
 
   return (
     <>
@@ -42,7 +49,7 @@ const InfoMetodo = () => {
                     <div style={{ border: '1px solid #007bff', padding: '15px', borderRadius: '8px' }}>
                       <h5 style={{ color: '#007bff' }}>Ventajas</h5>
                       <ul>
-                        {metodo.ventajas_metodo.split(';').map((ventaja, index) => (
+                        {parseList(metodo.ventajas_metodo).map((ventaja, index) => (
                           <li key={index}>{ventaja}</li>
                         ))}
                       </ul>
@@ -52,7 +59,7 @@ const InfoMetodo = () => {
                     <div style={{ border: '1px solid #007bff', padding: '15px', borderRadius: '8px' }}>
                       <h5 style={{ color: '#007bff' }}>Desventajas</h5>
                       <ul>
-                        {metodo.desventajas_metodo.split(';').map((desventaja, index) => (
+                        {parseList(metodo.desventajas_metodo).map((desventaja, index) => (
                           <li key={index}>{desventaja}</li>
                         ))}
                       </ul>
