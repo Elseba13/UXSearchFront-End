@@ -6,9 +6,9 @@ import Navbar from "./Header";
 
 function PantallaPrincipal() {
     const navigate = useNavigate();
-    const [metodos, setMetodos] = useState([]); // Estado para métodos desde la base de datos
-    const [searchTerm, setSearchTerm] = useState(''); // Estado para la barra de búsqueda
-    const [filteredMethods, setFilteredMethods] = useState([]); // Estado para métodos filtrados
+    const [metodos, setMetodos] = useState([]); 
+    const [searchTerm, setSearchTerm] = useState(''); 
+    const [filteredMethods, setFilteredMethods] = useState([]);
 
     useEffect(() => {
         const fetchMethods = async () => {
@@ -19,7 +19,7 @@ function PantallaPrincipal() {
                 const validMethods = data.filter(metodo => metodo.id_metodo && metodo.nombre_metodo);
     
                 setMetodos(validMethods);
-                setFilteredMethods(validMethods); // Inicialmente mostrar todos los métodos
+                setFilteredMethods(validMethods); 
             } catch (error) {
                 console.error('Error al obtener los métodos:', error);
             }
@@ -28,12 +28,12 @@ function PantallaPrincipal() {
         fetchMethods();
     }, []);
 
-    // Manejar el cambio de la barra de búsqueda
     const handleSearchChange = (e) => {
         const searchTerm = e.target.value.toLowerCase();
         setSearchTerm(searchTerm);
         
-        // Filtrar métodos en función del término de búsqueda
+        {/*Permite la búsqueda de un método con la barra de búsqueda, en conjunto
+            del form.control con las variables de control value y onChange*/}
         const filtered = metodos.filter(metodo =>
             metodo.nombre_metodo.toLowerCase().includes(searchTerm)
         );
@@ -55,18 +55,16 @@ function PantallaPrincipal() {
 
                     <Col xs={12} md={9} lg={10}>
                         <div className="d-flex flex-column align-items-center p-3">
-                            {/* Barra de búsqueda */}
                             <Form.Control
                                 type="text"
                                 placeholder="Ingresar nombre del método de evaluación"
                                 className="mb-4"
                                 style={{ width: '100%' }}
                                 value={searchTerm}
-                                onChange={handleSearchChange} // Llamar al manejar cambio
+                                onChange={handleSearchChange} 
                             />
 
                             <Row className="justify-content-center" style={{ width: '80%' }}>
-                                {/* Mostrar métodos filtrados */}
                                 {filteredMethods.map((metodo) => (
                                     <Col key={metodo.id_metodo} xs={12} md={10} lg={12} className="mb-4">
                                         <Card style={{ borderRadius: '15px' }}>

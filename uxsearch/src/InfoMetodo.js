@@ -26,10 +26,12 @@ const InfoMetodo = () => {
   }
 
   const parseList = (input) => {
-    // Reemplazar saltos de línea y comas por punto y coma
     const normalizedInput = input.replace(/\n/g, ';').replace(/,/g, ';');
-    // Dividir por punto y coma y eliminar espacios adicionales
-    return normalizedInput.split(';').map(item => item.trim()).filter(item => item); // filtrar elementos vacíos
+    {/*Esta función permite cuando al agregar un nuevo método, al agregar varias
+      ventajas y desventajas, ya sea por separador de comas, punto y coma, o salto de línea 
+      pueda ser separado en la vista de información como un punteo en lugar
+      de verse todo en una única línea*/};
+    return normalizedInput.split(';').map(item => item.trim()).filter(item => item); 
   };
 
   return (
