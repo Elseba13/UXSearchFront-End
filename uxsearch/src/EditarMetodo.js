@@ -1,114 +1,133 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
-import HeaderAdmin from './HeaderAdmin';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom"; 
+import { Form, Button, Container } from "react-bootstrap";
 
-const EditarMetodo = () => {
-  const [nombreMetodo, setNombreMetodo] = useState('Nombre del Método');
-  const [resumenMetodo, setResumenMetodo] = useState('Resumen explicativo del método.');
-  const [ventajas, setVentajas] = useState(['Ventaja 1', 'Ventaja 2', 'Ventaja 3']);
-  const [desventajas, setDesventajas] = useState(['Desventaja 1', 'Desventaja 2', 'Desventaja 3']);
-  const [fuente, setFuente] = useState('Fuente de origen de la información del método');
+function EditarMetodo() {
+    const { id } = useParams(); 
+    const navigate = useNavigate();  
+    const [metodo, setMetodo] = useState(null); 
+    const [loading, setLoading] = useState(true); 
 
-  const handleSave = () => {
-    console.log('Datos guardados:', { nombreMetodo, resumenMetodo, ventajas, desventajas, fuente });
-  };
+    useEffect(() => {
+        const fetchMetodo = async () => {
+            try {
+                const response = await fetch(`http://localhost:5000/api/methods/${id}`); 
+                
+                if (!response.ok) {
+                    throw new Error('Error al obtener el método');
+                }
+                
+                const data = await response.json();
+                setMetodo(data); 
+            } catch (error) {
+                console.error("Error al obtener el método:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchMetodo();
+    }, [id]);
 
-  return (
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setMetodo(prevMetodo => ({
+            ...prevMetodo,
+            [name]: value
+        }));
+    };
 
-    <>
-    <HeaderAdmin /> 
-    <Container fluid className="mt-5">
-      <Row className="justify-content-center">
-        <Col xs={12} md={10} lg={8}>
-          {/* Título de la página */}
-          <div className="bg-secondary-subtle text-dark p-3 rounded mb-4 text-center">
-            <h4 className="m-0 font-weight-bold">Edición del Método</h4>
-          </div>
-          <Card className="mb-4" style={{ borderRadius: '15px' }}>
-            <Card.Body>
-              <Form>
-                <Form.Group>
-                  <Form.Label>Nombre del Método</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={nombreMetodo}
-                    onChange={(e) => setNombreMetodo(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group className="mt-3">
-                  <Form.Label>Resumen del Método</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={3}
-                    value={resumenMetodo}
-                    onChange={(e) => setResumenMetodo(e.target.value)}
-                  />
-                </Form.Group>
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`http://localhost:5000/api/methods/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(metodo),  
+            });
 
-                <Row className="mt-3">
-                  <Col>
-                    <div style={{ border: '1px solid #007bff', padding: '15px', borderRadius: '8px' }}>
-                      <h5 style={{ color: '#007bff' }}>Ventajas</h5>
-                      <ul>
-                        {ventajas.map((ventaja, index) => (
-                          <li key={index}>
-                            <Form.Control
-                              type="text"
-                              value={ventaja}
-                              onChange={(e) => {
-                                const updatedVentajas = [...ventajas];
-                                updatedVentajas[index] = e.target.value;
-                                setVentajas(updatedVentajas);
-                              }}
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </Col>
-                  <Col>
-                    <div style={{ border: '1px solid #007bff', padding: '15px', borderRadius: '8px' }}>
-                      <h5 style={{ color: '#007bff' }}>Desventajas</h5>
-                      <ul>
-                        {desventajas.map((desventaja, index) => (
-                          <li key={index}>
-                            <Form.Control
-                              type="text"
-                              value={desventaja}
-                              onChange={(e) => {
-                                const updatedDesventajas = [...desventajas];
-                                updatedDesventajas[index] = e.target.value;
-                                setDesventajas(updatedDesventajas);
-                              }}
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </Col>
-                </Row>
+            if (response.ok) {
+                console.log("Método actualizado correctamente");
+                navigate('/pantalla-principal-admin');  
+            } else {
+                console.log("Error al actualizar el método");
+            }
+        } catch (error) {
+            console.error("Error al actualizar el método:", error);
+        }
+    };
 
-                <Form.Group className="mt-3">
-                  <Form.Label>Fuente</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={fuente}
-                    onChange={(e) => setFuente(e.target.value)}
-                  />
+    if (loading) {
+        return <div>Cargando...</div>; 
+    }
+
+    if (!metodo) {
+        return <div>No se encontró el método.</div>; 
+    }
+
+    return (
+        <Container>
+            <h2>Editar Método</h2>
+            <Form onSubmit={handleSubmit}>
+                <Form.Group controlId="formNombreMetodo">
+                    <Form.Label>Nombre del Método</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="nombre_metodo"
+                        value={metodo.nombre_metodo || ''} 
+                        onChange={handleChange}
+                        required
+                    />
                 </Form.Group>
 
-                <div className="text-center mt-4 mb-5">
-                  <Button onClick={handleSave}>Guardar Cambios</Button>
-                </div>
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
-    </>
-    
-  );
-};
+                <Form.Group controlId="formResumenMetodo">
+                    <Form.Label>Resumen</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="resumen_metodo"
+                        value={metodo.resumen_metodo || ''} 
+                        onChange={handleChange}
+                        required
+                    />
+                </Form.Group>
+
+                <Form.Group controlId="formVentajasMetodo">
+                    <Form.Label>Ventajas</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="ventajas_metodo"
+                        value={metodo.ventajas_metodo || ''} 
+                        onChange={handleChange}
+                    />
+                </Form.Group>
+
+                <Form.Group controlId="formDesventajasMetodo">
+                    <Form.Label>Desventajas</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="desventajas_metodo"
+                        value={metodo.desventajas_metodo || ''} 
+                        onChange={handleChange}
+                    />
+                </Form.Group>
+
+                <Form.Group controlId="formReferenciaMetodo">
+                    <Form.Label>Referencia</Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="referencia_metodo"
+                        value={metodo.referencia_metodo || ''} 
+                        onChange={handleChange}
+                    />
+                </Form.Group>
+
+                <Button variant="primary" type="submit">
+                    Guardar Cambios
+                </Button>
+            </Form>
+        </Container>
+    );
+}
 
 export default EditarMetodo;

@@ -26,7 +26,7 @@ const App = () => {
             <Route path="/explicacion-filtros" element ={<ExplicacionFiltros/>} />
             <Route path="/dashboard" element = {<DashboardCircular/>} />
             <Route path="/agregar-metodo" element = {<AgregarMetodo/>} />
-            <Route path="/editar-metodo" element = {<EditarMetodo/>} />
+            <Route path="/editar-metodo/:id" element = {<EditarMetodo/>} />
             <Route path="/pantalla-principal-admin" element = {< PantallaPrincipalAdmin/>} /> 
 
           </Routes>

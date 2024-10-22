@@ -86,6 +86,48 @@ app.get('/api/methods/:id', async (req, res) => {
   }
 });
 
+
+app.put('/api/methods/:id', async (req, res) => {
+  const { id } = req.params;
+  const { nombre_metodo, resumen_metodo, ventajas_metodo, desventajas_metodo, referencia_metodo } = req.body;
+
+  try {
+      const updateQuery = `
+          UPDATE métodos
+          SET 
+              nombre_metodo = $1,
+              resumen_metodo = $2,
+              ventajas_metodo = $3,
+              desventajas_metodo = $4,
+              referencia_metodo = $5
+          WHERE id_metodo = $6
+          RETURNING *;
+      `;
+
+      const values = [
+          nombre_metodo, 
+          resumen_metodo, 
+          ventajas_metodo, 
+          desventajas_metodo, 
+          referencia_metodo, 
+          id
+      ];
+
+      const result = await pool.query(updateQuery, values);
+
+      if (result.rows.length > 0) {
+          res.status(200).json(result.rows[0]);
+      } else {
+          res.status(404).json({ error: "Método no encontrado" });
+      }
+  } catch (error) {
+      console.error("Error al actualizar el método:", error);
+      res.status(500).json({ error: "Error al actualizar el método" });
+  }
+});
+
+
+
 app.delete('/api/methods/:id', async(req,res) => {
   const {id} = req.params; 
 
