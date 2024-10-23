@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom"; 
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
+import HeaderAdmin from "./HeaderAdmin";
 
 function EditarMetodo() {
     const { id } = useParams(); 
     const navigate = useNavigate();  
     const [metodo, setMetodo] = useState(null); 
     const [loading, setLoading] = useState(true); 
+    const [nombreOriginal, setNombreOriginal] = useState('');
 
     useEffect(() => {
         const fetchMetodo = async () => {
@@ -19,6 +21,7 @@ function EditarMetodo() {
                 
                 const data = await response.json();
                 setMetodo(data); 
+                setNombreOriginal(data.nombre_metodo); // Para mostrarlo en la parte superior, sin la modificación
             } catch (error) {
                 console.error("Error al obtener el método:", error);
             } finally {
@@ -67,66 +70,105 @@ function EditarMetodo() {
     }
 
     return (
-        <Container>
-            <h2>Editar Método</h2>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formNombreMetodo">
-                    <Form.Label>Nombre del Método</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="nombre_metodo"
-                        value={metodo.nombre_metodo || ''} 
-                        onChange={handleChange}
-                        required
-                    />
-                </Form.Group>
+        <>
+        <HeaderAdmin />
 
-                <Form.Group controlId="formResumenMetodo">
-                    <Form.Label>Resumen</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="resumen_metodo"
-                        value={metodo.resumen_metodo || ''} 
-                        onChange={handleChange}
-                        required
-                    />
-                </Form.Group>
+        <Container fluid className="mt-5"> 
+            <Row className="justify-content-center">
+                <Col xs={12} md={10} lg={8}>
+                    <div className="bg-secondary-subtle text-dark p-3 rounded mb-4">
+                        <p className="lead mb-0">
+                            En esta página podrás editar la información del método que has seleccionado.
+                            <br />
+                            Recuerda, no es necesario que edites todos los campos.
+                        </p>
+                    </div>
+                    <Card className="mb-4" style={{ borderRadius: '15px' }}>
+                        <Card.Body>
+                        <div className="bg-secondary-subtle text-dark p-3 rounded text-center mb-4">
+                            <h2 className="mb-0" style={{ fontWeight: '800', fontSize: '2rem' }}>Edición del Método</h2>
+                            <h5 className="text-muted">"{nombreOriginal}"</h5>
+                        </div>
 
-                <Form.Group controlId="formVentajasMetodo">
-                    <Form.Label>Ventajas</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="ventajas_metodo"
-                        value={metodo.ventajas_metodo || ''} 
-                        onChange={handleChange}
-                    />
-                </Form.Group>
+                        <br />
 
-                <Form.Group controlId="formDesventajasMetodo">
-                    <Form.Label>Desventajas</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="desventajas_metodo"
-                        value={metodo.desventajas_metodo || ''} 
-                        onChange={handleChange}
-                    />
-                </Form.Group>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group controlId="formNombreMetodo">
+                                <Form.Label style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingresar nuevo nombre del método</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="nombre_metodo"
+                                    value={metodo.nombre_metodo || ''} 
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </Form.Group>
 
-                <Form.Group controlId="formReferenciaMetodo">
-                    <Form.Label>Referencia</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="referencia_metodo"
-                        value={metodo.referencia_metodo || ''} 
-                        onChange={handleChange}
-                    />
-                </Form.Group>
+                            <Form.Group controlId="formResumenMetodo" className="mt-3">
+                                <Form.Label style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingresar nuevo resumen del método</Form.Label>
+                                <Form.Control
+                                    as="textarea"
+                                    rows={3}
+                                    name="resumen_metodo"
+                                    value={metodo.resumen_metodo || ''} 
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </Form.Group>
 
-                <Button variant="primary" type="submit">
-                    Guardar Cambios
-                </Button>
-            </Form>
+                            <Row className="mt-3">
+                                <Col>
+                                    <Form.Group controlId="formVentajasMetodo">
+                                        <Form.Label style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingresar nuevas ventajas del método</Form.Label>
+                                        <Form.Control
+                                            as="textarea"
+                                            rows={3}
+                                            name="ventajas_metodo"
+                                            value={metodo.ventajas_metodo || ''} 
+                                            onChange={handleChange}
+                                        />
+                                    </Form.Group>
+                                </Col>
+                                <Col>
+                                    <Form.Group controlId="formDesventajasMetodo">
+                                        <Form.Label style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingresar nuevas desventajas del método</Form.Label>
+                                        <Form.Control
+                                            as="textarea"
+                                            rows={3}
+                                            name="desventajas_metodo"
+                                            value={metodo.desventajas_metodo || ''} 
+                                            onChange={handleChange}
+                                        />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+
+                            <Form.Group controlId="formReferenciaMetodo" className="mt-3">
+                                <Form.Label style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingresar nueva referencia del método</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="referencia_metodo"
+                                    value={metodo.referencia_metodo || ''} 
+                                    onChange={handleChange}
+                                />
+                            </Form.Group>
+
+                            <br />
+                            <div className="d-flex justify-content-center">
+                                <Button variant="primary" type="submit" className="mt-3">
+                                    Guardar Cambios
+                                </Button>
+                            </div>
+                        </Form>
+
+                            
+                        </Card.Body>
+                    </Card>
+                    <br />
+                </Col>
+            </Row>
         </Container>
+        </>
     );
 }
 
