@@ -10,7 +10,7 @@ const InfoMetodo = () => {
   useEffect(() => {
     const fetchMetodo = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/methods/${id}`);
+        const response = await fetch(`http://localhost:5000/api/methods/${id}/filtros`);
         const data = await response.json();
         setMetodo(data); 
       } catch (error) {
@@ -25,12 +25,11 @@ const InfoMetodo = () => {
     return <p>Se está cargando la información...</p>; 
   }
 
+  /* Aquí se realiza la separación de ventajas y desventajas
+    en formato de lista, si el usuario ingresa estas mismas
+    con un salto de línea, una coma (,) o un punto y coma (;)*/
   const parseList = (input) => {
     const normalizedInput = input.replace(/\n/g, ';').replace(/,/g, ';');
-    {/*Esta función permite cuando al agregar un nuevo método, al agregar varias
-      ventajas y desventajas, ya sea por separador de comas, punto y coma, o salto de línea 
-      pueda ser separado en la vista de información como un punteo en lugar
-      de verse todo en una única línea*/};
     return normalizedInput.split(';').map(item => item.trim()).filter(item => item); 
   };
 
@@ -46,6 +45,7 @@ const InfoMetodo = () => {
                 <Card.Text>
                   Resumen del Método: {metodo.resumen_metodo}
                 </Card.Text>
+
                 <Row>
                   <Col>
                     <div style={{ border: '1px solid #007bff', padding: '15px', borderRadius: '8px' }}>
@@ -68,9 +68,26 @@ const InfoMetodo = () => {
                     </div>
                   </Col>
                 </Row>
+
                 <Card.Text className="mt-3">
                   Fuente de origen de la información: {metodo.referencia_metodo}
                 </Card.Text>
+
+                <Card.Text className="mt-3">
+                  <strong>Filtros asociados:</strong>
+                  {metodo.filtros && metodo.filtros.length > 0 ? (
+                    <ul>
+                      {metodo.filtros.map((filtroObj, index) => (
+                        <li key={index}>
+                          {filtroObj.categoria}: {filtroObj.filtro}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No hay filtros asociados a este método.</p>
+                  )}
+                </Card.Text>
+                
               </Card.Body>
             </Card>
           </Col>

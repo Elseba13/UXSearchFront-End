@@ -86,6 +86,39 @@ app.get('/api/methods/:id', async (req, res) => {
   }
 });
 
+app.get('/api/methods/:id/filtros', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const metodoResult = await pool.query('SELECT * FROM métodos WHERE id_metodo = $1', [id]);
+    if (metodoResult.rows.length === 0) {
+      return res.status(404).json({ error: 'Método no encontrado' });
+    }
+    
+    const metodo = metodoResult.rows[0];
+
+    const filtrosResult = await pool.query(
+      `SELECT f.nombre AS filtro_nombre, c.nombre AS categoria_nombre
+       FROM filtros_metodos fm 
+       JOIN filtros f ON fm.id_filtro = f.id_filtro
+       JOIN categorias c ON f.id_categoria = c.id_categoria
+       WHERE fm.id_metodo = $1`,
+      [id]
+    );
+
+    const filtros = filtrosResult.rows.map(row => ({
+      filtro: row.filtro_nombre,
+      categoria: row.categoria_nombre
+    }));
+
+    res.json({ ...metodo, filtros });
+  } catch (error) {
+    console.error('Error al obtener el método:', error);
+    res.status(500).json({ error: 'Error al obtener el método' });
+  }
+});
+
+
 
 app.put('/api/methods/:id', async (req, res) => {
   const { id } = req.params;
