@@ -15,7 +15,6 @@ const HeaderAdmin = () => {
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
                         <a className="nav-link text-white" href="/pantalla-principal-admin">Inicio</a>
-                        <a className="nav-link text-white" href="/editar-metodo">Editar Metodo</a>
                         <a className="nav-link text-white" href="/agregar-metodo">Agregar metodo</a>
                         <a className="nav-link text-white" href="/">Cerrar sesión</a>
                     </div>

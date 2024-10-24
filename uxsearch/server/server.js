@@ -120,44 +120,55 @@ app.get('/api/methods/:id/filtros', async (req, res) => {
 
 
 
-app.put('/api/methods/:id', async (req, res) => {
-  const { id } = req.params;
-  const { nombre_metodo, resumen_metodo, ventajas_metodo, desventajas_metodo, referencia_metodo } = req.body;
-
+app.put('/editar-metodo/:id', async (req, res) => {
+  const client = await pool.connect();
   try {
-      const updateQuery = `
-          UPDATE métodos
-          SET 
-              nombre_metodo = $1,
-              resumen_metodo = $2,
-              ventajas_metodo = $3,
-              desventajas_metodo = $4,
-              referencia_metodo = $5
-          WHERE id_metodo = $6
-          RETURNING *;
+      const metodoId = req.params.id;
+      const { nombre_metodo, resumen_metodo, ventajas_metodo, desventajas_metodo, referencia_metodo, filtros_seleccionados } = req.body;
+
+      const updateMetodoQuery = `
+          UPDATE Métodos 
+          SET nombre_metodo = $1, resumen_metodo = $2, ventajas_metodo = $3, desventajas_metodo = $4, referencia_metodo = $5
+          WHERE ID_Metodo = $6;
       `;
+      await client.query(updateMetodoQuery, [nombre_metodo, resumen_metodo, ventajas_metodo, desventajas_metodo, referencia_metodo, metodoId]);
 
-      const values = [
-          nombre_metodo, 
-          resumen_metodo, 
-          ventajas_metodo, 
-          desventajas_metodo, 
-          referencia_metodo, 
-          id
-      ];
+      const filtrosActualesQuery = `
+          SELECT ID_Filtro FROM Filtros_Metodos 
+          WHERE ID_Metodo = $1;
+      `;
+      const { rows: filtrosActuales } = await client.query(filtrosActualesQuery, [metodoId]);
 
-      const result = await pool.query(updateQuery, values);
+      const filtrosActualesIds = filtrosActuales.map(f => f.id_filtro); 
 
-      if (result.rows.length > 0) {
-          res.status(200).json(result.rows[0]);
-      } else {
-          res.status(404).json({ error: "Método no encontrado" });
+      const filtrosAgregar = filtros_seleccionados.filter(filtro => !filtrosActualesIds.includes(filtro)); // Nuevos filtros
+      const filtrosEliminar = filtrosActualesIds.filter(filtro => !filtros_seleccionados.includes(filtro)); // Filtros desmarcados
+
+      if (filtrosAgregar.length > 0) {
+          const insertFiltrosQuery = `
+              INSERT INTO Filtros_Metodos (ID_Metodo, ID_Filtro)
+              VALUES ${filtrosAgregar.map((_, i) => `($1, $${i + 2})`).join(', ')};
+          `;
+          await client.query(insertFiltrosQuery, [metodoId, ...filtrosAgregar]);
       }
+
+      if (filtrosEliminar.length > 0) {
+          const deleteFiltrosQuery = `
+              DELETE FROM Filtros_Metodos 
+              WHERE ID_Metodo = $1 AND ID_Filtro = ANY($2::int[]);
+          `;
+          await client.query(deleteFiltrosQuery, [metodoId, filtrosEliminar]);
+      }
+
+      res.json({ message: 'Método actualizado con éxito' });
   } catch (error) {
-      console.error("Error al actualizar el método:", error);
-      res.status(500).json({ error: "Error al actualizar el método" });
+      console.error('Error al actualizar el método y los filtros:', error);
+      res.status(500).json({ message: 'Error al actualizar el método' });
+  } finally {
+      client.release();
   }
 });
+
 
 
 
@@ -186,3 +197,35 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
+
+
+
+
+/* probando */
+
+app.get('/api/filtros', async (req, res) => {
+  try {
+      const result = await pool.query('SELECT * FROM Filtros');
+      res.json(result.rows);
+  } catch (error) {
+      console.error('Error al obtener filtros:', error);
+      res.status(500).json({ error: 'Error al obtener filtros' });
+  }
+});
+
+app.get('/api/filtros-metodo/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+      const result = await pool.query(`
+          SELECT F.id_filtro, F.nombre
+          FROM Filtros AS F
+          JOIN Filtros_Metodos AS FM ON F.id_filtro = FM.id_filtro
+          WHERE FM.id_metodo = $1
+      `, [id]);
+      res.json(result.rows);
+  } catch (error) {
+      console.error('Error al obtener filtros del método:', error);
+      res.status(500).json({ error: 'Error al obtener filtros del método' });
+  }
+});
+
