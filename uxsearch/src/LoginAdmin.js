@@ -4,11 +4,10 @@ import { useNavigate } from "react-router-dom";
 import Navbar from './Header';
 
 const Login = () => {
-
   const navigate = useNavigate(); 
   const [email, setEmail] = useState(''); 
   const [password, setPassword] = useState(''); 
-  const [errors, setErrors] = useState({ email: '', password: '' }); 
+  const [errors, setErrors] = useState({ email: '', password: '', general: '' }); 
 
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -17,7 +16,7 @@ const Login = () => {
 
   const validateForm = () => {
     let valid = true; 
-    let newErrors = { email: '', password: '' }; 
+    let newErrors = { email: '', password: '', general: '' }; 
 
     if (!email) {
       newErrors.email = 'El correo es obligatorio'; 
@@ -36,12 +35,46 @@ const Login = () => {
     return valid; 
   };
 
-  const handleStart = (e) => {
+  const handleStart = async (e) => {
     e.preventDefault(); 
-    if (validateForm()) {
-      navigate('/pantalla-principal-admin');
+
+    setErrors({ email: '', password: '', general: '' }); 
+
+    const isFormValid = validateForm();
+    if (isFormValid) {
+        try {
+            const response = await fetch('http://localhost:5000/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                navigate('/pantalla-principal-admin');
+            } else {
+                if (result.message.includes('correo')) {
+                    setErrors((prev) => ({
+                        ...prev,
+                        email: 'Correo o contraseña incorrectos.'
+                    }));
+                } else {
+                    setErrors((prev) => ({
+                        ...prev,
+                        general: result.message || 'Credenciales incorrectas'
+                    }));
+                }
+            }
+        } catch (error) {
+            setErrors((prev) => ({
+                ...prev,
+                general: 'Datos inválidos, ingresalos nuevamente.'
+            }));
+        }
     }
   };
+
 
   return (
     <section className="vh-60">
@@ -84,6 +117,8 @@ const Login = () => {
                     />
                     {errors.password && <small className="text-warning">{errors.password}</small>}
                   </div>
+
+                  {errors.general && <div className="text-warning mb-3">{errors.general}</div>}
 
                   <button
                     className="btn btn-outline-light btn-lg px-5"

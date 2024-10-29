@@ -229,3 +229,27 @@ app.get('/api/filtros-metodo/:id', async (req, res) => {
   }
 });
 
+
+app.post('/api/login', async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await pool.query(
+      'SELECT * FROM "administrador" WHERE "correo_electronico" = $1',
+      [email]
+    );
+
+    if (user.rows.length > 0) {
+      const isValidPassword = user.rows[0].contraseña === password; 
+      if (isValidPassword) {
+        return res.status(200).json({ message: 'Authenticated', user: user.rows[0] });
+      } else {
+        return res.status(401).json({ message: 'Contraseña incorrecta' });
+      }
+    } else {
+      return res.status(401).json({ message: 'Correo electrónico incorrecto' });
+    }
+  } catch (err) {
+    console.error(err); 
+    res.status(500).json({ message: 'Server error', error: err });
+  }
+});

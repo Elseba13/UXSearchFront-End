@@ -461,8 +461,12 @@ const AgregarMetodo = () => {
               <button type="submit" className="btn btn-primary">Agregar Método</button>
             </div>
           </form>
+
+          
         </div>
       </div>
+      <br />
+      <br />
     </>
   );
 };
