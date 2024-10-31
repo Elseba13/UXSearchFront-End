@@ -1,81 +1,66 @@
-import React from "react";
-import {Accordion, Button, Form} from 'react-bootstrap'; 
+import React, { useEffect, useState } from "react"; 
+import { Accordion, Form, Button } from "react-bootstrap";
 
-const Filtros = () => {
+const Filtros = ({ onApplyFilters }) => {
+    const [filtros, setFiltros] = useState([]);
+    const [selectedFilters, setSelectedFilters] = useState([]); 
+
+    useEffect(() => {
+        fetch('http://localhost:5000/api/filtros')
+            .then(response => response.json())
+            .then(data => setFiltros(data))
+            .catch(error => console.error('Error:', error));
+    }, []);
+
+    const filtrosPorCategoria = filtros.reduce((acc, filtro) => {
+        if (!acc[filtro.categoria]) {
+            acc[filtro.categoria] = [];
+        }
+        acc[filtro.categoria].push(filtro.filtro);
+        return acc;
+    }, {});
+
+    const handleCheckboxChange = (filtro) => {
+        setSelectedFilters(prevSelectedFilters => {
+            const updatedFilters = prevSelectedFilters.includes(filtro)
+                ? prevSelectedFilters.filter(f => f !== filtro)
+                : [...prevSelectedFilters, filtro];
+            
+            onApplyFilters(updatedFilters); // Llama a onApplyFilters inmediatamente
+            return updatedFilters;
+        });
+    }; 
+
+    const handleClearFilters = () => {
+        setSelectedFilters([]);
+        onApplyFilters([]); 
+    };
+
     return (
-        <div className="d-flex flex-column p-3 bg-light" style={{height: '100&'}}>
+        <div className="d-flex flex-column p-3 bg-light" style={{ height: '100%' }}>
             <h5>Filtros</h5>
             <Accordion defaultActiveKey="0" className="mb-3">
-                <Accordion.Item eventKey="0">
-                    <Accordion.Header>Tipo de filtro</Accordion.Header>
-                    <Accordion.Body>
-                        <Form.Check 
-                            type="checkbox"
-                            id="filter1-option1"
-                            label="Opción 1"
-                        />
-                        <Form.Check
-                            type="checkbox"
-                            id="filter1-option2"
-                            label="Opción 2"
-                        /> 
-                        <Form.Check
-                            type="checkbox"
-                            id="filter1-option3"
-                            label="Opción 3"
-                        />
-
-                    </Accordion.Body>
-                </Accordion.Item>
-
-                <Accordion.Item eventKey="1">
-                    <Accordion.Header>Tipo de filtro</Accordion.Header> 
-                    <Accordion.Body>
-                        <Form.Check
-                            type="checkbox"
-                            id="filter2-option1"
-                            label="Opción 1"
-                        />
-                        <Form.Check 
-                            type="checkbox"
-                            id="filter2-option2"
-                            label="Opción 2"
-                        />
-                        <Form.Check
-                            type="checkbox"
-                            id="filter2-option3"
-                            label="Opción 3"
-                        />
-                    </Accordion.Body>
-                </Accordion.Item>
-
-                <Accordion.Item eventKey="2">
-                    <Accordion.Header>Tipo de filtro</Accordion.Header> 
-                    <Accordion.Body>
-                        <Form.Check
-                            type="checkbox"
-                            id="filter3-option1"
-                            label="Opción 1"
-                        />
-                        <Form.Check 
-                            type="checkbox"
-                            id="filter3-option2"
-                            label="Opción 2"
-                        />
-                        <Form.Check
-                            type="checkbox"
-                            id="filter3-option3"
-                            label="Opción 3"
-                        />
-                    </Accordion.Body>
-                </Accordion.Item>
-                
+                {Object.entries(filtrosPorCategoria).map(([categoria, filtros], index) => (
+                    <Accordion.Item eventKey={index.toString()} key={categoria}>
+                        <Accordion.Header>{categoria}</Accordion.Header>
+                        <Accordion.Body>
+                            {filtros.map((filtro, filtroIndex) => (
+                                <Form.Check 
+                                    key={`${categoria}-${filtroIndex}`} 
+                                    type="checkbox"
+                                    id={`filter-${categoria}-option-${filtroIndex}`}
+                                    label={filtro} 
+                                    checked={selectedFilters.includes(filtro)}
+                                    onChange={() => handleCheckboxChange(filtro)}
+                                />
+                            ))}
+                        </Accordion.Body>
+                    </Accordion.Item>
+                ))}
             </Accordion>
-
-
-            <Button variant="primary" className="mt-auto">Limpiar Filtros</Button>
+            <Button variant="secondary" onClick={handleClearFilters} className="mt-auto">Limpiar Filtros</Button>
         </div>
     );
 }
 
-export default Filtros; 
+export default Filtros;

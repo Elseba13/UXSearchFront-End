@@ -6,34 +6,45 @@ import Navbar from "./Header";
 
 function PantallaPrincipal() {
     const navigate = useNavigate();
-    const [metodos, setMetodos] = useState([]); 
-    const [searchTerm, setSearchTerm] = useState(''); 
+    const [metodos, setMetodos] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const [filteredMethods, setFilteredMethods] = useState([]);
+    const [selectedFilters, setSelectedFilters] = useState([]); 
 
     useEffect(() => {
-        const fetchMethods = async () => {
-            try {
-                const response = await fetch('http://localhost:5000/api/methods');
-                const data = await response.json();
-    
-                const validMethods = data.filter(metodo => metodo.id_metodo && metodo.nombre_metodo);
-    
-                setMetodos(validMethods);
-                setFilteredMethods(validMethods); 
-            } catch (error) {
-                console.error('Error al obtener los métodos:', error);
-            }
-        };
-    
-        fetchMethods();
+        fetchMethods([]);
     }, []);
+
+    const fetchMethods = async (filters) => {
+        try {
+            let response;
+            if (filters.length === 0) {
+                response = await fetch(`http://localhost:5000/api/metodos`);
+            } else {
+                const filtersToSend = filters.flat();
+                const filterParams = new URLSearchParams();
+                filterParams.append('filtros', JSON.stringify(filtersToSend));
+
+                response = await fetch(`http://localhost:5000/api/filtros_metodos?${filterParams}`);
+            }
+
+            const data = await response.json();
+            if (Array.isArray(data)) {
+                setFilteredMethods(data);
+                setMetodos(data);
+            } else {
+                console.error('La respuesta no es un arreglo:', data);
+                setFilteredMethods([]);
+            }
+        } catch (error) {
+            console.error('Error al obtener los métodos:', error);
+            setFilteredMethods([]);
+        }
+    };
 
     const handleSearchChange = (e) => {
         const searchTerm = e.target.value.toLowerCase();
         setSearchTerm(searchTerm);
-        
-        {/*Permite la búsqueda de un método con la barra de búsqueda, en conjunto
-            del form.control con las variables de control value y onChange*/}
         const filtered = metodos.filter(metodo =>
             metodo.nombre_metodo.toLowerCase().includes(searchTerm)
         );
@@ -44,13 +55,18 @@ function PantallaPrincipal() {
         navigate(`/info-metodo/${id}`);
     };
 
+    const handleApplyFilters = (updatedFilters) => {
+        setSelectedFilters(updatedFilters);
+        fetchMethods(updatedFilters);
+    };
+
     return (
         <>
             <Navbar />
             <Container fluid>
                 <Row>
                     <Col xs={12} md={3} lg={2} className="bg-light">
-                        <Filtros />
+                        <Filtros onApplyFilters={handleApplyFilters} />
                     </Col>
 
                     <Col xs={12} md={9} lg={10}>
@@ -61,10 +77,10 @@ function PantallaPrincipal() {
                                 className="mb-4"
                                 style={{ width: '100%' }}
                                 value={searchTerm}
-                                onChange={handleSearchChange} 
+                                onChange={handleSearchChange}
                             />
 
-                            <Row className="justify-content-center" style={{ width: '80%' }}>
+                            <Row className="justify-content-center" style={{ width: '100%' }}>
                                 {filteredMethods.map((metodo) => (
                                     <Col key={metodo.id_metodo} xs={12} md={10} lg={12} className="mb-4">
                                         <Card style={{ borderRadius: '15px' }}>

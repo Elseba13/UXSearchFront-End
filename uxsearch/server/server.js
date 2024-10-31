@@ -61,7 +61,7 @@ app.post('/api/methods', async (req, res) => {
   });
   
   
-app.get('/api/methods', async (req, res) => {
+app.get('/api/metodos', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM métodos');
     res.json(result.rows);
@@ -203,13 +203,63 @@ app.listen(PORT, () => {
 
 /* probando */
 
-app.get('/api/filtros', async (req, res) => {
+app.get('/api/filtros', async(req, res) => {
   try {
-      const result = await pool.query('SELECT * FROM Filtros');
+    const query = `
+        SELECT c.nombre AS categoria, f.nombre AS filtro
+        FROM categorias c
+        JOIN filtros f ON c.id_categoria = f.id_categoria; 
+  `;
+    const result = await pool.query(query); 
+    res.json(result.rows); 
+  }catch(err){
+      console.error(err); 
+      res.status(500).send('Error obteniendo los filtros');
+  }
+
+});
+
+app.get('/api/filtros_metodos', async (req, res) => {
+  let filtros = req.query.filtros;
+
+  if (!filtros) {
+      return res.status(400).json({ error: 'Debe proporcionar al menos un filtro' });
+  }
+
+  try {
+      filtros = JSON.parse(filtros);
+  } catch (error) {
+      console.error('Error al parsear los filtros:', error);
+      return res.status(400).json({ error: 'Formato de filtros inválido' });
+  }
+
+  if (!Array.isArray(filtros)) {
+      filtros = [filtros]; // Convertir a un arreglo si solo hay un filtro
+  }
+
+  console.log('Filtros recibidos:', filtros);
+
+  try {
+      const query = `
+          SELECT m.*
+          FROM métodos m
+          JOIN filtros_metodos fm ON m.id_metodo = fm.id_metodo
+          JOIN filtros f ON fm.id_filtro = f.id_filtro
+          WHERE f.nombre = ANY($1::text[])
+          GROUP BY m.id_metodo
+          HAVING COUNT(DISTINCT f.id_filtro) = $2
+      `;
+
+      const result = await pool.query(query, [filtros, filtros.length]);
+
+      if (result.rows.length === 0) {
+          return res.json([]); // Devuelve un arreglo vacío si no hay resultados
+      }
+
       res.json(result.rows);
   } catch (error) {
-      console.error('Error al obtener filtros:', error);
-      res.status(500).json({ error: 'Error al obtener filtros' });
+      console.error('Error al obtener los métodos filtrados:', error.message);
+      res.status(500).json({ error: 'Error al obtener los métodos filtrados' });
   }
 });
 
