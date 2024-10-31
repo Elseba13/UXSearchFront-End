@@ -1,17 +1,39 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './Header';
+import ComponenteAyuda from './ComponenteAyuda';
 
 const ExplicacionFiltros = () => {
   return (
     <>
       <Navbar />
       <div className="container my-4">
-        <div className="bg-secondary-subtle text-dark p-3 rounded">
-          <p className="lead">
-            En esta página encontrarás información acerca de los filtros de búsqueda de los métodos de evaluación, los cuales te permitirán seleccionar la mejor opción según tus necesidades y los distintos filtros disponibles.
-          </p>
+        <ComponenteAyuda
+          titulo="Ayuda: Explicación de Filtros"
+          contenido={
+            <p>
+              En esta pantalla encontrarás información detallada sobre los distintos filtros de métodos de evaluación incluidos en el sitio UxSearch. 
+              <br />
+              <br />
+              Cada filtro te ayudará a entender mejor los criterios a considerar al seleccionar un método que se adecue a tus necesidades. 
+              <br />
+              <br />
+              Para acceder a la información en específico acerca de una categoría, y sus filtros, haz click izquierdo sobre la categoría, y se desplegará la información.
+            </p>
+          }
+        />
+
+      <div className="container my-4">
+        <div className="alert alert-warning d-flex align-items-center" role="alert">
+          <span className="material-icons" style={{ marginRight: '8px' }}>warning</span>
+          <span>
+            Por favor, haga clic en el ícono de ayuda 
+            <span className="material-icons" style={{ marginLeft: '8px', verticalAlign: 'middle' }}>help_outline</span> 
+            {/*‎ es para insertar un espacio vacío entre el texto y el icono */}
+            ‎  para obtener información acerca del uso de esta pantalla.
+          </span>
         </div>
+      </div>
 
         <div className="accordion mt-4" id="accordionExample">
           <div className="accordion-item">

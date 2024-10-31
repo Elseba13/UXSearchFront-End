@@ -1,12 +1,13 @@
+
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom'; 
-import Navbar from './Header';
+import Navbar from './HeaderAdmin';
 
-const InfoMetodo = () => {
+const InfoMetodoAdmin = () => {
   const { id } = useParams(); 
   const [metodo, setMetodo] = useState(null);
-  const navigate = useNavigate(); // Hook para manejar la navegación
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMetodo = async () => {
@@ -35,7 +36,7 @@ const InfoMetodo = () => {
     <>
       <Navbar />
       <Container fluid className="mt-3">
-      <Button variant="outline-primary" onClick={() => navigate('/pantalla-principal')}>
+      <Button variant="outline-primary" onClick={() => navigate('/pantalla-principal-admin')}>
         <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: '#007bff' }}>
           arrow_back
         </span>
@@ -101,4 +102,4 @@ const InfoMetodo = () => {
   );
 };
 
-export default InfoMetodo;
+export default InfoMetodoAdmin;

@@ -10,7 +10,13 @@ import DashboardCircular from "./Dashboard";
 import AgregarMetodo from "./AgregarMetodo";
 import EditarMetodo from "./EditarMetodo";
 import PantallaPrincipalAdmin from "./PantallaPrincipalAdmin";
+import InfoMetodoAdmin from "./InfoMetodoAdmin";
 
+//"importación" para poder utilizar los iconos de google
+const link = document.createElement('link');
+link.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
+link.rel = 'stylesheet';
+document.head.appendChild(link);
 
 
 const App = () => {
@@ -28,6 +34,7 @@ const App = () => {
             <Route path="/agregar-metodo" element = {<AgregarMetodo/>} />
             <Route path="/editar-metodo/:id" element = {<EditarMetodo/>} />
             <Route path="/pantalla-principal-admin" element = {< PantallaPrincipalAdmin/>} /> 
+            <Route path="/info-metodo-admin/:id" element = {< InfoMetodoAdmin/>} /> 
 
           </Routes>
         </div>

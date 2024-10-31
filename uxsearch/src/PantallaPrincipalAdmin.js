@@ -40,7 +40,7 @@ function PantallaPrincipalAdmin() {
     }; 
 
     const handleStart = (id) => {
-        navigate(`/info-metodo/${id}`); 
+        navigate(`/info-metodo-admin/${id}`); 
     };
 
     const handleEdit = (id) => {

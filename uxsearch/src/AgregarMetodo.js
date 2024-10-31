@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import HeaderAdmin from "./HeaderAdmin"; 
+import { useNavigate } from 'react-router-dom'; 
+import { Button } from 'react-bootstrap';
+import ComponenteAyuda from './ComponenteAyuda';
 
 const AgregarMetodo = () => {
+  const navigate = useNavigate();
   const [nombreMetodo, setNombreMetodo] = useState('');
   const [resumenMetodo, setResumenMetodo] = useState('');
   const [ventajasMetodo, setVentajasMetodo] = useState('');
@@ -86,12 +90,69 @@ const AgregarMetodo = () => {
     <>
       <HeaderAdmin />
       <br />
+      <div className="container my-4">
+        <ComponenteAyuda
+          titulo="Instructivo para agregar un método"
+          contenido={
+            <p>
+              En esta pantalla encontrarás un formulario que te permitirá agregar nuevos métodos a UxSearch
+              <br />
+              <br />
+              En primer lugar debes ingresar el nombre de método, y un resumen.
+              <br />
+              <br />
+              Para ingresar diferentes ventajas y desventajas, puedes realizarlo por medio de un salto de línea, una coma (,), o un punto y coma (;), lo que sea más comodo para ti.
+              <br />
+              Por ejemplo: Ventaja1, Ventaja2, Ventaja3.
+              <br />
+              <br />
+              La referencia debe ser ingresada en formato IEEE.
+              <br />
+              Por ejemplo: 
+              <br />
+              Libros: Iniciales y Apellido/s del autor, Título del libro en cursiva. Edición. Lugar de publicación: Editorial, Año de publicación.
+              <br />
+              Revistas: Iniciales y Apellido del autor, "Título del artículo entre comillas", Título abreviado de la revista en cursiva, volumen (abreviado vol.), número abreviado (no.) páginas (abreviado pp.), Mes Año.
+              <br />
+              Apuntes de clase: "Título de los apuntes o materia", class notes for Código de la asignatura, Departamento, Institución o Universidad, época y año.
+              <br />
+              Sitio web: Iniciales y Apellido del autor (año, mes y día). Título (edición) [Tipo de medio, generalmente Online]. Available: Url
+              <br />
+              <br />
+              Finalmente debes seleccionar al menos un filtro al que corresponda el método que deseas ingresar, sin importar la categoría del filtro seleccionado.
+            </p>
+          }
+        />
+      </div>
+      <div className="position-absolute" style={{ top: '65px', left: '20px' }}>
+        <Button variant="outline-primary" onClick={() => navigate('/pantalla-principal-admin')}>
+          <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: '#007bff' }}>
+            arrow_back
+          </span>
+          Regresar al listado de métodos
+        </Button>
+      </div>
+      <br />
+
+      <div className="container my-4">
+        <div className="alert alert-warning d-flex align-items-center" role="alert">
+          <span className="material-icons" style={{ marginRight: '8px' }}>warning</span>
+          <span>
+            Por favor, haga clic en el ícono de ayuda 
+            <span className="material-icons" style={{ marginLeft: '8px', verticalAlign: 'middle' }}>help_outline</span> 
+            {/*‎ es para insertar un espacio vacío entre el texto y el icono */}
+            ‎  antes de comenzar a llenar el formulario.
+          </span>
+        </div>
+      </div>
+
       <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '80vh' }}>
         <div className="border p-4 bg-light rounded">
           <div className="text-center">
             <div style={{ fontSize: '2rem', fontWeight: 'bold' }}>Formulario para<br/>agregar un método</div>
           </div>
           <br/>
+
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <div className="text-center" style={{ fontSize: '1.2rem' }}>Ingrese el nombre del método</div>
