@@ -14,7 +14,7 @@ function PantallaPrincipalAdmin() {
 
     const fetchMethods = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/methods');
+            const response = await fetch('http://localhost:5000/api/metodos');
             const data = await response.json();
             const validMethods = data.filter(metodo => metodo.id_metodo && metodo.nombre_metodo);
             setMetodos(validMethods);
