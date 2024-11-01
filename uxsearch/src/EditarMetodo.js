@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom"; 
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 import HeaderAdmin from "./HeaderAdmin";
+import ComponenteAyuda from './ComponenteAyuda';
 
 function EditarMetodo() {
     const { id } = useParams(); 
@@ -98,6 +99,73 @@ function EditarMetodo() {
     return (
         <>
             <HeaderAdmin />
+            <div className="container my-4">
+                <ComponenteAyuda
+                titulo="Instructivo para agregar un método"
+                contenido={
+                    <p>
+                    En esta pantalla encontrarás un formulario que te permitirá editar los campos de un método de UxSearch
+                    <br />
+                    <br />
+                    No es necesario que modifiques todos los campos, solo los que tu encuentres necesarios.
+                    <br />
+                    <br />
+                    Para realizar la modificación, simplemente debes cambiar el texto en los campos de texto, ingresando la nueva información que te gustaría mostrar.
+                    <br />
+                    <br />
+                    Para modificar ventajas y desventajas se mantiene el formato del formulario para agregar nuevos métodos, por medio de un salto de línea, una coma (,), o un punto y coma (;), lo que sea más comodo para ti.
+                    <br />
+                    Por ejemplo: Ventaja1, Ventaja2, Ventaja3.
+                    <br />
+                    <br />
+                    La referencia debe ser ingresada en formato IEEE.
+                    <br />
+                    Por ejemplo: 
+                    <br />
+                    Libros: Iniciales y Apellido/s del autor, Título del libro en cursiva. Edición. Lugar de publicación: Editorial, Año de publicación.
+                    <br />
+                    Revistas: Iniciales y Apellido del autor, "Título del artículo entre comillas", Título abreviado de la revista en cursiva, volumen (abreviado vol.), número abreviado (no.) páginas (abreviado pp.), Mes Año.
+                    <br />
+                    Apuntes de clase: "Título de los apuntes o materia", class notes for Código de la asignatura, Departamento, Institución o Universidad, época y año.
+                    <br />
+                    Sitio web: Iniciales y Apellido del autor (año, mes y día). Título (edición) [Tipo de medio, generalmente Online]. Available: Url
+                    <br />
+                    <br />
+                    Finalmente puedes editar los filtros del método, desmarcando filtros antiguos, y marcando los nuevos.
+                    <br />
+                    <br />
+                    Recuerda dejar al menos un filtro para el método.
+                    </p>
+                }
+                />
+            </div>
+
+            <div className="position-absolute" style={{ top: '65px', left: '20px' }}>
+                <Button variant="outline-primary" onClick={() => navigate('/pantalla-principal-admin')}>
+                <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: '#007bff' }}>
+                    arrow_back
+                </span>
+                Regresar al listado de métodos
+                </Button>
+            </div>
+            <br />
+            <br />
+
+            <div className="container my-4">
+                <Row className="justify-content-center">
+                    <Col xs={12} md={10} lg={8}>
+                        <div className="alert alert-warning d-flex align-items-center" role="alert">
+                        <span className="material-icons" style={{ marginRight: '8px' }}>warning</span>
+                        <span>
+                            Por favor, haz clic en el ícono de ayuda 
+                            <span className="material-icons" style={{ marginLeft: '8px', verticalAlign: 'middle' }}>help_outline</span> 
+                            {/*‎ es para insertar un espacio vacío entre el texto y el icono */}
+                            ‎  antes de comenzar a llenar el formulario.
+                        </span>
+                        </div>
+                    </Col>
+                </Row>
+            </div>
 
             <Container fluid className="mt-5"> 
                 <Row className="justify-content-center">

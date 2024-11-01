@@ -138,7 +138,7 @@ const AgregarMetodo = () => {
         <div className="alert alert-warning d-flex align-items-center" role="alert">
           <span className="material-icons" style={{ marginRight: '8px' }}>warning</span>
           <span>
-            Por favor, haga clic en el ícono de ayuda 
+            Por favor, haz clic en el ícono de ayuda 
             <span className="material-icons" style={{ marginLeft: '8px', verticalAlign: 'middle' }}>help_outline</span> 
             {/*‎ es para insertar un espacio vacío entre el texto y el icono */}
             ‎  antes de comenzar a llenar el formulario.
