@@ -31,16 +31,25 @@ const InfoMetodo = () => {
     return normalizedInput.split(';').map(item => item.trim()).filter(item => item); 
   };
 
+  const groupedFilters = metodo.filtros.reduce((acc, filtroObj) => {
+    const { categoria, filtro } = filtroObj;
+    if (!acc[categoria]) {
+      acc[categoria] = []; 
+    }
+    acc[categoria].push(filtro); 
+    return acc;
+  }, {});
+
   return (
     <>
       <Navbar />
       <Container fluid className="mt-3">
-      <Button variant="outline-primary" onClick={() => navigate('/pantalla-principal')}>
-        <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: '#007bff' }}>
-          arrow_back
-        </span>
-        Regresar al listado de métodos
-      </Button>
+        <Button variant="outline-primary" onClick={() => navigate('/pantalla-principal')}>
+          <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: '#007bff' }}>
+            arrow_back
+          </span>
+          Regresar al listado de métodos
+        </Button>
 
         <Row className="justify-content-center mt-4">
           <Col xs={12} md={10} lg={8}>
@@ -80,11 +89,11 @@ const InfoMetodo = () => {
 
                 <Card.Text className="mt-3">
                   <strong>Filtros asociados:</strong>
-                  {metodo.filtros && metodo.filtros.length > 0 ? (
+                  {Object.keys(groupedFilters).length > 0 ? (
                     <ul>
-                      {metodo.filtros.map((filtroObj, index) => (
+                      {Object.entries(groupedFilters).map(([categoria, filtros], index) => (
                         <li key={index}>
-                          {filtroObj.categoria}: {filtroObj.filtro}
+                          {categoria}: {filtros.join(' - ')}
                         </li>
                       ))}
                     </ul>

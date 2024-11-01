@@ -16,33 +16,41 @@ function EditarMetodo() {
     useEffect(() => {
         const fetchMetodo = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/methods/${id}`); 
-                
+                const response = await fetch(`http://localhost:5000/api/methods/${id}`);
                 if (!response.ok) {
                     throw new Error('Error al obtener el método');
                 }
-                
                 const data = await response.json();
-                setMetodo(data); 
-                setNombreOriginal(data.nombre_metodo); 
-
-                const filtersResponse = await fetch('http://localhost:5000/api/filtros'); 
+                setMetodo(data);
+                setNombreOriginal(data.nombre_metodo);
+    
+                const filtersResponse = await fetch('http://localhost:5000/api/filtrosEdicion');
                 const fetchedFilters = await filtersResponse.json();
                 setFilters(fetchedFilters);
-
-                const selectedResponse = await fetch(`http://localhost:5000/api/filtros-metodo/${id}`); 
+    
+                const selectedResponse = await fetch(`http://localhost:5000/api/filtrosMetodo/${id}`);
                 const selected = await selectedResponse.json();
                 setSelectedFilters(selected.map(f => f.id_filtro));
-
+    
             } catch (error) {
                 console.error("Error al obtener el método:", error);
             } finally {
                 setLoading(false);
             }
         };
-
+    
         fetchMetodo();
     }, [id]);
+    
+    // Agrupar filtros por categoría
+    const groupedFilters = filters.reduce((acc, filter) => {
+        const { nombre_categoria, id_filtro, nombre } = filter;
+        if (!acc[nombre_categoria]) {
+            acc[nombre_categoria] = []; 
+        }
+        acc[nombre_categoria].push({ id_filtro, nombre }); 
+        return acc;
+    }, {});
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -68,8 +76,7 @@ function EditarMetodo() {
                 filtros_seleccionados: selectedFilters,
             };
 
-            const response = await fetch(`http://localhost:5000/editar-metodo/${id}`, {
-
+            const response = await fetch(`http://localhost:5000/edicion-metodo/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -159,8 +166,7 @@ function EditarMetodo() {
                         <span>
                             Por favor, haz clic en el ícono de ayuda 
                             <span className="material-icons" style={{ marginLeft: '8px', verticalAlign: 'middle' }}>help_outline</span> 
-                            {/*‎ es para insertar un espacio vacío entre el texto y el icono */}
-                            ‎  antes de comenzar a llenar el formulario.
+                            antes de comenzar a llenar el formulario.
                         </span>
                         </div>
                     </Col>
@@ -210,69 +216,67 @@ function EditarMetodo() {
                                         />
                                     </Form.Group>
 
-                                    <Row className="mt-3">
-                                        <Col>
-                                            <Form.Group controlId="formVentajasMetodo">
-                                                <Form.Label style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingresar nuevas ventajas del método</Form.Label>
-                                                <Form.Control
-                                                    as="textarea"
-                                                    rows={3}
-                                                    name="ventajas_metodo"
-                                                    value={metodo.ventajas_metodo || ''} 
-                                                    onChange={handleChange}
-                                                />
-                                            </Form.Group>
-                                        </Col>
-                                        <Col>
-                                            <Form.Group controlId="formDesventajasMetodo">
-                                                <Form.Label style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingresar nuevas desventajas del método</Form.Label>
-                                                <Form.Control
-                                                    as="textarea"
-                                                    rows={3}
-                                                    name="desventajas_metodo"
-                                                    value={metodo.desventajas_metodo || ''} 
-                                                    onChange={handleChange}
-                                                />
-                                            </Form.Group>
-                                        </Col>
-                                    </Row>
+                                    <Form.Group controlId="formVentajasMetodo" className="mt-3">
+                                        <Form.Label style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingresar nuevas ventajas del método</Form.Label>
+                                        <Form.Control
+                                            as="textarea"
+                                            rows={3}
+                                            name="ventajas_metodo"
+                                            value={metodo.ventajas_metodo || ''} 
+                                            onChange={handleChange}
+                                        />
+                                    </Form.Group>
+
+                                    <Form.Group controlId="formDesventajasMetodo" className="mt-3">
+                                        <Form.Label style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingresar nuevas desventajas del método</Form.Label>
+                                        <Form.Control
+                                            as="textarea"
+                                            rows={3}
+                                            name="desventajas_metodo"
+                                            value={metodo.desventajas_metodo || ''} 
+                                            onChange={handleChange}
+                                        />
+                                    </Form.Group>
 
                                     <Form.Group controlId="formReferenciaMetodo" className="mt-3">
                                         <Form.Label style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingresar nueva referencia del método</Form.Label>
                                         <Form.Control
-                                            type="text"
+                                            as="textarea"
+                                            rows={3}
                                             name="referencia_metodo"
                                             value={metodo.referencia_metodo || ''} 
                                             onChange={handleChange}
                                         />
                                     </Form.Group>
 
-                                    <br />
-                                    <h4>Seleccionar Filtros</h4>
-                                    {filters.map((filter) => (
-                                        <div className="form-check" key={filter.id_filtro}>
-                                            <input
-                                                type="checkbox"
-                                                className="form-check-input"
-                                                id={`filtro-${filter.id_filtro}`}
-                                                checked={selectedFilters.includes(filter.id_filtro)}
-                                                onChange={() => handleCheckboxChange(filter.id_filtro)}
-                                            />
-                                            <label className="form-check-label" htmlFor={`filtro-${filter.id_filtro}`}>
-                                                {filter.nombre}
-                                            </label>
-                                        </div>
-                                    ))}
+                                    <Form.Group controlId="formFiltrosMetodo" className="mt-3">
+                                        <Form.Label style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>
+                                            Seleccionar filtros del método
+                                        </Form.Label>
+                                        {Object.entries(groupedFilters).map(([categoria, filtros]) => (
+                                            <div key={categoria}>
+                                                <h6 className="fw-bold">{categoria}</h6> 
+                                                {filtros.map(filtro => (
+                                                    <Form.Check
+                                                        key={filtro.id_filtro}
+                                                        type="checkbox"
+                                                        label={filtro.nombre}
+                                                        checked={selectedFilters.includes(filtro.id_filtro)}
+                                                        onChange={() => handleCheckboxChange(filtro.id_filtro)}
+                                                    />
+                                                ))}
+                                                <hr />
+                                            </div>
+                                        ))}
+                                    </Form.Group>
 
-                                    <div className="d-flex justify-content-center">
-                                        <Button onClick={handleSubmit} variant="primary" type="submit" className="mt-3">
-                                            Guardar Cambios
-                                        </Button>
-                                    </div>
+
+                                    <Button variant="primary" type="submit" className="mt-3 mx-auto d-block">
+                                        Guardar Cambios
+                                    </Button>
                                 </Form>
                             </Card.Body>
                         </Card>
-                        <br />
                     </Col>
                 </Row>
             </Container>

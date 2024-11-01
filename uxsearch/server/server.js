@@ -303,3 +303,61 @@ app.post('/api/login', async (req, res) => {
     res.status(500).json({ message: 'Server error', error: err });
   }
 });
+
+
+
+/* Nuevos endpoints para la edición de un método */
+
+app.get('/api/filtrosEdicion', async (req, res) => {
+  try {
+      const result = await pool.query(`
+          SELECT f.id_filtro, f.nombre, c.nombre AS nombre_categoria
+          FROM Filtros f
+          JOIN Categorias c ON f.ID_Categoria = c.ID_Categoria
+      `);
+      res.json(result.rows);
+  } catch (error) {
+      console.error('Error al obtener filtros:', error);
+      res.status(500).json({ error: 'Error al obtener filtros' });
+  }
+});
+
+app.get('/api/filtrosMetodo/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+      const result = await pool.query(`
+          SELECT f.id_filtro
+          FROM Filtros_Metodos fm
+          JOIN Filtros f ON fm.ID_Filtro = f.ID_Filtro
+          WHERE fm.ID_Metodo = $1
+      `, [id]);
+      res.json(result.rows);
+  } catch (error) {
+      console.error('Error al obtener filtros de método:', error);
+      res.status(500).json({ error: 'Error al obtener filtros de método' });
+  }
+});
+
+app.put('/edicion-metodo/:id', async (req, res) => {
+  const { id } = req.params;
+  const { filtros_seleccionados } = req.body;
+
+  try {
+      await pool.query(`
+          DELETE FROM Filtros_Metodos WHERE ID_Metodo = $1
+      `, [id]);
+
+      const insertQuery = `
+          INSERT INTO Filtros_Metodos (ID_Metodo, ID_Filtro) VALUES ($1, $2)
+      `;
+      const insertPromises = filtros_seleccionados.map(filtroId =>
+          pool.query(insertQuery, [id, filtroId])
+      );
+      await Promise.all(insertPromises);
+
+      res.status(200).json({ message: 'Método actualizado correctamente' });
+  } catch (error) {
+      console.error('Error al actualizar el método:', error);
+      res.status(500).json({ error: 'Error al actualizar el método' });
+  }
+});
