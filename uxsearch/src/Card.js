@@ -64,16 +64,16 @@ const CardAdmin = ({
                             </svg>
                             {showMenu && (
                                 <div className="dropdown-menu show" style={{ position: 'absolute', top: '20px', right: '0', minWidth: '150px' }}>
-                                    <Button variant="link" onClick={handleEdit} style={{ display: 'flex', alignItems: 'center' }} >
+                                    <Button variant="link" onClick={handleEdit} style={{ display: 'flex', alignItems: 'center', color: '#006400' }} >
                                         <FaEdit style={{ marginRight: '5px' }} /> Editar
                                     </Button>
-                                    <Button variant="link" onClick={handleDeleteClick} style={{ display: 'flex', alignItems: 'center' }}>
+                                    <Button variant="link" onClick={handleDeleteClick} style={{ display: 'flex', alignItems: 'center', color: '#FF0000' }}>
                                         <FaTrash style={{ marginRight: '5px' }} /> Eliminar
                                     </Button>
                                 </div>
                             )}
                         </div>
-                        <Button variant="primary" onClick={handleStart}>Leer más</Button>
+                        <Button variant="primary" style={{backgroundColor: '#006400'}} onClick={handleStart}>Leer más</Button>
                     </BootstrapCard.Body>
                 </BootstrapCard>
             </Col>

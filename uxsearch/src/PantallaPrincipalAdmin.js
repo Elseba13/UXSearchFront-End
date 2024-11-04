@@ -89,7 +89,7 @@ function PantallaPrincipalAdmin() {
                                 onChange={handleSearchChange} 
                             />
                            
-                            <Row className="justify-content-center" style={{width: '80%'}}>
+                            <Row className="justify-content-center" style={{width: '100%'}}>
                                 {filteredMethods.map((metodo) => (
                                     <Col key={metodo.id_metodo} xs={12} md={10} lg={12} className="mb-4">
                                         <CardAdmin 

@@ -52,7 +52,7 @@ const Login = () => {
             const result = await response.json();
 
             if (response.ok) {
-                navigate('/pantalla-principal-admin');
+                navigate('/home-admin');
             } else {
                 if (result.message.includes('correo')) {
                     setErrors((prev) => ({

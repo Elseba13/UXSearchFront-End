@@ -11,6 +11,8 @@ import AgregarMetodo from "./AgregarMetodo";
 import EditarMetodo from "./EditarMetodo";
 import PantallaPrincipalAdmin from "./PantallaPrincipalAdmin";
 import InfoMetodoAdmin from "./InfoMetodoAdmin";
+import HomeAdmin from "./HomeAdmin";
+
 
 //"importación" para poder utilizar los iconos de google
 const link = document.createElement('link');
@@ -35,7 +37,7 @@ const App = () => {
             <Route path="/editar-metodo/:id" element = {<EditarMetodo/>} />
             <Route path="/pantalla-principal-admin" element = {< PantallaPrincipalAdmin/>} /> 
             <Route path="/info-metodo-admin/:id" element = {< InfoMetodoAdmin/>} /> 
-
+            <Route path="/home-admin" element={< HomeAdmin />}/>
           </Routes>
         </div>
         <Footer/>
