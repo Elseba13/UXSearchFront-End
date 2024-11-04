@@ -68,6 +68,7 @@ function EditarMetodo() {
         }
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -75,18 +76,20 @@ function EditarMetodo() {
                 ...metodo,
                 filtros_seleccionados: selectedFilters,
             };
-
-            const response = await fetch(`http://localhost:5000/edicion-metodo/${id}`, {
+    
+            console.log("Datos enviados al backend:", updatedData); // Verifica los datos antes de enviarlos
+    
+            const response = await fetch(`http://localhost:5000/editar-metodo-new/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(updatedData),  
+                body: JSON.stringify(updatedData),
             });
-
+    
             if (response.ok) {
                 console.log("Método actualizado correctamente");
-                navigate('/pantalla-principal-admin');  
+                navigate('/pantalla-principal-admin');
             } else {
                 console.log("Error al actualizar el método");
             }
@@ -94,6 +97,7 @@ function EditarMetodo() {
             console.error("Error al actualizar el método:", error);
         }
     };
+    
 
     if (loading) {
         return <div>Cargando...</div>; 

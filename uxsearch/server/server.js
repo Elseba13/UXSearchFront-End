@@ -119,7 +119,7 @@ app.get('/api/methods/:id/filtros', async (req, res) => {
 });
 
 
-
+/*
 app.put('/editar-metodo/:id', async (req, res) => {
   const client = await pool.connect();
   try {
@@ -169,7 +169,7 @@ app.put('/editar-metodo/:id', async (req, res) => {
   }
 });
 
-
+*/
 
 
 app.delete('/api/methods/:id', async(req,res) => {
@@ -338,6 +338,7 @@ app.get('/api/filtrosMetodo/:id', async (req, res) => {
   }
 });
 
+/*
 app.put('/edicion-metodo/:id', async (req, res) => {
   const { id } = req.params;
   const { filtros_seleccionados } = req.body;
@@ -359,5 +360,70 @@ app.put('/edicion-metodo/:id', async (req, res) => {
   } catch (error) {
       console.error('Error al actualizar el método:', error);
       res.status(500).json({ error: 'Error al actualizar el método' });
+  }
+});
+
+*/
+
+/* Nuevo endpoint para la edición de un método */
+
+app.put('/editar-metodo-new/:id', async (req, res) => {
+  const client = await pool.connect();
+  try {
+      const metodoId = req.params.id;
+      const {
+          nombre_metodo,
+          resumen_metodo,
+          ventajas_metodo,
+          desventajas_metodo,
+          referencia_metodo,
+          filtros_seleccionados
+      } = req.body;
+
+      // Actualizar los campos del método
+      const updateMetodoQuery = `
+          UPDATE Métodos 
+          SET nombre_metodo = $1, resumen_metodo = $2, ventajas_metodo = $3, desventajas_metodo = $4, referencia_metodo = $5
+          WHERE ID_Metodo = $6;
+      `;
+      await client.query(updateMetodoQuery, [nombre_metodo, resumen_metodo, ventajas_metodo, desventajas_metodo, referencia_metodo, metodoId]);
+
+      // Obtener filtros actuales
+      const filtrosActualesQuery = `
+          SELECT ID_Filtro FROM Filtros_Metodos 
+          WHERE ID_Metodo = $1;
+      `;
+      const { rows: filtrosActuales } = await client.query(filtrosActualesQuery, [metodoId]);
+
+      const filtrosActualesIds = filtrosActuales.map(f => f.id_filtro); 
+
+      // Determinar nuevos filtros y filtros a eliminar
+      const filtrosAgregar = filtros_seleccionados.filter(filtro => !filtrosActualesIds.includes(filtro)); // Nuevos filtros
+      const filtrosEliminar = filtrosActualesIds.filter(filtro => !filtros_seleccionados.includes(filtro)); // Filtros desmarcados
+
+      // Eliminar filtros no seleccionados
+      if (filtrosEliminar.length > 0) {
+          const deleteFiltrosQuery = `
+              DELETE FROM Filtros_Metodos 
+              WHERE ID_Metodo = $1 AND ID_Filtro = ANY($2::int[]);
+          `;
+          await client.query(deleteFiltrosQuery, [metodoId, filtrosEliminar]);
+      }
+
+      // Agregar nuevos filtros
+      if (filtrosAgregar.length > 0) {
+          const insertFiltrosQuery = `
+              INSERT INTO Filtros_Metodos (ID_Metodo, ID_Filtro)
+              VALUES ${filtrosAgregar.map((_, i) => `($1, $${i + 2})`).join(', ')}; 
+          `;
+          await client.query(insertFiltrosQuery, [metodoId, ...filtrosAgregar]);
+      }
+
+      res.json({ message: 'Método y filtros actualizados con éxito' });
+  } catch (error) {
+      console.error('Error al actualizar el método y los filtros:', error);
+      res.status(500).json({ message: 'Error al actualizar el método' });
+  } finally {
+      client.release();
   }
 });

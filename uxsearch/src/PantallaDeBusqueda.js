@@ -3,6 +3,7 @@ import Filtros from "./Filtros";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import Navbar from "./Header";
+import ComponenteAyuda from './ComponenteAyuda';
 
 function PantallaPrincipal() {
     const navigate = useNavigate();
@@ -63,6 +64,30 @@ function PantallaPrincipal() {
     return (
         <>
             <Navbar />
+
+            <div className="container my-4">
+                <ComponenteAyuda
+                titulo="Ayuda: Explicación de Filtros"
+                contenido={
+                    <p>
+                    En esta pantalla encontrarás todos los métodos de evaluación disponibles en el sitio UxSearch
+                    <br />
+                    <br />
+                    En el costado izquierdo puedes utilizar el sistema de filtrado, permitiendo seleccionar los filtros que se adecuen a lo que buscas.
+                    <br />
+                    <br />
+                    En la parte superior encontrarás la barra de búsqueda predictiva, por lo que funcionará independiente ingreses una letra, un nombre de un método incompleto o completo.
+                    <br />
+                    <br />
+                    Es importante que ingreses correctamente el nombre del método buscado, respetando tíldes y ortografía, si no lo haces, podrías no encontrar el método.
+                    <br />
+                    <br />
+                    Finalmente en la parte inferior a la barra de búsqueda podrás visualizar el listado de métodos, donde se presentará el nombre, resúmen, y el botón "Leer más", que te permitirá obtener la información completa del método de evaluación.
+                    </p>
+                }
+                />
+            </div>
+
             <Container fluid>
                 <Row>
                     <Col xs={12} md={3} lg={2} className="bg-light">
