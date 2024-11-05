@@ -40,7 +40,6 @@ const App = () => {
             <Route path="/home-admin" element={< HomeAdmin />}/>
           </Routes>
         </div>
-        <Footer/>
       </div>
       
     </Router>

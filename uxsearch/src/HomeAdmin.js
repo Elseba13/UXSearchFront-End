@@ -1,5 +1,6 @@
 import React from "react";
 import HeaderAdmin from "./HeaderAdmin";
+import FooterAdmin from "./FooterAdmin";
 
 const HomeAdmin = () => {
 
@@ -56,6 +57,8 @@ const HomeAdmin = () => {
                 </div>
 
             </section>
+
+            <FooterAdmin/> 
         </>
     );
 }

@@ -3,6 +3,7 @@ import HeaderAdmin from "./HeaderAdmin";
 import { useNavigate } from 'react-router-dom'; 
 import { Button } from 'react-bootstrap';
 import ComponenteAyuda from './ComponenteAyuda';
+import FooterAdmin from './FooterAdmin';
 
 const AgregarMetodo = () => {
   const navigate = useNavigate();
@@ -519,7 +520,7 @@ const AgregarMetodo = () => {
             </div>
 
             <div className="text-center">
-              <button type="submit" className="btn btn-primary">Agregar Método</button>
+              <button type="submit" style={{backgroundColor: '#006400'}} className="btn btn-primary">Agregar Método</button>
             </div>
           </form>
 
@@ -528,6 +529,7 @@ const AgregarMetodo = () => {
       </div>
       <br />
       <br />
+      <FooterAdmin/> 
     </>
   );
 };

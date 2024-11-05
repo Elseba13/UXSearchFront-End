@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom"; 
 import Navbar from './Header';
+import Footer from './Footer';
 
 const Login = () => {
   const navigate = useNavigate(); 
@@ -133,6 +134,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Footer/> 
     </section>
   );
 };

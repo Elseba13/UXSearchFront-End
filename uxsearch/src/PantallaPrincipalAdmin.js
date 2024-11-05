@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import CardAdmin from "./Card"; 
 import HeaderAdmin from "./HeaderAdmin";
+import FooterAdmin from "./FooterAdmin";
 
 function PantallaPrincipalAdmin() {
     const [metodos, setMetodos] = useState([]); 
@@ -106,6 +107,7 @@ function PantallaPrincipalAdmin() {
                     </Col>
                 </Row>
             </Container>
+            <FooterAdmin/> 
         </>
     );
 }

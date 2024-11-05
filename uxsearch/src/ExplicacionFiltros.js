@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './Header';
 import ComponenteAyuda from './ComponenteAyuda';
+import Footer from './Footer';
 
 const ExplicacionFiltros = () => {
   return (
@@ -364,6 +365,7 @@ const ExplicacionFiltros = () => {
           </div>
         </div>
       </div>
+      <Footer/> 
     </>
   );
 };
