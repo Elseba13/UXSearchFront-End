@@ -1,35 +1,53 @@
 import React, { useEffect, useState } from "react";
 import Filtros from "./Filtros"; 
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Form } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
 import CardAdmin from "./Card"; 
+import ComponenteAyuda from './ComponenteAyuda';
 import HeaderAdmin from "./HeaderAdmin";
 import FooterAdmin from "./FooterAdmin";
 
 function PantallaPrincipalAdmin() {
+    const navigate = useNavigate();
     const [metodos, setMetodos] = useState([]); 
     const [searchTerm, setSearchTerm] = useState(''); 
     const [filteredMethods, setFilteredMethods] = useState([]); 
-    const [loading, setLoading] = useState(true); // Estado de carga
-    const navigate = useNavigate(); 
-
-    const fetchMethods = async () => {
-        try {
-            const response = await fetch('http://localhost:5000/api/metodos');
-            const data = await response.json();
-            const validMethods = data.filter(metodo => metodo.id_metodo && metodo.nombre_metodo);
-            setMetodos(validMethods);
-            setFilteredMethods(validMethods);
-        } catch (error) {
-            console.error('Error al obtener los métodos:', error);
-        } finally {
-            setLoading(false); 
-        }
-    };
+    const [selectedFilters, setSelectedFilters] = useState([]); 
+    const [isAscending, setIsAscending] = useState(true);
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
-        fetchMethods(); 
+        fetchMethods([]);
     }, []); 
+
+    const fetchMethods = async (filters) => {
+        try {
+            let response;
+            if (filters.length === 0) {
+                response = await fetch(`http://localhost:5000/api/metodos`);
+            } else {
+                const filtersToSend = filters.flat();
+                const filterParams = new URLSearchParams();
+                filterParams.append('filtros', JSON.stringify(filtersToSend));
+
+                response = await fetch(`http://localhost:5000/api/filtros_metodos?${filterParams}`);
+            }
+
+            const data = await response.json();
+            if (Array.isArray(data)) {
+                setMetodos(data);
+                setFilteredMethods(data);
+            } else {
+                console.error('La respuesta no es un arreglo:', data);
+                setFilteredMethods([]);
+            }
+        } catch (error) {
+            console.error('Error al obtener los métodos:', error);
+            setFilteredMethods([]);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleSearchChange = (e) => {
         const searchTerm = e.target.value.toLowerCase();
@@ -38,7 +56,24 @@ function PantallaPrincipalAdmin() {
             metodo.nombre_metodo.toLowerCase().includes(searchTerm)
         ); 
         setFilteredMethods(filtered); 
-    }; 
+    };
+
+    const handleApplyFilters = (updatedFilters) => {
+        setSelectedFilters(updatedFilters);
+        fetchMethods(updatedFilters);
+    };
+
+    const handleSortMethods = () => {
+        const sorted = [...filteredMethods].sort((a, b) => {
+            if (isAscending) {
+                return a.nombre_metodo.localeCompare(b.nombre_metodo);
+            } else {
+                return b.nombre_metodo.localeCompare(a.nombre_metodo);
+            }
+        });
+        setFilteredMethods(sorted);
+        setIsAscending(!isAscending); // Cambia el orden para la próxima vez
+    };
 
     const handleStart = (id) => {
         navigate(`/info-metodo-admin/${id}`); 
@@ -74,23 +109,39 @@ function PantallaPrincipalAdmin() {
     return (
         <>
             <HeaderAdmin/>
+
             <Container fluid>
                 <Row>
                     <Col xs={12} md={3} lg={2} className="bg-light">
-                         <Filtros />
+                        <Filtros onApplyFilters={handleApplyFilters} />
                     </Col>
                     <Col xs={12} md={9} lg={10}>
-                        <div className="d-flex flex-column align-items-center p-3"> 
-                            <Form.Control 
-                                type="text"
-                                placeholder="Ingresar nombre del método de evaluación"
-                                className="mb-4"
-                                style={{width: '100%'}}
-                                value={searchTerm}
-                                onChange={handleSearchChange} 
-                            />
-                           
-                            <Row className="justify-content-center" style={{width: '100%'}}>
+                        <div className="d-flex flex-column align-items-center p-3">
+                            <Row className="align-items-center mb-4" style={{ width: '100%' }}>
+                                <Col xs={9} md={10}>
+                                <InputGroup>
+                                    <InputGroup.Text>
+                                        <span className="material-icons">search</span>
+                                    </InputGroup.Text>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Ingresar nombre del método de evaluación"
+                                        value={searchTerm}
+                                        onChange={handleSearchChange}
+                                    />
+                                </InputGroup>
+                                </Col>
+                                <Col xs={3} md={2}>
+                                    <Button 
+                                        variant="secondary" 
+                                        onClick={handleSortMethods} 
+                                        style={{ width: '100%' }}>
+                                        Ordenar {isAscending ? 'A-Z' : 'Z-A'}
+                                    </Button>
+                                </Col>
+                            </Row>
+
+                            <Row className="justify-content-center" style={{ width: '100%' }}>
                                 {filteredMethods.map((metodo) => (
                                     <Col key={metodo.id_metodo} xs={12} md={10} lg={12} className="mb-4">
                                         <CardAdmin 
@@ -112,4 +163,4 @@ function PantallaPrincipalAdmin() {
     );
 }
 
-export default PantallaPrincipalAdmin; 
+export default PantallaPrincipalAdmin;

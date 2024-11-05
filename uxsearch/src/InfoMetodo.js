@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom'; 
 import Navbar from './Header';
+import Footer from './Footer';
 
 const InfoMetodo = () => {
   const { id } = useParams(); 
@@ -106,6 +107,7 @@ const InfoMetodo = () => {
           </Col>
         </Row>
       </Container>
+      <Footer/> 
     </>
   );
 };

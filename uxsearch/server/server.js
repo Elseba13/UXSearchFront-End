@@ -20,46 +20,60 @@ console.log('DB_PASSWORD:', process.env.PG_PASSWORD);
 app.use(cors());
 app.use(express.json());
 
+async function registrarAuditoria(client, tipo_movimiento, id_metodo, id_admin){
+  const timestamp = new Date(); 
+  await client.query(
+    'INSERT INTO auditoria (tipo_movimiento, id_metodo, fecha_auditoria, id_admin) VALUES ($1, $2, $3, $4)',
+    [tipo_movimiento, id_metodo, timestamp, id_admin]
+  ); 
+}
 
 app.post('/api/methods', async (req, res) => {
-    const { nombreMetodo, resumenMetodo, ventajasMetodo, desventajasMetodo, referenciaMetodo, filtros } = req.body;
-  
-    try {
-      const result = await pool.query(
-        'INSERT INTO métodos (nombre_metodo, resumen_metodo, ventajas_metodo, desventajas_metodo, referencia_metodo) VALUES ($1, $2, $3, $4, $5) RETURNING id_metodo',
-        [nombreMetodo, resumenMetodo, ventajasMetodo, desventajasMetodo, referenciaMetodo]
-      );
-      const metodoId = result.rows[0].id_metodo;
-  
-      if (filtros && typeof filtros === 'object') {
-        for (const [categoriaFiltro, valoresSeleccionados] of Object.entries(filtros)) {
-          if (Array.isArray(valoresSeleccionados)) {
-            for (const valor of valoresSeleccionados) {
-              const filtroResult = await pool.query(
-                'SELECT id_filtro FROM filtros WHERE nombre = $1',
-                [valor]
+  const { nombreMetodo, resumenMetodo, ventajasMetodo, desventajasMetodo, referenciaMetodo, filtros, usuarioId } = req.body;
+  const client = await pool.connect();
+
+  try {
+    await client.query('BEGIN'); // Iniciar transacción
+
+    const result = await client.query(
+      'INSERT INTO métodos (nombre_metodo, resumen_metodo, ventajas_metodo, desventajas_metodo, referencia_metodo) VALUES ($1, $2, $3, $4, $5) RETURNING id_metodo',
+      [nombreMetodo, resumenMetodo, ventajasMetodo, desventajasMetodo, referenciaMetodo]
+    );
+    const metodoId = result.rows[0].id_metodo;
+
+    if (filtros && typeof filtros === 'object') {
+      for (const [categoriaFiltro, valoresSeleccionados] of Object.entries(filtros)) {
+        if (Array.isArray(valoresSeleccionados)) {
+          for (const valor of valoresSeleccionados) {
+            const filtroResult = await client.query(
+              'SELECT id_filtro FROM filtros WHERE nombre = $1',
+              [valor]
+            );
+            if (filtroResult.rows.length > 0) {
+              const idFiltro = filtroResult.rows[0].id_filtro;
+              await client.query(
+                'INSERT INTO filtros_metodos (id_metodo, id_filtro) VALUES ($1, $2)',
+                [metodoId, idFiltro]
               );
-              if (filtroResult.rows.length > 0) {
-                const idFiltro = filtroResult.rows[0].id_filtro;
-                await pool.query(
-                  'INSERT INTO filtros_metodos (id_metodo, id_filtro) VALUES ($1, $2)',
-                  [metodoId, idFiltro]
-                );
-              } else {
-                //console.warn(`Filtro no encontrado: ${valor}`);
-              }
             }
           }
         }
       }
-  
-      res.status(201).json({ message: 'Método y filtros agregados correctamente' });
-    } catch (error) {
-      console.error('Error al insertar método y filtros:', error);
-      res.status(500).json({ error: 'Error al insertar método y filtros' });
     }
-  });
-  
+
+    
+    await registrarAuditoria(client, 'CREACIÓN', metodoId, usuarioId);
+
+    await client.query('COMMIT'); 
+    res.status(201).json({ message: 'Método y filtros agregados correctamente' });
+  } catch (error) {
+    await client.query('ROLLBACK'); 
+    console.error('Error al insertar método y filtros:', error);
+    res.status(500).json({ error: 'Error al insertar método y filtros' });
+  } finally {
+    client.release();
+  }
+});
   
 app.get('/api/metodos', async (req, res) => {
   try {
@@ -171,27 +185,38 @@ app.put('/editar-metodo/:id', async (req, res) => {
 
 */
 
+app.delete('/api/methods/:id', async(req,res)=>{
+  const {id} = req.params;
+  const {usuarioId} = req.body; 
 
-app.delete('/api/methods/:id', async(req,res) => {
-  const {id} = req.params; 
+  const client = await pool.connect(); 
 
-  try {
+  try{
+    await client.query('BEGIN'); 
 
-    await pool.query('DELETE FROM filtros_metodos WHERE id_metodo = $1', [id]); 
+    await client.query('DELETE FROM filtros_metodos WHERE id_metodo = $1', [id]);
 
-    const result = await pool.query('DELETE FROM métodos WHERE id_metodo = $1', [id]); 
+    const result = await client.query('DELETE FROM métodos WHERE id_metodo = $1 RETURNING nombre_metodo', [id]); 
 
     if(result.rowCount === 0){
-      return res.status(404).json({error: 'Metodo no encontrado'}); 
+      await client.query('ROLLBACK'); 
+      return res.status(404).json({ error: 'Metodo no encontrado'}); 
     }
-    
-    res.status(200).json({message: 'Método eliminado correctamente'}); 
 
-  }catch (error){
-    console.error('Error al eliminar al método:', error); 
+    const metodoId = result.rows[0].id_metodo;
+    await registrarAuditoria(client, 'ELIMINACIÓN', metodoId, usuarioId);
+
+    await client.query('COMMIT'); 
+    res.status(200).json({message: 'Método eliminado correctamente'});
+  } catch (error){
+    await client.query('ROLLBACK'); 
+    console.error('Error al eliminar el método:', error); 
     res.status(500).json({error: 'Error al eliminar el método'}); 
+  } finally {
+    client.release();
   }
-})
+
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
@@ -377,10 +402,12 @@ app.put('/editar-metodo-new/:id', async (req, res) => {
           ventajas_metodo,
           desventajas_metodo,
           referencia_metodo,
-          filtros_seleccionados
+          filtros_seleccionados,
+          usuarioId
       } = req.body;
 
-      // Actualizar los campos del método
+      await client.query('BEGIN'); // Iniciar transacción
+
       const updateMetodoQuery = `
           UPDATE Métodos 
           SET nombre_metodo = $1, resumen_metodo = $2, ventajas_metodo = $3, desventajas_metodo = $4, referencia_metodo = $5
@@ -388,7 +415,6 @@ app.put('/editar-metodo-new/:id', async (req, res) => {
       `;
       await client.query(updateMetodoQuery, [nombre_metodo, resumen_metodo, ventajas_metodo, desventajas_metodo, referencia_metodo, metodoId]);
 
-      // Obtener filtros actuales
       const filtrosActualesQuery = `
           SELECT ID_Filtro FROM Filtros_Metodos 
           WHERE ID_Metodo = $1;
@@ -396,12 +422,9 @@ app.put('/editar-metodo-new/:id', async (req, res) => {
       const { rows: filtrosActuales } = await client.query(filtrosActualesQuery, [metodoId]);
 
       const filtrosActualesIds = filtrosActuales.map(f => f.id_filtro); 
+      const filtrosAgregar = filtros_seleccionados.filter(filtro => !filtrosActualesIds.includes(filtro));
+      const filtrosEliminar = filtrosActualesIds.filter(filtro => !filtros_seleccionados.includes(filtro));
 
-      // Determinar nuevos filtros y filtros a eliminar
-      const filtrosAgregar = filtros_seleccionados.filter(filtro => !filtrosActualesIds.includes(filtro)); // Nuevos filtros
-      const filtrosEliminar = filtrosActualesIds.filter(filtro => !filtros_seleccionados.includes(filtro)); // Filtros desmarcados
-
-      // Eliminar filtros no seleccionados
       if (filtrosEliminar.length > 0) {
           const deleteFiltrosQuery = `
               DELETE FROM Filtros_Metodos 
@@ -410,19 +433,26 @@ app.put('/editar-metodo-new/:id', async (req, res) => {
           await client.query(deleteFiltrosQuery, [metodoId, filtrosEliminar]);
       }
 
-      // Agregar nuevos filtros
       if (filtrosAgregar.length > 0) {
           const insertFiltrosQuery = `
-              INSERT INTO Filtros_Metodos (ID_Metodo, ID_Filtro)
-              VALUES ${filtrosAgregar.map((_, i) => `($1, $${i + 2})`).join(', ')}; 
+              INSERT INTO Filtros_Metodos (ID_Metodo, ID_Filtro) 
+              VALUES ($1, unnest($2::int[]));
           `;
-          await client.query(insertFiltrosQuery, [metodoId, ...filtrosAgregar]);
+          await client.query(insertFiltrosQuery, [metodoId, filtrosAgregar]);
       }
 
-      res.json({ message: 'Método y filtros actualizados con éxito' });
+      const auditQuery = `
+          INSERT INTO auditoria (id_metodo, id_admin, fecha_auditoria, tipo_movimiento)
+          VALUES ($1, $2, NOW(), 'Edición');
+      `;
+      await client.query(auditQuery, [metodoId, usuarioId]);
+
+      await client.query('COMMIT'); // Confirmar transacción
+      res.status(200).json({ message: 'Método actualizado y auditoría registrada correctamente.' });
   } catch (error) {
-      console.error('Error al actualizar el método y los filtros:', error);
-      res.status(500).json({ message: 'Error al actualizar el método' });
+      await client.query('ROLLBACK'); // Revertir cambios en caso de error
+      console.error("Error al actualizar el método y los filtros:", error);
+      res.status(500).json({ message: 'Error al actualizar el método', error: error.message });
   } finally {
       client.release();
   }

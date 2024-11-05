@@ -51,7 +51,7 @@ const HomeAdmin = () => {
                 </div>
 
                 <div style={{width: '20%', textAlign: 'center'}}>
-                    <img src="https://cdn-icons-png.flaticon.com/512/84/84380.png" alt="Imagen 2" style={{width: '100%'}}/>
+                    <img src="https://cdn-icons-png.flaticon.com/512/84/84380.png" alt="Imagen 3" style={{width: '100%'}}/>
                     <h3 style={{marginTop: '1rem', color: '#006400'}}>Modificar los métodos de evaluación</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>                   
                 </div>

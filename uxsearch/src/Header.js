@@ -22,8 +22,7 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav mx-auto">
                         <a className="nav-link text-white" href="/pantalla-principal">Listado métodos</a>
-                        <a className="nav-link text-white" href="/explicacion-filtros">Explicación filtros</a>
-                        <a className="nav-link text-white" href="/dashboard">Métodos disponibles por filtros</a>              
+                        <a className="nav-link text-white" href="/explicacion-filtros">Explicación filtros</a>         
                     </div>
 
                 

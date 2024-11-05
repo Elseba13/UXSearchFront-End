@@ -47,13 +47,13 @@ const Home = () => {
 
                 <div style={{width: '20%', textAlign: 'center'}}>
                     <img src="https://cdn-icons-png.flaticon.com/512/13191/13191289.png" alt="Imagen 1" style={{width: '100%'}}/>
-                    <h3 style={{marginTop: '1rem'}}>Acerca de nosotros</h3>
+                    <h3 style={{marginTop: '1rem', color: '#0D6EFD'}}>Acerca de nosotros</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 </div>
 
                 <div style={{width: '20%', textAlign: 'center'}}>
                     <img src="https://cdn-icons-png.flaticon.com/512/12421/12421344.png" alt="Imagen 2" style={{width: '100%'}}/>
-                    <h3 style={{marginTop: '1rem'}}>¿Cual es nuestro objetivo?</h3>
+                    <h3 style={{marginTop: '1rem', color: '#0D6EFD'}}>¿Cual es nuestro objetivo?</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>                   
                 </div>
             </section>

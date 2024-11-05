@@ -79,8 +79,6 @@ function PantallaPrincipal() {
     return (
         <>
             <Navbar />
-<<<<<<< HEAD
-=======
             <div className="container my-4">
                 <ComponenteAyuda
                 titulo="Ayuda: Explicación de Filtros"
@@ -103,7 +101,6 @@ function PantallaPrincipal() {
                 }
                 />
             </div>
->>>>>>> cc6c4ea0e56385d8d3ca03db0c6b1e2259a6605b
 
             <Container fluid>
                 <Row>
@@ -121,38 +118,6 @@ function PantallaPrincipal() {
                     <Col xs={12} md={9} lg={10}>
                         <br />
                         <div className="d-flex flex-column align-items-center p-3">
-<<<<<<< HEAD
-                            <div className="container my-4">
-                                <ComponenteAyuda
-                                    titulo="Ayuda: Explicación de Filtros"
-                                    contenido={
-                                        <p>
-                                        En esta pantalla encontrarás todos los métodos de evaluación disponibles en el sitio UxSearch
-                                        <br />
-                                        <br />
-                                        En el costado izquierdo puedes utilizar el sistema de filtrado, permitiendo seleccionar los filtros que se adecuen a lo que buscas.
-                                        <br />
-                                        <br />
-                                        En la parte superior encontrarás la barra de búsqueda predictiva, por lo que funcionará independiente ingreses una letra, un nombre de un método incompleto o completo.
-                                        <br />
-                                        <br />
-                                        Es importante que ingreses correctamente el nombre del método buscado, respetando tíldes y ortografía, si no lo haces, podrías no encontrar el método.
-                                        <br />
-                                        <br />
-                                        Finalmente en la parte inferior a la barra de búsqueda podrás visualizar el listado de métodos, donde se presentará el nombre, resúmen, y el botón "Leer más", que te permitirá obtener la información completa del método de evaluación.
-                                        </p>
-                                    }   
-                                />
-                            </div>
-                            <Form.Control
-                                type="text"
-                                placeholder="Ingresar nombre del método de evaluación"
-                                className="mb-4"
-                                style={{ width: '100%' }}
-                                value={searchTerm}
-                                onChange={handleSearchChange}
-                            />
-=======
                         <Row className="align-items-center mb-4" style={{ width: '100%' }}>
                         <Col xs={9} md={10}>
                             <InputGroup>
@@ -177,7 +142,6 @@ function PantallaPrincipal() {
                         </Col>
                     </Row>
 
->>>>>>> cc6c4ea0e56385d8d3ca03db0c6b1e2259a6605b
 
                             <Row className="justify-content-center" style={{ width: '100%' }}>
                                 {filteredMethods.map((metodo) => (
