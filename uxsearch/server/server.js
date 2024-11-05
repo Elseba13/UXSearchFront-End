@@ -63,7 +63,7 @@ app.post('/api/methods', async (req, res) => {
   
 app.get('/api/metodos', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM métodos');
+    const result = await pool.query('SELECT * FROM métodos WHERE nombre_metodo IS NOT NULL');
     res.json(result.rows);
   } catch (error) {
     console.error('Error al obtener los métodos:', error);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Filtros from "./Filtros";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Card, InputGroup } from "react-bootstrap";
 import Navbar from "./Header";
 import ComponenteAyuda from './ComponenteAyuda';
 
@@ -11,6 +11,7 @@ function PantallaPrincipal() {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredMethods, setFilteredMethods] = useState([]);
     const [selectedFilters, setSelectedFilters] = useState([]); 
+    const [isAscending, setIsAscending] = useState(true);
 
     useEffect(() => {
         fetchMethods([]);
@@ -56,15 +57,27 @@ function PantallaPrincipal() {
         navigate(`/info-metodo/${id}`);
     };
 
+    
     const handleApplyFilters = (updatedFilters) => {
         setSelectedFilters(updatedFilters);
         fetchMethods(updatedFilters);
+    };
+    
+    const handleSortMethods = () => {
+        const sorted = [...filteredMethods].sort((a, b) => {
+            if (isAscending) {
+                return a.nombre_metodo.localeCompare(b.nombre_metodo);
+            } else {
+                return b.nombre_metodo.localeCompare(a.nombre_metodo);
+            }
+        });
+        setFilteredMethods(sorted);
+        setIsAscending(!isAscending); // Cambia el orden para la próxima vez
     };
 
     return (
         <>
             <Navbar />
-
             <div className="container my-4">
                 <ComponenteAyuda
                 titulo="Ayuda: Explicación de Filtros"
@@ -91,19 +104,43 @@ function PantallaPrincipal() {
             <Container fluid>
                 <Row>
                     <Col xs={12} md={3} lg={2} className="bg-light">
-                        <Filtros onApplyFilters={handleApplyFilters} />
+                        <Filtros onApplyFilters={fetchMethods} />
                     </Col>
 
+                    {/* 
+                    <Col xs={12} md={3} lg={2} className="bg-light">
+                        <Filtros onApplyFilters={handleApplyFilters} />
+                    </Col>
+                    }*/}
+                    
+
                     <Col xs={12} md={9} lg={10}>
+                        <br />
                         <div className="d-flex flex-column align-items-center p-3">
-                            <Form.Control
-                                type="text"
-                                placeholder="Ingresar nombre del método de evaluación"
-                                className="mb-4"
-                                style={{ width: '100%' }}
-                                value={searchTerm}
-                                onChange={handleSearchChange}
-                            />
+                        <Row className="align-items-center mb-4" style={{ width: '100%' }}>
+                        <Col xs={9} md={10}>
+                            <InputGroup>
+                                <InputGroup.Text>
+                                    <span className="material-icons">search</span>
+                                </InputGroup.Text>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Ingresar nombre del método de evaluación"
+                                    value={searchTerm}
+                                    onChange={handleSearchChange}
+                                />
+                            </InputGroup>
+                        </Col>
+                        <Col xs={3} md={2}>
+                            <Button 
+                                variant="secondary" 
+                                onClick={handleSortMethods} 
+                                style={{ width: '100%' }}>
+                                Ordenar {isAscending ? 'A-Z' : 'Z-A'}
+                            </Button>
+                        </Col>
+                    </Row>
+
 
                             <Row className="justify-content-center" style={{ width: '100%' }}>
                                 {filteredMethods.map((metodo) => (
