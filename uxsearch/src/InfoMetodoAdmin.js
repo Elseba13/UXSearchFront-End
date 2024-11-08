@@ -46,8 +46,8 @@ const InfoMetodoAdmin = () => {
     <>
       <Navbar />
       <Container fluid className="mt-3">
-        <Button variant="outline-primary" onClick={() => navigate('/pantalla-principal-admin')}>
-          <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: '#007bff' }}>
+        <Button variant="outline-primary" style={{ color: '#FFFFFF', borderColor: '#006400', backgroundColor: '#006400'}} onClick={() => navigate('/pantalla-principal-admin')}>
+          <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: '#FFFFFF' }}>
             arrow_back
           </span>
           Regresar al listado de métodos
@@ -64,8 +64,8 @@ const InfoMetodoAdmin = () => {
 
                 <Row>
                   <Col>
-                    <div style={{ border: '1px solid #007bff', padding: '15px', borderRadius: '8px' }}>
-                      <h5 style={{ color: '#007bff' }}>Ventajas</h5>
+                    <div style={{ border: '1px solid #006400', padding: '15px', borderRadius: '8px' }}>
+                      <h5 style={{ color: '#006400' }}>Ventajas</h5>
                       <ul>
                         {parseList(metodo.ventajas_metodo).map((ventaja, index) => (
                           <li key={index}>{ventaja}</li>
@@ -74,8 +74,8 @@ const InfoMetodoAdmin = () => {
                     </div>
                   </Col>
                   <Col>
-                    <div style={{ border: '1px solid #007bff', padding: '15px', borderRadius: '8px' }}>
-                      <h5 style={{ color: '#007bff' }}>Desventajas</h5>
+                    <div style={{ border: '1px solid #006400', padding: '15px', borderRadius: '8px' }}>
+                      <h5 style={{ color: '#006400' }}>Desventajas</h5>
                       <ul>
                         {parseList(metodo.desventajas_metodo).map((desventaja, index) => (
                           <li key={index}>{desventaja}</li>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 
-const ComponenteAyuda = ({ titulo, contenido }) => {
+const ComponenteAyuda = ({ titulo, contenido, botonEstilo, botonCerrarEstilo }) => {
   const [show, setShow] = useState(false);
 
   const handleShow = () => setShow(true);
@@ -10,7 +10,7 @@ const ComponenteAyuda = ({ titulo, contenido }) => {
   return (
     <>
         <Button variant="outline-primary" onClick={handleShow}
-        style={{ position: 'absolute', top: '65px', right: '10px' }}>
+        style={{ position: 'absolute', top: '65px', right: '10px',  ...botonEstilo }}>
             <span className="material-icons" style={{ verticalAlign: 'middle' }}>help_outline</span>
         </Button>
 
@@ -20,7 +20,7 @@ const ComponenteAyuda = ({ titulo, contenido }) => {
         </Modal.Header>
         <Modal.Body>{contenido}</Modal.Body>
         <Modal.Footer>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" style={botonCerrarEstilo} onClick={handleClose}>
             Cerrar
             </Button>
         </Modal.Footer>

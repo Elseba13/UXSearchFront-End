@@ -81,13 +81,13 @@ function PantallaPrincipal() {
             <Navbar />
             <div className="container my-4">
                 <ComponenteAyuda
-                titulo="Ayuda: Explicación de Filtros"
+                titulo="Ayuda: Listado de métodos"
                 contenido={
                     <p>
                     En esta pantalla encontrarás todos los métodos de evaluación disponibles en el sitio UxSearch
                     <br />
                     <br />
-                    En el costado izquierdo puedes utilizar el sistema de filtrado, permitiendo seleccionar los filtros que se adecuen a lo que buscas.
+                    En el costado izquierdo puedes utilizar el sistema de filtrado, te permitirá seleccionar los filtros que se adecuen a lo que buscas.
                     <br />
                     <br />
                     En la parte superior encontrarás la barra de búsqueda predictiva, por lo que funcionará independiente ingreses una letra, un nombre de un método incompleto o completo.

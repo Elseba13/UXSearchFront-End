@@ -148,12 +148,20 @@ function EditarMetodo() {
                     Recuerda dejar al menos un filtro para el método.
                     </p>
                 }
+                botonEstilo={{
+                    color: '#006400',
+                    borderColor: '#006400',
+                  }}
+                  botonCerrarEstilo={{
+                    borderColor: '#006400',
+                    backgroundColor: '#006400',
+                  }}
                 />
             </div>
 
             <div className="position-absolute" style={{ top: '65px', left: '20px' }}>
-                <Button variant="outline-primary" onClick={() => navigate('/pantalla-principal-admin')}>
-                <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: '#007bff' }}>
+                <Button variant="outline-primary" style={{ color: '#FFFFFF', borderColor: '#006400', backgroundColor: '#006400'}} onClick={() => navigate('/pantalla-principal-admin')}>
+                <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: '#FFFFFF' }}>
                     arrow_back
                 </span>
                 Regresar al listado de métodos
@@ -275,7 +283,7 @@ function EditarMetodo() {
                                     </Form.Group>
 
 
-                                    <Button variant="primary" type="submit" className="mt-3 mx-auto d-block">
+                                    <Button variant="primary" type="submit" style={{backgroundColor: '#006400'}} className="mt-3 mx-auto d-block">
                                         Guardar Cambios
                                     </Button>
                                 </Form>
