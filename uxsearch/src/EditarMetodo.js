@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom"; 
-import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Card, Modal } from "react-bootstrap";
 import HeaderAdmin from "./HeaderAdmin";
 import ComponenteAyuda from './ComponenteAyuda';
+
 
 function EditarMetodo() {
     const { id } = useParams(); 
@@ -12,6 +13,7 @@ function EditarMetodo() {
     const [nombreOriginal, setNombreOriginal] = useState('');
     const [filters, setFilters] = useState([]);
     const [selectedFilters, setSelectedFilters] = useState([]);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
     useEffect(() => {
         const fetchMetodo = async () => {
@@ -89,7 +91,8 @@ function EditarMetodo() {
     
             if (response.ok) {
                 console.log("Método actualizado correctamente");
-                navigate('/pantalla-principal-admin');
+                setShowSuccessMessage(true);
+                setTimeout(()=> setShowSuccessMessage(false), 3000)
             } else {
                 console.log("Error al actualizar el método");
             }
@@ -110,6 +113,19 @@ function EditarMetodo() {
     return (
         <>
             <HeaderAdmin />
+            <Modal show={showSuccessMessage} onHide={() => setShowSuccessMessage(false)}centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>¡Éxito!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    El método se ha editado correctamente.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="succes" onClick={() => setShowSuccessMessage(false)} href="/pantalla-principal-admin">
+                        Cerrar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             <div className="container my-4">
                 <ComponenteAyuda
                 titulo="Instructivo para agregar un método"

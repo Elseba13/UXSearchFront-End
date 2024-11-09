@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import HeaderAdmin from "./HeaderAdmin"; 
 import { useNavigate } from 'react-router-dom'; 
-import { Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import ComponenteAyuda from './ComponenteAyuda';
 import FooterAdmin from './FooterAdmin';
 
@@ -25,6 +25,8 @@ const AgregarMetodo = () => {
     componentesExperiencia: [],
     popularidad: [],
   });
+
+  const [showModal, setShowModal] = useState(false); 
 
   const handleCheckboxChange = (categoria, valor) => {
     setFiltros((prevFiltros) => {
@@ -59,6 +61,8 @@ const AgregarMetodo = () => {
       if (response.ok) {
         const data = await response.json();
         console.log('Método agregado:', data);
+
+        setShowModal(true); //Se muestra el modal de confirmación
   
         // Reinicia los estados del formulario para limpiarlo
         setNombreMetodo('');
@@ -86,6 +90,8 @@ const AgregarMetodo = () => {
       console.error('Error al conectar con el servidor:', error);
     }
   };
+
+  const handleCloseModal = () => setShowModal(false); 
 
   return (
     <>
@@ -538,6 +544,29 @@ const AgregarMetodo = () => {
       <br />
       <br />
       <FooterAdmin/> 
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>¡Método agregado con éxito!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          El método se ha agregado correctamente. ¿Quieres agregar otro método o regresar al listado de métodos?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant='secondary' onClick={handleCloseModal}>
+              Cerrar
+          </Button>
+          <Button
+              variant="primary"
+              onClick={() => {
+                handleCloseModal(); 
+                navigate('/pantalla-principal-admin'); 
+              }}
+          >
+            Regresar al listado
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
