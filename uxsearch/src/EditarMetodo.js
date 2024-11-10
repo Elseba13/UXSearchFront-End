@@ -4,7 +4,6 @@ import { Form, Button, Container, Row, Col, Card, Modal } from "react-bootstrap"
 import HeaderAdmin from "./HeaderAdmin";
 import ComponenteAyuda from './ComponenteAyuda';
 
-
 function EditarMetodo() {
     const { id } = useParams(); 
     const navigate = useNavigate();  
@@ -14,6 +13,7 @@ function EditarMetodo() {
     const [filters, setFilters] = useState([]);
     const [selectedFilters, setSelectedFilters] = useState([]);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [errors, setErrors] = useState({});  // Estado para almacenar los errores de validación
 
     useEffect(() => {
         const fetchMetodo = async () => {
@@ -43,7 +43,7 @@ function EditarMetodo() {
     
         fetchMetodo();
     }, [id]);
-    
+
     // Agrupar filtros por categoría
     const groupedFilters = filters.reduce((acc, filter) => {
         const { nombre_categoria, id_filtro, nombre } = filter;
@@ -70,16 +70,28 @@ function EditarMetodo() {
         }
     };
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
+    
+        const newErrors = {}; // Objeto para almacenar los errores de validación
+    
+        
+        // Validación de filtros seleccionados
+        if (selectedFilters.length === 0) {
+            newErrors.filtros_seleccionados = "Debe seleccionar al menos un filtro.";
+        }
+    
+        // Mostrar los errores si los hay
+        setErrors(newErrors);
+    
+        // Si hay errores, no enviar el formulario
+        if (Object.keys(newErrors).length > 0) return;
+    
         try {
             const updatedData = {
                 ...metodo,
                 filtros_seleccionados: selectedFilters,
             };
-    
-            console.log("Datos enviados al backend:", updatedData); // Verifica los datos antes de enviarlos
     
             const response = await fetch(`http://localhost:5000/editar-metodo-new/${id}`, {
                 method: 'PUT',
@@ -90,9 +102,8 @@ function EditarMetodo() {
             });
     
             if (response.ok) {
-                console.log("Método actualizado correctamente");
                 setShowSuccessMessage(true);
-                setTimeout(()=> setShowSuccessMessage(false), 3000)
+                setTimeout(() => setShowSuccessMessage(false), 3000);
             } else {
                 console.log("Error al actualizar el método");
             }
@@ -113,7 +124,7 @@ function EditarMetodo() {
     return (
         <>
             <HeaderAdmin />
-            <Modal show={showSuccessMessage} onHide={() => setShowSuccessMessage(false)}centered>
+            <Modal show={showSuccessMessage} onHide={() => setShowSuccessMessage(false)} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>¡Éxito!</Modal.Title>
                 </Modal.Header>
@@ -121,16 +132,16 @@ function EditarMetodo() {
                     El método se ha editado correctamente.
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="succes" onClick={() => setShowSuccessMessage(false)} href="/pantalla-principal-admin">
+                    <Button variant="success" onClick={() => setShowSuccessMessage(false)} href="/pantalla-principal-admin">
                         Cerrar
                     </Button>
                 </Modal.Footer>
             </Modal>
             <div className="container my-4">
                 <ComponenteAyuda
-                titulo="Instructivo para agregar un método"
-                contenido={
-                    <p>
+                    titulo="Instructivo para agregar un método"
+                    contenido={
+                        <p>
                     En esta pantalla encontrarás un formulario que te permitirá editar los campos de un método de UxSearch
                     <br />
                     <br />
@@ -163,39 +174,33 @@ function EditarMetodo() {
                     <br />
                     Recuerda dejar al menos un filtro para el método.
                     </p>
-                }
-                botonEstilo={{
-                    color: '#006400',
-                    borderColor: '#006400',
-                  }}
-                  botonCerrarEstilo={{
-                    borderColor: '#006400',
-                    backgroundColor: '#006400',
-                  }}
+                    }
+                    botonEstilo={{ color: '#006400', borderColor: '#006400' }}
+                    botonCerrarEstilo={{ borderColor: '#006400', backgroundColor: '#006400' }}
                 />
             </div>
 
             <div className="position-absolute" style={{ top: '65px', left: '20px' }}>
                 <Button variant="outline-primary" style={{ color: '#FFFFFF', borderColor: '#006400', backgroundColor: '#006400'}} onClick={() => navigate('/pantalla-principal-admin')}>
-                <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: '#FFFFFF' }}>
-                    arrow_back
-                </span>
-                Regresar al listado de métodos
+                    <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: '#FFFFFF' }}>
+                        arrow_back
+                    </span>
+                    Regresar al listado de métodos
                 </Button>
             </div>
-            <br />
-            <br />
+
+            <br /><br />
 
             <div className="container my-4">
                 <Row className="justify-content-center">
                     <Col xs={12} md={10} lg={8}>
                         <div className="alert alert-warning d-flex align-items-center" role="alert">
-                        <span className="material-icons" style={{ marginRight: '8px' }}>warning</span>
-                        <span>
-                            Por favor, haz clic en el ícono de ayuda 
-                            <span className="material-icons" style={{ marginLeft: '8px', verticalAlign: 'middle' }}>help_outline</span> 
-                            antes de comenzar a llenar el formulario.
-                        </span>
+                            <span className="material-icons" style={{ marginRight: '8px' }}>warning</span>
+                            <span>
+                                Por favor, haz clic en el ícono de ayuda 
+                                <span className="material-icons" style={{ marginLeft: '8px', verticalAlign: 'middle' }}>help_outline</span> 
+                                antes de comenzar a llenar el formulario.
+                            </span>
                         </div>
                     </Col>
                 </Row>
@@ -230,6 +235,7 @@ function EditarMetodo() {
                                             onChange={handleChange}
                                             required
                                         />
+                                        <Form.Control.Feedback type="invalid">{errors.nombre_metodo}</Form.Control.Feedback>
                                     </Form.Group>
 
                                     <Form.Group controlId="formResumenMetodo" className="mt-3">
@@ -242,6 +248,7 @@ function EditarMetodo() {
                                             onChange={handleChange}
                                             required
                                         />
+                                        <Form.Control.Feedback type="invalid">{errors.resumen_metodo}</Form.Control.Feedback>
                                     </Form.Group>
 
                                     <Form.Group controlId="formVentajasMetodo" className="mt-3">
@@ -252,6 +259,7 @@ function EditarMetodo() {
                                             name="ventajas_metodo"
                                             value={metodo.ventajas_metodo || ''} 
                                             onChange={handleChange}
+                                            required
                                         />
                                     </Form.Group>
 
@@ -263,6 +271,7 @@ function EditarMetodo() {
                                             name="desventajas_metodo"
                                             value={metodo.desventajas_metodo || ''} 
                                             onChange={handleChange}
+                                            required
                                         />
                                     </Form.Group>
 
@@ -274,7 +283,9 @@ function EditarMetodo() {
                                             name="referencia_metodo"
                                             value={metodo.referencia_metodo || ''} 
                                             onChange={handleChange}
+                                            required
                                         />
+                                        <Form.Control.Feedback type="invalid">{errors.referencia_metodo}</Form.Control.Feedback>
                                     </Form.Group>
 
                                     <Form.Group controlId="formFiltrosMetodo" className="mt-3">
@@ -296,8 +307,10 @@ function EditarMetodo() {
                                                 <hr />
                                             </div>
                                         ))}
+                                        {errors.filtros_seleccionados && (
+                                            <div className="text-danger">{errors.filtros_seleccionados}</div>
+                                        )}
                                     </Form.Group>
-
 
                                     <Button variant="primary" type="submit" style={{backgroundColor: '#006400'}} className="mt-3 mx-auto d-block">
                                         Guardar Cambios

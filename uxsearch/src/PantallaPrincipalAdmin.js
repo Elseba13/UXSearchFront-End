@@ -109,44 +109,58 @@ function PantallaPrincipalAdmin() {
     return (
         <>
             <HeaderAdmin/>
-            <br />
-      <div className="container my-4">
-        <ComponenteAyuda
-          titulo="Ayuda: Listado de métodos"
-          contenido={
-            <p>
-              Bienvenido a la pantalla de administrador y listado de métodos.
-              <br />
-              <br />
-              Con las funciones de administrador en el listado de métodos, podrás visualizar los métodos disponibles de UxSearch, modificar su información, o simplemente eliminarlos.
-              <br />
-              <br />
-              En el costado izquierdo puedes utilizar el sistema de filtrado, te permitirá seleccionar los filtros que se adecuen a lo que buscas.
-              <br />
-                    <br />
-                    En la parte superior encontrarás la barra de búsqueda predictiva, por lo que funcionará independiente ingreses una letra, un nombre de un método incompleto o completo.
-                    <br />
-                    <br />
-                    Es importante que ingreses correctamente el nombre del método buscado, respetando tíldes y ortografía, si no lo haces, podrías no encontrar el método.
-                    <br />
-                    <br />
-                    En la parte inferior a la barra de búsqueda podrás visualizar el listado de métodos, donde se presentará el nombre, resúmen, y el botón "Leer más", que te permitirá obtener la información completa del método de evaluación.
-                    <br />
-                    <br />
-                    Gracias a las funciones de administrador, se agregó un nuevo botón <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: '#006400' }}> more_vert </span>
-                    que te permitirá acceder a las funciones Editar y Eliminar.
-            </p>
-          }
-          botonEstilo={{
-            color: '#006400',
-            borderColor: '#006400',
-          }}
-          botonCerrarEstilo={{
-            borderColor: '#006400',
-            backgroundColor: '#006400',
-          }}
-        />
-      </div>
+        <div className="container my-4">
+            <ComponenteAyuda
+            titulo="Ayuda: Listado de métodos"
+            contenido={
+                <p>
+                Bienvenido a la pantalla de administrador y listado de métodos.
+                <br />
+                <br />
+                Con las funciones de administrador en el listado de métodos, podrás visualizar los métodos disponibles de UxSearch, modificar su información, o simplemente eliminarlos.
+                <br />
+                <br />
+                En el costado izquierdo puedes utilizar el sistema de filtrado, te permitirá seleccionar los filtros que se adecuen a lo que buscas.
+                <br />
+                        <br />
+                        En la parte superior encontrarás la barra de búsqueda predictiva, por lo que funcionará independiente ingreses una letra, un nombre de un método incompleto o completo.
+                        <br />
+                        <br />
+                        Es importante que ingreses correctamente el nombre del método buscado, respetando tíldes y ortografía, si no lo haces, podrías no encontrar el método.
+                        <br />
+                        <br />
+                        En la parte inferior a la barra de búsqueda podrás visualizar el listado de métodos, donde se presentará el nombre, resúmen, y el botón "Leer más", que te permitirá obtener la información completa del método de evaluación.
+                        <br />
+                        <br />
+                        Gracias a las funciones de administrador, se agregó un nuevo botón <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: '#006400' }}> more_vert </span>
+                        que te permitirá acceder a las funciones Editar y Eliminar.
+                </p>
+            }
+            botonEstilo={{
+                color: '#006400',
+                borderColor: '#006400',
+            }}
+            botonCerrarEstilo={{
+                borderColor: '#006400',
+                backgroundColor: '#006400',
+            }}
+            />
+        </div>
+
+        <div className="container my-4">
+            <Row className="justify-content-center">
+                <Col xs={10} md={9} lg={9}>
+                    <div className="alert alert-warning d-flex align-items-center" role="alert">
+                    <span className="material-icons" style={{ marginRight: '8px' }}>warning</span>
+                    <span>
+                        Por favor, haz clic en el ícono de ayuda 
+                        <span className="material-icons" style={{ marginLeft: '8px', verticalAlign: 'middle' }}>help_outline </span>  
+                        ‎ si deseas obtener información sobre el listado de métodos.
+                    </span>
+                    </div>
+                </Col>
+            </Row>
+        </div>
 
             <Container fluid>
                 <Row>

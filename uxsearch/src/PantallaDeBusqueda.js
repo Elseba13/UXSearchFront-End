@@ -102,6 +102,21 @@ function PantallaPrincipal() {
                 />
             </div>
 
+            <div className="container my-4">
+                <Row className="justify-content-center">
+                    <Col xs={10} md={9} lg={9}>
+                        <div className="alert alert-warning d-flex align-items-center" role="alert">
+                        <span className="material-icons" style={{ marginRight: '8px' }}>warning</span>
+                        <span>
+                            Por favor, haz clic en el ícono de ayuda 
+                            <span className="material-icons" style={{ marginLeft: '8px', verticalAlign: 'middle' }}>help_outline </span>  
+                            ‎ si deseas obtener información sobre el listado de métodos.
+                        </span>
+                        </div>
+                    </Col>
+                </Row>
+            </div>
+
             <Container fluid>
                 <Row>
                     <Col xs={12} md={3} lg={2} className="bg-light">
@@ -116,7 +131,6 @@ function PantallaPrincipal() {
                     
 
                     <Col xs={12} md={9} lg={10}>
-                        <br />
                         <div className="d-flex flex-column align-items-center p-3">
                         <Row className="align-items-center mb-4" style={{ width: '100%' }}>
                         <Col xs={9} md={10}>

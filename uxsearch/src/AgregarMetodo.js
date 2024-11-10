@@ -170,7 +170,7 @@ const AgregarMetodo = () => {
 
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <div className="text-center" style={{ fontSize: '1.2rem' }}>Ingrese el nombre del método</div>
+              <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingrese el nombre del método</div>
               <input
                 type="text"
                 className="form-control"
@@ -181,7 +181,7 @@ const AgregarMetodo = () => {
               />
             </div>
             <div className="mb-3">
-              <div className="text-center" style={{ fontSize: '1.2rem' }}>Ingrese un resumen del método</div>
+              <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingrese un resumen del método</div>
               <textarea
                 className="form-control"
                 value={resumenMetodo}
@@ -191,7 +191,7 @@ const AgregarMetodo = () => {
               />
             </div>
             <div className="mb-3">
-              <div className="text-center" style={{ fontSize: '1.2rem' }}>Ingrese las ventajas del método</div>
+              <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingrese las ventajas del método</div>
               <textarea
                 className="form-control"
                 value={ventajasMetodo}
@@ -201,7 +201,7 @@ const AgregarMetodo = () => {
               />
             </div>
             <div className="mb-3">
-              <div className="text-center" style={{ fontSize: '1.2rem' }}>Ingrese las desventajas del método</div>
+              <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingrese las desventajas del método</div>
               <textarea
                 className="form-control"
                 value={desventajasMetodo}
@@ -211,7 +211,7 @@ const AgregarMetodo = () => {
               />
             </div>
             <div className="mb-3">
-              <div className="text-center" style={{ fontSize: '1.2rem' }}>Ingrese la referencia del método</div>
+              <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingrese la referencia del método</div>
               <input
                 type="text"
                 className="form-control"

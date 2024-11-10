@@ -41,19 +41,21 @@ const HomeAdmin = () => {
                 <div style={{width: '20%', textAlign: 'center'}}>
                     <img src="https://cdn-icons-png.flaticon.com/512/1091/1091916.png" alt="Imagen 1" style={{width: '100%'}}/>
                     <h3 style={{marginTop: '1rem', color: '#006400'}}>Agregar métodos de evaluación</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p>Serás capaz de agregar nuevos métodos al sitio UxSearch, ingresando los datos más relevantes de un método, como un resumen, ventajas, desventajas, filtros para su búsqueda eficiente, entre otros datos.
+                        Esto permitirá mantener actualizada la lista de métodos disponibles, expandiendo la información que los usuarios puedan recibir.
+                    </p>
                 </div>
 
                 <div style={{width: '20%', textAlign: 'center'}}>
                     <img src="https://cdn-icons-png.flaticon.com/512/3984/3984276.png" alt="Imagen 2" style={{width: '100%'}}/>
                     <h3 style={{marginTop: '1rem', color: '#006400'}}>Eliminar métodos de evaluación</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>                   
+                    <p>Esta opción te permitirá realizar la eliminación de los métodos que no sean relevantes, o eficientes para el aporte a los usuarios, logrando entregar información más acertada a las necesidades actuales.</p>                   
                 </div>
 
                 <div style={{width: '20%', textAlign: 'center'}}>
                     <img src="https://cdn-icons-png.flaticon.com/512/84/84380.png" alt="Imagen 3" style={{width: '100%'}}/>
                     <h3 style={{marginTop: '1rem', color: '#006400'}}>Modificar los métodos de evaluación</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>                   
+                    <p>Gracias a la herramienta de modificación de métodos, podrás actualizar la información de todos los métodos disponibles, permitiendo que los métodos actuales se encuentren actualizados con los últimos conocimientos disponibles.</p>                   
                 </div>
 
             </section>
