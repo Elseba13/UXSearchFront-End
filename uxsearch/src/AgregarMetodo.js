@@ -28,6 +28,7 @@ const AgregarMetodo = () => {
 
   const [showModal, setShowModal] = useState(false); 
   const [errorFiltros, setErrorFiltros] = useState(''); // Estado para el mensaje de error
+  const [errores, setErrores] = useState({});
 
   const handleCheckboxChange = (categoria, valor) => {
     setFiltros((prevFiltros) => {
@@ -38,36 +39,43 @@ const AgregarMetodo = () => {
     });
   };
 
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Verifica si al menos un filtro tiene valores seleccionados
+  
+    // Validación de los campos del formulario
+    const erroresValidacion = validarCampos(nombreMetodo, resumenMetodo, ventajasMetodo, desventajasMetodo, referenciaMetodo);
+    if (Object.keys(erroresValidacion).length > 0) {
+      setErrores(erroresValidacion);
+      return;
+    }
+  
+    // Validación de los filtros (verifica si al menos un filtro tiene valores seleccionados)
     const filtroSeleccionado = Object.values(filtros).some((categoria) => categoria.length > 0);
     if (!filtroSeleccionado) {
       setErrorFiltros('Por favor, selecciona al menos un filtro.');
       return;
     }
-
-    setErrorFiltros('');
-    
-
+  
+    // Verificación de si el nombre del método ya existe en el servidor
     try {
-      const checkResponse = await fetch(`http://localhost:5000/api/metodoNombreVerificar?nombre=${nombreMetodo}`); 
-      if(checkResponse.ok){
-        const metodoExistente = await checkResponse.json(); 
-        console.log('Respuesta del servidor: ', metodoExistente);
-        if(metodoExistente.exists){
-          setErrorFiltros('Ya existe un método con este nombre. Intente con otro nombre.'); 
-          return; 
+      const checkResponse = await fetch(`http://localhost:5000/api/metodoNombreVerificar?nombre=${nombreMetodo}`);
+      if (checkResponse.ok) {
+        const metodoExistente = await checkResponse.json();
+        if (metodoExistente.exists) {
+          setErrorFiltros('Ya existe un método con este nombre. Intente con otro nombre.');
+          return;
         }
-      }else {
+      } else {
         console.error('Error al verificar el método existente');
       }
     } catch (error) {
-      console.error('Error al conectar con el servidor para verificación:', error); 
-      return; 
+      console.error('Error al conectar con el servidor para verificación:', error);
+      return;
     }
-
+  
+    // Preparación de los datos para el envío al servidor
     const metodo = {
       nombreMetodo,
       resumenMetodo,
@@ -76,7 +84,8 @@ const AgregarMetodo = () => {
       referenciaMetodo,
       filtros,
     };
-
+  
+    // Enviar los datos al servidor
     try {
       const response = await fetch('http://localhost:5000/api/methods', {
         method: 'POST',
@@ -85,14 +94,14 @@ const AgregarMetodo = () => {
         },
         body: JSON.stringify(metodo),
       });
-
+  
       if (response.ok) {
         const data = await response.json();
         console.log('Método agregado:', data);
-
-        setShowModal(true); // Se muestra el modal de confirmación
-
-        // Reinicia los estados del formulario para limpiarlo
+  
+        setShowModal(true); // Mostrar el modal de confirmación
+  
+        // Limpiar el formulario después de éxito
         setNombreMetodo('');
         setResumenMetodo('');
         setVentajasMetodo('');
@@ -118,6 +127,30 @@ const AgregarMetodo = () => {
       console.error('Error al conectar con el servidor:', error);
     }
   };
+
+  // Función de validación de los campos del formulario
+const validarCampos = (nombreMetodo, resumenMetodo, ventajasMetodo, desventajasMetodo, referenciaMetodo) => {
+  const errores = {};
+
+  // Validación de los campos obligatorios
+  if (!nombreMetodo.trim()) {
+    errores.nombreMetodo = 'El nombre del método es obligatorio.';
+  }
+  if (!resumenMetodo.trim()) {
+    errores.resumenMetodo = 'El resumen del método es obligatorio.';
+  }
+  if (!ventajasMetodo.trim()) {
+    errores.ventajasMetodo = 'Las ventajas del método son obligatorias.';
+  }
+  if (!desventajasMetodo.trim()) {
+    errores.desventajasMetodo = 'Las desventajas del método son obligatorias.';
+  }
+  if (!referenciaMetodo.trim()) {
+    errores.referenciaMetodo = 'La referencia del método es obligatoria.';
+  }
+
+  return errores;
+};
 
   const handleCloseModal = () => setShowModal(false); 
 
@@ -204,41 +237,39 @@ const AgregarMetodo = () => {
                   value={nombreMetodo}
                   onChange={(e) => setNombreMetodo(e.target.value)}
                   placeholder="Nombre del método"
-                  required
                 />
+                {errores.nombreMetodo && <div className="text-danger">{errores.nombreMetodo}</div>}
               </div>
               <div className="mb-3">
                 <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingrese un resumen del método</div>
-                <input
-                  type="text"
+                <textarea
                   className="form-control"
                   value={resumenMetodo}
                   onChange={(e) => setResumenMetodo(e.target.value)}
                   placeholder="Resumen del Método"
-                  required
                 />
+                {errores.resumenMetodo && <div className="text-danger">{errores.resumenMetodo}</div>}
               </div>
               <div className="mb-3">
                 <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingrese las ventajas del método</div>
-                <input
-                  type="text"
+                <textarea
                   className="form-control"
                   value={ventajasMetodo}
                   onChange={(e) => setVentajasMetodo(e.target.value)}
                   placeholder="Ventajas del Método"
-                  required
+                  
                 />
+                {errores.ventajasMetodo && <div className="text-danger">{errores.ventajasMetodo}</div>}
               </div>
               <div className="mb-3">
                 <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingrese las desventajas del método</div>
-                <input
-                  type="text"
+                <textarea
                   className="form-control"
                   value={desventajasMetodo}
                   onChange={(e) => setDesventajasMetodo(e.target.value)}
                   placeholder="Desventajas del Método"
-                  required
                 />
+                {errores.desventajasMetodo && <div className="text-danger">{errores.desventajasMetodo}</div>}
               </div>
               <div className="mb-3">
                 <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingrese la referencia del método</div>
@@ -248,8 +279,8 @@ const AgregarMetodo = () => {
                   value={referenciaMetodo}
                   onChange={(e) => setReferenciaMetodo(e.target.value)}
                   placeholder="Referencia del Método"
-                  required
                 />
+                {errores.referenciaMetodo && <div className="text-danger">{errores.referenciaMetodo}</div>}
               </div>
               <br />
 
