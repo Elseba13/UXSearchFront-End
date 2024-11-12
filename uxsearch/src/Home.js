@@ -54,7 +54,7 @@ const Home = () => {
                 <div style={{width: '25%', textAlign: 'center'}}>
                     <img src="https://cdn-icons-png.flaticon.com/512/12421/12421344.png" alt="Imagen 2" style={{width: '40%'}}/>
                     <h3 style={{marginTop: '1rem', color: '#0D6EFD'}}>¿Cual es nuestro objetivo?</h3>
-                    <p>Tras cursar ramos enfocados en UX, e investigar acerca de los métodos de evaluación de la experiencia del usuario, nos dimos cuenta que no existen muchos sitios enfocados a esta temática, o la información es breve, o permiten la busqueda personalizada permitiendo interactuar con un sistema de filtrado, por lo que decidimos enfocarnos en realizar un sitio que les permita a los usuarios una busqueda más rápida y cómoda.</p>                   
+                    <p>Tras cursar ramos enfocados en UX, e investigar acerca de los métodos de evaluación de la experiencia del usuario, nos dimos cuenta que no existen muchos sitios enfocados a esta temática, la información es breve, o simplemente no permiten la busqueda personalizada a través de la interacción con un sistema de filtrado, por lo que decidimos enfocarnos en realizar un sitio que les permita a los usuarios una busqueda más rápida y cómoda.</p>                   
                 </div>
             </section>
             <Footer/> 
