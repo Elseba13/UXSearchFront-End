@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Col } from "react-bootstrap";
 import Navbar from './Header';
 import ComponenteAyuda from './ComponenteAyuda';
 import Footer from './Footer';
@@ -9,31 +10,37 @@ const ExplicacionFiltros = () => {
     <>
       <Navbar />
       <div className="container my-4">
-        <ComponenteAyuda
-          titulo="Ayuda: Explicación de Filtros"
-          contenido={
-            <p>
-              En esta pantalla encontrarás información detallada sobre los distintos filtros de métodos de evaluación incluidos en el sitio UxSearch. 
-              <br />
-              <br />
-              Cada filtro te ayudará a entender mejor los criterios a considerar al seleccionar un método que se adecue a tus necesidades. 
-              <br />
-              <br />
-              Para acceder a la información en específico acerca de una categoría, y sus filtros, haz click izquierdo sobre la categoría, y se desplegará la información.
-            </p>
-          }
-        />
+        <Row className="align-items-center">
+          {/* Columna para el mensaje de advertencia centrado */}
+          <Col xs={12} md={9} className="d-flex justify-content-center mx-auto">
+            <div className="alert alert-warning d-flex align-items-center" role="alert" style={{ width: '100%' }}>
+              <span className="material-icons" style={{ marginRight: '8px' }}>warning</span>
+              <span>
+                Por favor, haga clic en el ícono de ayuda
+                <span className="material-icons" style={{ marginLeft: '8px', verticalAlign: 'middle' }}>help_outline</span>
+                para obtener información acerca del uso de esta pantalla.
+              </span>
+            </div>
+          </Col>
 
-      <div className="container my-4">
-        <div className="alert alert-warning d-flex align-items-center" role="alert">
-          <span className="material-icons" style={{ marginRight: '8px' }}>warning</span>
-          <span>
-            Por favor, haga clic en el ícono de ayuda 
-            <span className="material-icons" style={{ marginLeft: '8px', verticalAlign: 'middle' }}>help_outline</span> 
-            {/*‎ es para insertar un espacio vacío entre el texto y el icono */}
-            ‎  para obtener información acerca del uso de esta pantalla.
-          </span>
-        </div>
+          {/* Columna para el componente de ayuda alineado a la derecha */}
+          <Col xs={12} md="auto" className="d-flex justify-content-end align-items-center" style={{ marginRight: '20px' }}>
+            <ComponenteAyuda
+              titulo="Ayuda: Explicación de Filtros"
+              contenido={
+                <p>
+                  En esta pantalla encontrarás información detallada sobre los distintos filtros de métodos de evaluación incluidos en el sitio UxSearch.
+                  <br />
+                  <br />
+                  Cada filtro te ayudará a entender mejor los criterios a considerar al seleccionar un método que se adecue a tus necesidades.
+                  <br />
+                  <br />
+                  Para acceder a la información en específico acerca de una categoría, y sus filtros, haz click izquierdo sobre la categoría, y se desplegará la información.
+                </p>
+              }
+            />
+          </Col>
+        </Row>
       </div>
 
         <div className="accordion mt-4" id="accordionExample">
@@ -364,7 +371,7 @@ const ExplicacionFiltros = () => {
             </div>
           </div>
         </div>
-      </div>
+      <br />
       <Footer/> 
     </>
   );

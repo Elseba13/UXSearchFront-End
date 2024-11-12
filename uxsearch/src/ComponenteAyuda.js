@@ -10,7 +10,7 @@ const ComponenteAyuda = ({ titulo, contenido, botonEstilo, botonCerrarEstilo }) 
   return (
     <>
         <Button variant="outline-primary" onClick={handleShow}
-        style={{ position: 'absolute', top: '65px', right: '10px',  ...botonEstilo }}>
+        style={{ ...botonEstilo }}>
             <span className="material-icons" style={{ verticalAlign: 'middle' }}>help_outline</span>
         </Button>
 

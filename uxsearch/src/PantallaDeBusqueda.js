@@ -96,45 +96,49 @@ function PantallaPrincipal() {
     return (
         <>
             <Navbar />
-            <div className="container my-4">
-                <ComponenteAyuda
-                titulo="Ayuda: Listado de métodos"
-                contenido={
-                    <p>
-                    En esta pantalla encontrarás todos los métodos de evaluación disponibles en el sitio UxSearch
-                    <br />
-                    <br />
-                    En el costado izquierdo puedes utilizar el sistema de filtrado, te permitirá seleccionar los filtros que se adecuen a lo que buscas.
-                    <br />
-                    <br />
-                    En la parte superior encontrarás la barra de búsqueda predictiva, por lo que funcionará independiente ingreses una letra, un nombre de un método incompleto o completo.
-                    <br />
-                    <br />
-                    Es importante que ingreses correctamente el nombre del método buscado, respetando tíldes y ortografía, si no lo haces, podrías no encontrar el método.
-                    <br />
-                    <br />
-                    Finalmente en la parte inferior a la barra de búsqueda podrás visualizar el listado de métodos, donde se presentará el nombre, resúmen, y el botón "Leer más", que te permitirá obtener la información completa del método de evaluación.
-                    </p>
-                }
-                />
-            </div>
+            
 
-            <div className="container my-4">
-                <Row className="justify-content-center">
-                    <Col xs={10} md={9} lg={9}>
-                        <div className="alert alert-warning d-flex align-items-center" role="alert">
-                        <span className="material-icons" style={{ marginRight: '8px' }}>warning</span>
-                        <span>
-                            Por favor, haz clic en el ícono de ayuda 
-                            <span className="material-icons" style={{ marginLeft: '8px', verticalAlign: 'middle' }}>help_outline </span>  
-                            ‎ si deseas obtener información sobre el listado de métodos.
-                        </span>
-                        </div>
-                    </Col>
-                </Row>
-            </div>
+            
 
             <Container fluid>
+            <Row className="my-4">
+    {/* Columna para el mensaje de advertencia centrado */}
+    <Col xs={12} md={8} className="d-flex justify-content-center mx-auto">
+        <div className="alert alert-warning d-flex align-items-center" role="alert" style={{ width: '100%' }}>
+            <span className="material-icons" style={{ marginRight: '8px' }}>warning</span>
+            <span>
+                Por favor, haz clic en el ícono de ayuda 
+                <span className="material-icons" style={{ marginLeft: '8px', verticalAlign: 'middle' }}>help_outline</span>
+                si deseas obtener información sobre el listado de métodos.
+            </span>
+        </div>
+    </Col>
+
+    {/* Columna para el componente de ayuda alineado a la derecha */}
+    <Col xs={12} md="auto" className="d-flex justify-content-end align-items-center" style={{ marginRight: '20px' }}>
+        <ComponenteAyuda
+            titulo="Instructivo para agregar un método"
+            contenido={
+                                <p>
+                                En esta pantalla encontrarás todos los métodos de evaluación disponibles en el sitio UxSearch
+                                <br />
+                                <br />
+                                En el costado izquierdo puedes utilizar el sistema de filtrado, te permitirá seleccionar los filtros que se adecuen a lo que buscas.
+                                <br />
+                                <br />
+                                En la parte superior encontrarás la barra de búsqueda predictiva, por lo que funcionará independiente ingreses una letra, un nombre de un método incompleto o completo.
+                                <br />
+                                <br />
+                                Es importante que ingreses correctamente el nombre del método buscado, respetando tíldes y ortografía, si no lo haces, podrías no encontrar el método.
+                                <br />
+                                <br />
+                                Finalmente en la parte inferior a la barra de búsqueda podrás visualizar el listado de métodos, donde se presentará el nombre, resúmen, y el botón "Leer más", que te permitirá obtener la información completa del método de evaluación.
+                                </p>
+                            }
+                        />
+                    </Col>
+                </Row>
+
                 <Row>
                     <Col xs={12} md={3} lg={2} className="bg-light">
                         <Filtros onApplyFilters={fetchMethods} />

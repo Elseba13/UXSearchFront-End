@@ -124,6 +124,7 @@ function EditarMetodo() {
     return (
         <>
             <HeaderAdmin />
+            <br />
             <Modal show={showSuccessMessage} onHide={() => setShowSuccessMessage(false)} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>¡Éxito!</Modal.Title>
@@ -137,7 +138,13 @@ function EditarMetodo() {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <div className="container my-4">
+            <div className="d-flex justify-content-between align-items-center">
+                <Button variant="outline-primary" style={{ color: '#FFFFFF', borderColor: '#006400', backgroundColor: '#006400'}} onClick={() => navigate('/pantalla-principal-admin')}>
+                    <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: '#FFFFFF' }}>
+                        arrow_back
+                    </span>
+                    Regresar al listado de métodos
+                </Button>
                 <ComponenteAyuda
                     titulo="Instructivo para agregar un método"
                     contenido={
@@ -180,16 +187,6 @@ function EditarMetodo() {
                 />
             </div>
 
-            <div className="position-absolute" style={{ top: '65px', left: '20px' }}>
-                <Button variant="outline-primary" style={{ color: '#FFFFFF', borderColor: '#006400', backgroundColor: '#006400'}} onClick={() => navigate('/pantalla-principal-admin')}>
-                    <span className="material-icons" style={{ verticalAlign: 'middle', marginRight: '8px', color: '#FFFFFF' }}>
-                        arrow_back
-                    </span>
-                    Regresar al listado de métodos
-                </Button>
-            </div>
-
-            <br /><br />
 
             <div className="container my-4">
                 <Row className="justify-content-center">
@@ -209,13 +206,6 @@ function EditarMetodo() {
             <Container fluid className="mt-5"> 
                 <Row className="justify-content-center">
                     <Col xs={12} md={10} lg={8}>
-                        <div className="bg-secondary-subtle text-dark p-3 rounded mb-4">
-                            <p className="lead mb-0">
-                                En esta página podrás editar la información del método que has seleccionado.
-                                <br />
-                                Recuerda, no es necesario que edites todos los campos.
-                            </p>
-                        </div>
                         <Card className="mb-4" style={{ borderRadius: '15px' }}>
                             <Card.Body>
                                 <div className="bg-secondary-subtle text-dark p-3 rounded text-center mb-4">
