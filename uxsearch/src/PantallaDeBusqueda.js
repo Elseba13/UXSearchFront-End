@@ -192,29 +192,29 @@ function PantallaPrincipal() {
                                 ))}
                             </Row>
 
-                            <div className="d-flex justify-content-center mt-3">
-                                <Button
-                                    onClick={goToPreviusPage}
-                                    disabled={currentPage === 1}
-                                    style={{backgroundColor: '##FF0000', borderColor: '##FF0000', color: 'white', marginRight: '10px'}}
-                                >
-                                    Anterior
-                                </Button>
-                                <span>Pagina {currentPage} de {Math.ceil(filteredMethods.length / methodsPerPage)}</span>
-                                <Button
-                                    onClick={goToNextPage}
-                                    disabled={currentPage === Math.ceil(filteredMethods.length / methodsPerPage)}
-                                    style={{backgroundColor: '##FF0000', borderColor: '##FF0000', color: 'white', marginLeft: '10px'}}
-                                >
-                                    Siguiente
-                                </Button>
-                            </div>
-
 
                         </div>
                     </Col>
                 </Row>
             </Container>
+
+            <div className="d-flex justify-content-center mt-3" style={{marginBottom: '20px'}}>
+                <Button
+                    onClick={goToPreviusPage}
+                    disabled={currentPage === 1}
+                    style={{backgroundColor: '##FF0000', borderColor: '##FF0000', color: 'white', marginRight: '10px'}}
+                >
+                    Anterior
+                </Button>
+                <span>Pagina {currentPage} de {Math.ceil(filteredMethods.length / methodsPerPage)}</span>
+                <Button
+                    onClick={goToNextPage}
+                    disabled={currentPage === Math.ceil(filteredMethods.length / methodsPerPage)}
+                    style={{backgroundColor: '##FF0000', borderColor: '##FF0000', color: 'white', marginLeft: '10px'}}
+                >
+                    Siguiente
+                </Button>
+            </div>
             <Footer/> 
         </>
     );

@@ -57,8 +57,10 @@ const Filtros = ({ onApplyFilters }) => {
                         </Accordion.Body>
                     </Accordion.Item>
                 ))}
+                
+                <Button variant="secondary" onClick={handleClearFilters} className="mt-3 w-100">Limpiar Filtros</Button>
+                    
             </Accordion>
-            <Button variant="secondary" onClick={handleClearFilters} className="mt-auto">Limpiar Filtros</Button>
         </div>
     );
 }
