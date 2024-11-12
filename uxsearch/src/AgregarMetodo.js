@@ -49,6 +49,24 @@ const AgregarMetodo = () => {
     }
 
     setErrorFiltros('');
+    
+
+    try {
+      const checkResponse = await fetch(`http://localhost:5000/api/metodoNombreVerificar?nombre=${nombreMetodo}`); 
+      if(checkResponse.ok){
+        const metodoExistente = await checkResponse.json(); 
+        console.log('Respuesta del servidor: ', metodoExistente);
+        if(metodoExistente.exists){
+          setErrorFiltros('Ya existe un método con este nombre. Intente con otro nombre.'); 
+          return; 
+        }
+      }else {
+        console.error('Error al verificar el método existente');
+      }
+    } catch (error) {
+      console.error('Error al conectar con el servidor para verificación:', error); 
+      return; 
+    }
 
     const metodo = {
       nombreMetodo,

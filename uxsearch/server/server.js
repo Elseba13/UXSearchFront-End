@@ -28,6 +28,23 @@ async function registrarAuditoria(client, tipo_movimiento, id_metodo, id_admin){
   ); 
 }
 
+app.get('/api/metodoNombreVerificar', async (req, res) => {
+  const {nombre} = req.query; 
+
+  try {
+    const result = await pool.query('SELECT 1 FROM métodos WHERE nombre_metodo = $1 LIMIT 1', [nombre]);
+
+    if(result.rows.length > 0){
+      res.json({ exists: true });
+    } else{
+      res.json({ exists: false }); 
+    }
+  }catch (error){
+    console.error('Error al verificar el nombre del método:', error); 
+    res.status(500).json({ error: 'Error al verificar el nombre del métodod' });
+  }
+});
+
 app.post('/api/methods', async (req, res) => {
   const { nombreMetodo, resumenMetodo, ventajasMetodo, desventajasMetodo, referenciaMetodo, filtros, usuarioId } = req.body;
   const client = await pool.connect();
