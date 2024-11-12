@@ -13,6 +13,9 @@ function PantallaPrincipal() {
     const [filteredMethods, setFilteredMethods] = useState([]);
     const [selectedFilters, setSelectedFilters] = useState([]); 
     const [isAscending, setIsAscending] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1); 
+    const methodsPerPage = 10; 
+
 
     useEffect(() => {
         fetchMethods([]);
@@ -74,6 +77,20 @@ function PantallaPrincipal() {
         });
         setFilteredMethods(sorted);
         setIsAscending(!isAscending); // Cambia el orden para la próxima vez
+    };
+
+    const indexOfLastMethod = currentPage * methodsPerPage; 
+    const indexOffFirstMethod = indexOfLastMethod - methodsPerPage; 
+    const currentMethods = filteredMethods.slice(indexOffFirstMethod, indexOfLastMethod); 
+
+    const goToPreviusPage = () => {
+        if(currentPage > 1) setCurrentPage(currentPage - 1);
+    }; 
+
+    const goToNextPage = () => {
+        if(currentPage < Math.ceil(filteredMethods.length / methodsPerPage)){
+            setCurrentPage(currentPage + 1); 
+        }
     };
 
     return (
@@ -158,7 +175,7 @@ function PantallaPrincipal() {
 
 
                             <Row className="justify-content-center" style={{ width: '100%' }}>
-                                {filteredMethods.map((metodo) => (
+                                {currentMethods.map((metodo) => (
                                     <Col key={metodo.id_metodo} xs={12} md={10} lg={12} className="mb-4">
                                         <Card style={{ borderRadius: '15px' }}>
                                             <Card.Body>
@@ -174,6 +191,26 @@ function PantallaPrincipal() {
                                     </Col>
                                 ))}
                             </Row>
+
+                            <div className="d-flex justify-content-center mt-3">
+                                <Button
+                                    onClick={goToPreviusPage}
+                                    disabled={currentPage === 1}
+                                    style={{backgroundColor: '##FF0000', borderColor: '##FF0000', color: 'white', marginRight: '10px'}}
+                                >
+                                    Anterior
+                                </Button>
+                                <span>Pagina {currentPage} de {Math.ceil(filteredMethods.length / methodsPerPage)}</span>
+                                <Button
+                                    onClick={goToNextPage}
+                                    disabled={currentPage === Math.ceil(filteredMethods.length / methodsPerPage)}
+                                    style={{backgroundColor: '##FF0000', borderColor: '##FF0000', color: 'white', marginLeft: '10px'}}
+                                >
+                                    Siguiente
+                                </Button>
+                            </div>
+
+
                         </div>
                     </Col>
                 </Row>

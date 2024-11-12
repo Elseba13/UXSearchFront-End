@@ -34,9 +34,9 @@ const Home = () => {
                     fontSize: '2rem', 
                     fontWeight: 'bold', 
                     color: "#0D6EFD", 
-                    margin: '3rem 2rem 2rem auto', // Ajustar márgenes: top, right, bottom, left
-                    textAlign: 'left', // Alinear el texto a la derecha
-                    width: '90%' // Darle ancho para que se desplace a la derecha
+                    margin: '3rem 2rem 2rem auto',
+                    textAlign: 'left', 
+                    width: '90%' 
                 }}
             >
                 Introduciendo a UXSearch
@@ -45,16 +45,16 @@ const Home = () => {
             <section className="d-flex flex-row justify-content-around" style={{padding: '3rem 2rem', backgroundColor: '#ff5f5f5'}}>
 
 
-                <div style={{width: '20%', textAlign: 'center'}}>
-                    <img src="https://cdn-icons-png.flaticon.com/512/13191/13191289.png" alt="Imagen 1" style={{width: '100%'}}/>
+                <div style={{width: '25%', textAlign: 'center'}}>
+                    <img src="https://cdn-icons-png.flaticon.com/512/13191/13191289.png" alt="Imagen 1" style={{width: '40%'}}/>
                     <h3 style={{marginTop: '1rem', color: '#0D6EFD'}}>Acerca de nosotros</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p>Somos Sebastián Quiroga y Gonzalo Díaz, estudiantes de la Pontificia Universidad Católica de Valparaíso, realizando nuestro proyecto de título, donde nos enfocamos en trabajar una de las áreas de nuestro interés, que sería la experiencia del usuario (UX).</p>
                 </div>
 
-                <div style={{width: '20%', textAlign: 'center'}}>
-                    <img src="https://cdn-icons-png.flaticon.com/512/12421/12421344.png" alt="Imagen 2" style={{width: '100%'}}/>
+                <div style={{width: '25%', textAlign: 'center'}}>
+                    <img src="https://cdn-icons-png.flaticon.com/512/12421/12421344.png" alt="Imagen 2" style={{width: '40%'}}/>
                     <h3 style={{marginTop: '1rem', color: '#0D6EFD'}}>¿Cual es nuestro objetivo?</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>                   
+                    <p>Tras cursar ramos enfocados en UX, e investigar acerca de los métodos de evaluación de la experiencia del usuario, nos dimos cuenta que no existen muchos sitios enfocados a esta temática, o la información es breve, o permiten la busqueda personalizada permitiendo interactuar con un sistema de filtrado, por lo que decidimos enfocarnos en realizar un sitio que les permita a los usuarios una busqueda más rápida y cómoda.</p>                   
                 </div>
             </section>
             <Footer/> 

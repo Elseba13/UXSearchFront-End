@@ -15,6 +15,8 @@ function PantallaPrincipalAdmin() {
     const [selectedFilters, setSelectedFilters] = useState([]); 
     const [isAscending, setIsAscending] = useState(true);
     const [loading, setLoading] = useState(true); 
+    const [currentPage, setCurrentPage] = useState(1); 
+    const methodsPerPage = 10; 
 
     useEffect(() => {
         fetchMethods([]);
@@ -102,13 +104,27 @@ function PantallaPrincipalAdmin() {
         }
     };
 
+    const indexOfLastMethod = currentPage * methodsPerPage; 
+    const indexOffFirstMethod = indexOfLastMethod - methodsPerPage; 
+    const currentMethods = filteredMethods.slice(indexOffFirstMethod, indexOfLastMethod); 
+
+    const goToPreviusPage = () => {
+        if(currentPage > 1) setCurrentPage(currentPage - 1);
+    }; 
+
+    const goToNextPage = () => {
+        if(currentPage < Math.ceil(filteredMethods.length / methodsPerPage)){
+            setCurrentPage(currentPage + 1); 
+        }
+    };
+
     if (loading) {
         return <div>Cargando...</div>; 
     }
 
     return (
         <>
-            <HeaderAdmin/>
+        <HeaderAdmin/>
         <div className="container my-4">
             <ComponenteAyuda
             titulo="Ayuda: Listado de métodos"
@@ -193,8 +209,10 @@ function PantallaPrincipalAdmin() {
                                 </Col>
                             </Row>
 
+
+
                             <Row className="justify-content-center" style={{ width: '100%' }}>
-                                {filteredMethods.map((metodo) => (
+                                {currentMethods.map((metodo) => (
                                     <Col key={metodo.id_metodo} xs={12} md={10} lg={12} className="mb-4">
                                         <CardAdmin 
                                             nombreMetodo={metodo.nombre_metodo} 
@@ -206,6 +224,24 @@ function PantallaPrincipalAdmin() {
                                     </Col>
                                 ))}
                             </Row>
+
+                            <div className="d-flex justify-content-center mt-3">
+                                <Button
+                                    onClick={goToPreviusPage}
+                                    disabled={currentPage === 1}
+                                    style={{backgroundColor: '#006400', borderColor: '#006400', color: 'white', marginRight: '10px'}}
+                                >
+                                    Anterior
+                                </Button>
+                                <span>Pagina {currentPage} de {Math.ceil(filteredMethods.length / methodsPerPage)}</span>
+                                <Button
+                                    onClick={goToNextPage}
+                                    disabled={currentPage === Math.ceil(filteredMethods.length / methodsPerPage)}
+                                    style={{backgroundColor: '#006400', borderColor: '#006400', color: 'white', marginLeft: '10px'}}
+                                >
+                                    Siguiente
+                                </Button>
+                            </div>
                         </div>
                     </Col>
                 </Row>

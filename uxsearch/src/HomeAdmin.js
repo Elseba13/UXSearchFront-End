@@ -39,7 +39,7 @@ const HomeAdmin = () => {
 
             <section className="d-flex flex-row justify-content-around" style={{padding: '3rem 2rem', backgroundColor: '#ff5f5f5'}}>
                 <div style={{width: '20%', textAlign: 'center'}}>
-                    <img src="https://cdn-icons-png.flaticon.com/512/1091/1091916.png" alt="Imagen 1" style={{width: '100%'}}/>
+                    <img src="https://cdn-icons-png.flaticon.com/512/1091/1091916.png" alt="Imagen 1" style={{width: '50%'}}/>
                     <h3 style={{marginTop: '1rem', color: '#006400'}}>Agregar métodos de evaluación</h3>
                     <p>Serás capaz de agregar nuevos métodos al sitio UxSearch, ingresando los datos más relevantes de un método, como un resumen, ventajas, desventajas, filtros para su búsqueda eficiente, entre otros datos.
                         Esto permitirá mantener actualizada la lista de métodos disponibles, expandiendo la información que los usuarios puedan recibir.
@@ -47,13 +47,13 @@ const HomeAdmin = () => {
                 </div>
 
                 <div style={{width: '20%', textAlign: 'center'}}>
-                    <img src="https://cdn-icons-png.flaticon.com/512/3984/3984276.png" alt="Imagen 2" style={{width: '100%'}}/>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3984/3984276.png" alt="Imagen 2" style={{width: '50%'}}/>
                     <h3 style={{marginTop: '1rem', color: '#006400'}}>Eliminar métodos de evaluación</h3>
                     <p>Esta opción te permitirá realizar la eliminación de los métodos que no sean relevantes, o eficientes para el aporte a los usuarios, logrando entregar información más acertada a las necesidades actuales.</p>                   
                 </div>
 
                 <div style={{width: '20%', textAlign: 'center'}}>
-                    <img src="https://cdn-icons-png.flaticon.com/512/84/84380.png" alt="Imagen 3" style={{width: '100%'}}/>
+                    <img src="https://cdn-icons-png.flaticon.com/512/84/84380.png" alt="Imagen 3" style={{width: '50%'}}/>
                     <h3 style={{marginTop: '1rem', color: '#006400'}}>Modificar los métodos de evaluación</h3>
                     <p>Gracias a la herramienta de modificación de métodos, podrás actualizar la información de todos los métodos disponibles, permitiendo que los métodos actuales se encuentren actualizados con los últimos conocimientos disponibles.</p>                   
                 </div>
