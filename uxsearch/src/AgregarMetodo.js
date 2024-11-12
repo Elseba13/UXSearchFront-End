@@ -191,7 +191,8 @@ const AgregarMetodo = () => {
               </div>
               <div className="mb-3">
                 <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingrese un resumen del método</div>
-                <textarea
+                <input
+                  type="text"
                   className="form-control"
                   value={resumenMetodo}
                   onChange={(e) => setResumenMetodo(e.target.value)}
@@ -201,7 +202,8 @@ const AgregarMetodo = () => {
               </div>
               <div className="mb-3">
                 <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingrese las ventajas del método</div>
-                <textarea
+                <input
+                  type="text"
                   className="form-control"
                   value={ventajasMetodo}
                   onChange={(e) => setVentajasMetodo(e.target.value)}
@@ -211,7 +213,8 @@ const AgregarMetodo = () => {
               </div>
               <div className="mb-3">
                 <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingrese las desventajas del método</div>
-                <textarea
+                <input
+                  type="text"
                   className="form-control"
                   value={desventajasMetodo}
                   onChange={(e) => setDesventajasMetodo(e.target.value)}
