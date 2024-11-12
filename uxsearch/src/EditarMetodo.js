@@ -70,22 +70,36 @@ function EditarMetodo() {
         }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-    
-        const newErrors = {}; // Objeto para almacenar los errores de validación
-    
-        
-        // Validación de filtros seleccionados
-        if (selectedFilters.length === 0) {
+    const validarCampos = () => {
+        const newErrors = {}; 
+
+        if(!metodo.nombre_metodo){
+            newErrors.nombre_metodo = "El nombre del método es obligatorio."; 
+        }
+        if(!metodo.resumen_metodo){
+            newErrors.resumen_metodo = "El resumen del método es obligatorio.";
+        }
+        if(!metodo.ventajas_metodo){
+            newErrors.ventajas_metodo = "Las ventajas del método son obligatorias."; 
+        }
+        if(!metodo.desventajas_metodo){
+            newErrors.desventajas_metodo = "Las desventajas del método son obligatorias.";
+        }
+        if(!metodo.referencia_metodo){
+            newErrors.referencia_metodo = "La referencia del método es obligatoria."; 
+        }
+        if(selectedFilters.length === 0){
             newErrors.filtros_seleccionados = "Debe seleccionar al menos un filtro.";
         }
-    
-        // Mostrar los errores si los hay
-        setErrors(newErrors);
-    
-        // Si hay errores, no enviar el formulario
-        if (Object.keys(newErrors).length > 0) return;
+
+        setErrors(newErrors); 
+        return Object.keys(newErrors).length === 0;
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        if (!validarCampos()) return; 
     
         try {
             const updatedData = {
@@ -223,7 +237,7 @@ function EditarMetodo() {
                                             name="nombre_metodo"
                                             value={metodo.nombre_metodo || ''} 
                                             onChange={handleChange}
-                                            required
+                                            isInvalid={!!errors.nombre_metodo}
                                         />
                                         <Form.Control.Feedback type="invalid">{errors.nombre_metodo}</Form.Control.Feedback>
                                     </Form.Group>
@@ -236,7 +250,7 @@ function EditarMetodo() {
                                             name="resumen_metodo"
                                             value={metodo.resumen_metodo || ''} 
                                             onChange={handleChange}
-                                            required
+                                            isInvalid={!!errors.resumen_metodo}
                                         />
                                         <Form.Control.Feedback type="invalid">{errors.resumen_metodo}</Form.Control.Feedback>
                                     </Form.Group>
@@ -249,8 +263,9 @@ function EditarMetodo() {
                                             name="ventajas_metodo"
                                             value={metodo.ventajas_metodo || ''} 
                                             onChange={handleChange}
-                                            required
+                                            isInvalid={!!errors.ventajas_metodo}
                                         />
+                                        <Form.Control.Feedback type="invalid" className="mt-3">{errors.ventajas_metodo}</Form.Control.Feedback>
                                     </Form.Group>
 
                                     <Form.Group controlId="formDesventajasMetodo" className="mt-3">
@@ -261,8 +276,9 @@ function EditarMetodo() {
                                             name="desventajas_metodo"
                                             value={metodo.desventajas_metodo || ''} 
                                             onChange={handleChange}
-                                            required
+                                            isInvalid={!!errors.desventajas_metodo}
                                         />
+                                        <Form.Control.Feedback type="invalid" className="mt-3">{errors.desventajas_metodo}</Form.Control.Feedback>
                                     </Form.Group>
 
                                     <Form.Group controlId="formReferenciaMetodo" className="mt-3">
@@ -273,7 +289,7 @@ function EditarMetodo() {
                                             name="referencia_metodo"
                                             value={metodo.referencia_metodo || ''} 
                                             onChange={handleChange}
-                                            required
+                                            isInvalid={!!errors.referencia_metodo}
                                         />
                                         <Form.Control.Feedback type="invalid">{errors.referencia_metodo}</Form.Control.Feedback>
                                     </Form.Group>
