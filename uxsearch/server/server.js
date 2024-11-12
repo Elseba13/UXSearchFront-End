@@ -318,10 +318,10 @@ app.post('/api/login', async (req, res) => {
       if (isValidPassword) {
         return res.status(200).json({ message: 'Authenticated', user: user.rows[0] });
       } else {
-        return res.status(401).json({ message: 'Contraseña incorrecta' });
+        return res.status(401).json({ message: 'Correo electrónico o contraseña incorrectos' });
       }
     } else {
-      return res.status(401).json({ message: 'Correo electrónico incorrecto' });
+      return res.status(401).json({ message: 'Correo electrónico o contraseña incorrectos' });
     }
   } catch (err) {
     console.error(err); 

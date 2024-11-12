@@ -27,6 +27,7 @@ const AgregarMetodo = () => {
   });
 
   const [showModal, setShowModal] = useState(false); 
+  const [errorFiltros, setErrorFiltros] = useState(''); // Estado para el mensaje de error
 
   const handleCheckboxChange = (categoria, valor) => {
     setFiltros((prevFiltros) => {
@@ -39,7 +40,16 @@ const AgregarMetodo = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
+    // Verifica si al menos un filtro tiene valores seleccionados
+    const filtroSeleccionado = Object.values(filtros).some((categoria) => categoria.length > 0);
+    if (!filtroSeleccionado) {
+      setErrorFiltros('Por favor, selecciona al menos un filtro.');
+      return;
+    }
+
+    setErrorFiltros('');
+
     const metodo = {
       nombreMetodo,
       resumenMetodo,
@@ -48,7 +58,7 @@ const AgregarMetodo = () => {
       referenciaMetodo,
       filtros,
     };
-  
+
     try {
       const response = await fetch('http://localhost:5000/api/methods', {
         method: 'POST',
@@ -57,13 +67,13 @@ const AgregarMetodo = () => {
         },
         body: JSON.stringify(metodo),
       });
-  
+
       if (response.ok) {
         const data = await response.json();
         console.log('Método agregado:', data);
 
-        setShowModal(true); //Se muestra el modal de confirmación
-  
+        setShowModal(true); // Se muestra el modal de confirmación
+
         // Reinicia los estados del formulario para limpiarlo
         setNombreMetodo('');
         setResumenMetodo('');
@@ -532,6 +542,14 @@ const AgregarMetodo = () => {
                 Alta popularidad
               </label>
             </div>
+
+             {/* Mostrar mensaje de error si no se ha seleccionado ningún filtro */}
+             {errorFiltros && (
+                <div className="text-danger" role="alert">
+                  {errorFiltros}
+                </div>
+              )}
+            <br />
 
             <div className="text-center">
               <button type="submit" style={{backgroundColor: '#006400'}} className="btn btn-primary">Agregar Método</button>
