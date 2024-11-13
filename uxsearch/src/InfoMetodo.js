@@ -101,8 +101,8 @@ const InfoMetodo = () => {
                   Fuente de origen de la información: {metodo.referencia_metodo}
                 </Card.Text>
                 */}
-                <div style={{ border: '1px solid #006400', padding: '15px', borderRadius: '8px', marginTop: '15px' }}>
-                  <h5 style={{ color: '#006400' }}>Referencias</h5>
+                <div style={{ border: '1px solid #007bff', padding: '15px', borderRadius: '8px', marginTop: '15px' }}>
+                  <h5 style={{ color: '#007bff' }}>Referencias</h5>
                   <ul>
                     {parseList(metodo.referencia_metodo).map((referencia, index) => (
                       <li key={index}>{referencia}</li>

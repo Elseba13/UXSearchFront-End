@@ -16,7 +16,7 @@ function PantallaPrincipalAdmin() {
     const [isAscending, setIsAscending] = useState(true);
     const [loading, setLoading] = useState(true); 
     const [currentPage, setCurrentPage] = useState(1); 
-    const methodsPerPage = 10; 
+    const methodsPerPage = 5; 
 
     useEffect(() => {
         fetchMethods([]);

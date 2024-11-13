@@ -19,7 +19,7 @@ const Navbar = () => {
                 </button>
 
             
-                <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div className="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
                     <div className="navbar-nav mx-auto">
                         <a className="nav-link text-white" href="/pantalla-principal">Listado métodos</a>
                         <a className="nav-link text-white" href="/explicacion-filtros">Explicación filtros</a>         
