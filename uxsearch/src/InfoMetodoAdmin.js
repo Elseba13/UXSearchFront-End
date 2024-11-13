@@ -27,9 +27,21 @@ const InfoMetodoAdmin = () => {
     return <p>Se está cargando la información...</p>; 
   }
 
+  /*
   const parseList = (input) => {
     const normalizedInput = input.replace(/\n/g, ';').replace(/,/g, ';');
     return normalizedInput.split(';').map(item => item.trim()).filter(item => item); 
+  };
+  */
+  /*
+  const parseList = (input) => {
+    // Divide el texto solo cuando encuentre "1)", "2)", etc.
+    return input.split(/(?=\d+\))/).map(item => item.trim()).filter(item => item);
+  };
+  */
+  const parseList = (input) => {
+    // Dividir el texto usando la enumeración manual y eliminar el número y paréntesis de cada elemento
+    return input.split(/(?=\d+\))/).map(item => item.replace(/^\d+\)\s*/, '').trim()).filter(item => item);
   };
 
   // Agrupar filtros por categoría
@@ -85,9 +97,19 @@ const InfoMetodoAdmin = () => {
                   </Col>
                 </Row>
 
+                {/*
                 <Card.Text className="mt-3">
                   Fuente de origen de la información: {metodo.referencia_metodo}
                 </Card.Text>
+                */}
+                <div style={{ border: '1px solid #006400', padding: '15px', borderRadius: '8px', marginTop: '15px' }}>
+                  <h5 style={{ color: '#006400' }}>Referencias</h5>
+                  <ul>
+                    {parseList(metodo.referencia_metodo).map((referencia, index) => (
+                      <li key={index}>{referencia}</li>
+                    ))}
+                  </ul>
+                </div>
 
                 <Card.Text className="mt-3">
                   <strong>Filtros asociados:</strong>

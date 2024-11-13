@@ -172,14 +172,25 @@ function EditarMetodo() {
                     Para realizar la modificación, simplemente debes cambiar el texto en los campos de texto, ingresando la nueva información que te gustaría mostrar.
                     <br />
                     <br />
-                    Para modificar ventajas y desventajas se mantiene el formato del formulario para agregar nuevos métodos, por medio de un salto de línea, una coma (,), o un punto y coma (;), lo que sea más comodo para ti.
-                    <br />
-                    Por ejemplo: Ventaja1, Ventaja2, Ventaja3.
+                    Para modificar ventajas y desventajas se mantiene el formato del formulario para agregar nuevos métodos, por medio de un punteo manual [1), 2), 3), etc...], como se muestra en los ejemplos.
                     <br />
                     <br />
-                    La referencia debe ser ingresada en formato IEEE.
+                    Ejemplo 1: 1)Ventaja1, 2)Ventaja2, 3)Ventaja3.
                     <br />
-                    Por ejemplo: 
+                    Ejemplo 2: 
+                    <br />
+                    1)Ventaja1
+                    <br />
+                    2) Ventaja2
+                    <br />
+                    3) Ventaja 3
+                    <br />
+                    <br />
+                    <br />
+                    La referencia debe ser ingresada en formato IEEE, siguiendo el formato de punteo manual [1), 2), 3), etc...] como las ventajas y desventajas; si se posee más de una referencia.
+                    <br />
+                    <br />
+                    Ejemplo de referencia en formato IEEE:
                     <br />
                     Libros: Iniciales y Apellido/s del autor, Título del libro en cursiva. Edición. Lugar de publicación: Editorial, Año de publicación.
                     <br />
@@ -193,7 +204,7 @@ function EditarMetodo() {
                     Finalmente puedes editar los filtros del método, desmarcando filtros antiguos, y marcando los nuevos.
                     <br />
                     <br />
-                    Recuerda dejar al menos un filtro para el método.
+                    Recuerda dejar al menos un filtro seleccionado para el método.
                     </p>
                     }
                     botonEstilo={{ color: '#006400', borderColor: '#006400' }}

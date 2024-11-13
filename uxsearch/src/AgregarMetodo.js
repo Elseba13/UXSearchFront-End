@@ -175,15 +175,25 @@ const validarCampos = (nombreMetodo, resumenMetodo, ventajasMetodo, desventajasM
                 En primer lugar debes ingresar el nombre de método, y un resumen.
                 <br />
                 <br />
-                Para ingresar diferentes ventajas y desventajas, puedes realizarlo por medio de una coma (,), o un punto y coma (;), lo que sea más comodo para ti, ya que luego serán mostradas en formato de lista; por lo que si son ingresadas con coma (,) o punto y coma (;), serán mostrados como una única línea.
-                <br />
-                Por ejemplo: Ventaja1, Ventaja2, Ventaja3.
+                Para ingresar diferentes ventajas y desventajas, puedes realizarlo por medio por medio de un punteo manual [1), 2), 3), etc...], como se muestra en los ejemplos, ya que luego serán mostradas en formato de lista; por lo que si no son ingresadas por medio de un punteo manual, serán mostrados como una única línea.
                 <br />
                 <br />
+                Ejemplo 1: 1)Ventaja1, 2)Ventaja2, 3)Ventaja3.
                 <br />
-                La referencia debe ser ingresada en formato IEEE.
+                Ejemplo 2: 
                 <br />
-                Por ejemplo: 
+                1)Ventaja1
+                <br />
+                2) Ventaja2
+                <br />
+                3) Ventaja 3
+                <br />
+                <br />
+                <br />
+                La referencia debe ser ingresada en formato IEEE, siguiendo el formato de punteo manual [1), 2), 3), etc...] como las ventajas y desventajas; si se posee más de una referencia.
+                <br />
+                <br />
+                Ejemplo de referencia en formato IEEE: 
                 <br />
                 Libros: Iniciales y Apellido/s del autor, Título del libro en cursiva. Edición. Lugar de publicación: Editorial, Año de publicación.
                 <br />
@@ -274,8 +284,7 @@ const validarCampos = (nombreMetodo, resumenMetodo, ventajasMetodo, desventajasM
               </div>
               <div className="mb-3">
                 <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>Ingrese la referencia del método</div>
-                <input
-                  type="text"
+                <textarea
                   className="form-control"
                   value={referenciaMetodo}
                   onChange={(e) => setReferenciaMetodo(e.target.value)}
