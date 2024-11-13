@@ -23,6 +23,7 @@ const HeaderAdmin = () => {
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav mx-auto">
                         <a className="nav-link text-white" href="/pantalla-principal-admin">Listado métodos</a>
+                        <a className="nav-link text-white" href="/explicacion-filtros-admin">Explicación filtros</a> 
                         <a className="nav-link text-white" href="/agregar-metodo">Agregar método</a>            
                     </div>
 

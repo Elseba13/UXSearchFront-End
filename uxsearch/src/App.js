@@ -11,6 +11,7 @@ import EditarMetodo from "./EditarMetodo";
 import PantallaPrincipalAdmin from "./PantallaPrincipalAdmin";
 import InfoMetodoAdmin from "./InfoMetodoAdmin";
 import HomeAdmin from "./HomeAdmin";
+import ExplicacionFiltrosAdmin from "./ExplicacionFiltrosAdmin"
 
 
 //"importación" para poder utilizar los iconos de google
@@ -36,6 +37,7 @@ const App = () => {
             <Route path="/pantalla-principal-admin" element = {< PantallaPrincipalAdmin/>} /> 
             <Route path="/info-metodo-admin/:id" element = {< InfoMetodoAdmin/>} /> 
             <Route path="/home-admin" element={< HomeAdmin />}/>
+            <Route path="/explicacion-filtros-admin" element ={<ExplicacionFiltrosAdmin/>} />
           </Routes>
         </div>
       </div>
