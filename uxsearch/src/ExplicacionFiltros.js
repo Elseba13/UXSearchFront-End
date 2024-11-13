@@ -29,7 +29,7 @@ const ExplicacionFiltros = () => {
               titulo="Ayuda: Explicación de Filtros"
               contenido={
                 <p>
-                  En esta pantalla encontrarás información detallada sobre los distintos filtros de métodos de evaluación incluidos en el sitio UxSearch.
+                  En esta pantalla encontrarás información detallada sobre los distintos filtros de métodos de evaluación incluidos en el sitio UXMethodsSearcher.
                   <br />
                   <br />
                   Cada filtro te ayudará a entender mejor los criterios a considerar al seleccionar un método que se adecue a tus necesidades.

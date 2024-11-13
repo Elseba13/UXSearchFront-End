@@ -10,7 +10,7 @@ const Navbar = () => {
             
             
                 <a className="navbar-brand" href="/">
-                    UXSearch
+                    UXMethodsSearcher
                 </a>
 
             

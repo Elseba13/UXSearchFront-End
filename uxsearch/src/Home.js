@@ -14,13 +14,13 @@ const Home = () => {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
-                    height: '70vh', 
+                    height: '60vh', 
                     color: 'white',
                     padding: '2rem' // Ajusta el padding según lo que necesites
                 }}
             >
                 <h1 style={{ fontSize: '3rem', fontWeight: 'bold', color: '#2d2d2d' }}>
-                    Bienvenido a <span style={{ color: '#0D6EFD' }}>UXSearch</span>
+                    Bienvenido a <span style={{ color: '#0D6EFD' }}>UXMethodsSearcher</span>
                 </h1>
                 <p style={{ fontSize: '1.25rem', marginTop: '1rem', color: '#2d2d2d' }}>
                     Una plataforma donde podrás encontrar una gran cantidad de métodos de evaluación UX.
@@ -39,7 +39,7 @@ const Home = () => {
                     width: '90%' 
                 }}
             >
-                Introduciendo a UXSearch
+                Introduciendo a UXMethodsSearcher
             </h2>
 
             <section className="d-flex flex-row justify-content-around" style={{padding: '3rem 2rem', backgroundColor: '#ff5f5f5'}}>

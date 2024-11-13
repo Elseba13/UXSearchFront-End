@@ -145,7 +145,7 @@ function PantallaPrincipalAdmin() {
                         Bienvenido a la pantalla de administrador y listado de métodos.
                         <br />
                         <br />
-                        Con las funciones de administrador en el listado de métodos, podrás visualizar los métodos disponibles de UxSearch, modificar su información, o simplemente eliminarlos.
+                        Con las funciones de administrador en el listado de métodos, podrás visualizar los métodos disponibles de UXMethodsSearcher, modificar su información, o simplemente eliminarlos.
                         <br />
                         <br />
                         En el costado izquierdo puedes utilizar el sistema de filtrado, te permitirá seleccionar los filtros que se adecuen a lo que buscas.

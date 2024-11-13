@@ -120,7 +120,7 @@ function PantallaPrincipal() {
             titulo="Instructivo para agregar un método"
             contenido={
                                 <p>
-                                En esta pantalla encontrarás todos los métodos de evaluación disponibles en el sitio UxSearch
+                                En esta pantalla encontrarás todos los métodos de evaluación disponibles en el sitio UXMethodsSearcher
                                 <br />
                                 <br />
                                 En el costado izquierdo puedes utilizar el sistema de filtrado, te permitirá seleccionar los filtros que se adecuen a lo que buscas.

@@ -163,7 +163,7 @@ function EditarMetodo() {
                     titulo="Instructivo para agregar un método"
                     contenido={
                         <p>
-                    En esta pantalla encontrarás un formulario que te permitirá editar los campos de un método de UxSearch
+                    En esta pantalla encontrarás un formulario que te permitirá editar los campos de un método de UXMethodsSearcher
                     <br />
                     <br />
                     No es necesario que modifiques todos los campos, solo los que tu encuentres necesarios.

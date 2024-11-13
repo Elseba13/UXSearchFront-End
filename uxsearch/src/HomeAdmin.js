@@ -14,7 +14,7 @@ const HomeAdmin = () => {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
-                    height: '70vh', 
+                    height: '60vh', 
                     color: 'white',
                     padding: '2rem' 
                 }}
@@ -41,7 +41,7 @@ const HomeAdmin = () => {
                 <div style={{width: '20%', textAlign: 'center'}}>
                     <img src="https://cdn-icons-png.flaticon.com/512/1091/1091916.png" alt="Imagen 1" style={{width: '50%'}}/>
                     <h3 style={{marginTop: '1rem', color: '#006400'}}>Agregar métodos de evaluación</h3>
-                    <p>Serás capaz de agregar nuevos métodos al sitio UxSearch, ingresando los datos más relevantes de un método, como un resumen, ventajas, desventajas, filtros para su búsqueda eficiente, entre otros datos.
+                    <p>Serás capaz de agregar nuevos métodos al sitio UXMethodsSearcher, ingresando los datos más relevantes de un método, como un resumen, ventajas, desventajas, filtros para su búsqueda eficiente, entre otros datos.
                         Esto permitirá mantener actualizada la lista de métodos disponibles, expandiendo la información que los usuarios puedan recibir.
                     </p>
                 </div>

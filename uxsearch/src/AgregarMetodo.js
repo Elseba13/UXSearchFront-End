@@ -169,15 +169,16 @@ const validarCampos = (nombreMetodo, resumenMetodo, ventajasMetodo, desventajasM
             titulo="Instructivo para agregar un método"
             contenido={
               <p>
-                En esta pantalla encontrarás un formulario que te permitirá agregar nuevos métodos a UxSearch
+                En esta pantalla encontrarás un formulario que te permitirá agregar nuevos métodos a UXMethodsSearcher
                 <br />
                 <br />
                 En primer lugar debes ingresar el nombre de método, y un resumen.
                 <br />
                 <br />
-                Para ingresar diferentes ventajas y desventajas, puedes realizarlo por medio de un salto de línea, una coma (,), o un punto y coma (;), lo que sea más comodo para ti.
+                Para ingresar diferentes ventajas y desventajas, puedes realizarlo por medio de una coma (,), o un punto y coma (;), lo que sea más comodo para ti, ya que luego serán mostradas en formato de lista; por lo que si son ingresadas con coma (,) o punto y coma (;), serán mostrados como una única línea.
                 <br />
                 Por ejemplo: Ventaja1, Ventaja2, Ventaja3.
+                <br />
                 <br />
                 <br />
                 La referencia debe ser ingresada en formato IEEE.

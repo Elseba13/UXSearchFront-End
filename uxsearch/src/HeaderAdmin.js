@@ -11,7 +11,7 @@ const HeaderAdmin = () => {
             
             
                 <a className="navbar-brand" href="/home-admin">
-                    UXSearch
+                    UXMethodsSearcher
                 </a>
 
             
