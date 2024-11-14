@@ -63,7 +63,7 @@ Los manuales e instructivos del uso de la aplicación se encuentran en la misma 
 Por seguridad y validación, en el sitio no fue implementado un apartado para crear un usuario, pero no importa, te compartimos las credenciales con las que podrías acceder, y ejecutar las funciones de administrador.
 
 Credencial 1:
-correo electrónico: pruebacorreo@gmail.com
+correo electrónico: adminuxmethodssearcher@gmail.com
 contraseña: admincontra
 
 Deben ser correctamente ingresadas para poder acceder a las funciones de administrador.
