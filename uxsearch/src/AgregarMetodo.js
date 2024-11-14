@@ -172,7 +172,10 @@ const validarCampos = (nombreMetodo, resumenMetodo, ventajasMetodo, desventajasM
                 En esta pantalla encontrarás un formulario que te permitirá agregar nuevos métodos a UXMethodsSearcher
                 <br />
                 <br />
-                En primer lugar debes ingresar el nombre de método, y un resumen.
+                En primer lugar debes ingresar el nombre de método, el cual debe estar ortograficamente bien escrito, utilizando las tildes correspondientes, y sin faltas de ortografía, ya que podría afectar a la búsqueda de algún usuario.
+                <br />
+                <br />
+                En segundo lugar debes ingresar el resumen correspondiente del método.
                 <br />
                 <br />
                 Para ingresar diferentes ventajas y desventajas, puedes realizarlo por medio por medio de un punteo manual [1), 2), 3), etc...], como se muestra en los ejemplos, ya que luego serán mostradas en formato de lista; por lo que si no son ingresadas por medio de un punteo manual, serán mostrados como una única línea.

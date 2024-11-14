@@ -172,6 +172,10 @@ function EditarMetodo() {
                     Para realizar la modificación, simplemente debes cambiar el texto en los campos de texto, ingresando la nueva información que te gustaría mostrar.
                     <br />
                     <br />
+                    Recuerda respetar la ortografía de las palabras utilizadas, es muy importante que mantengas la información correcta para los usuarios, sobretodo haz enfasis en el nombre del método, respetando tildes, para facilitar la búsqueda a los usuarios.
+                    <br />
+                    <br />
+                    <br />
                     Para modificar ventajas y desventajas se mantiene el formato del formulario para agregar nuevos métodos, por medio de un punteo manual [1), 2), 3), etc...], como se muestra en los ejemplos.
                     <br />
                     <br />

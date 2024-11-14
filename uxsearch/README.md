@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+Pasos para poder ejecutar UXMethodsSearcher en tu dispositivo:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+1. Descarga la base de datos
+Desde el link url de github, debes entrar a la carpeta uxsearch, luego a la carpeta server y se encontrará el archivo uxsearch.sql, que debes descargar.
 
-In the project directory, you can run:
+Tras haber descargado el archivo, debes tener instalado postgresql en tu dispositivo, ingresar a la aplicación pgAdmin 4, crear una nueva base de datos (con el nombre de tu preferencia).
 
-### `npm start`
+{
+1.1. Asegurate de tener postgresql en tus variables de entorno
+En el buscador de aplicaciones, busca: "Variables de entorno", selecciona opciones avanzadas, y en la parte inferior aparecerá "Variables de entorno", seleccionalo, y busca "Path" en variables de usuario. Haz doble click izquierdo en "Path" y busca si posees "C:\Program Files\PostgreSQL\(tu version de postgreSQL)\bin", si no aparece, selecciona el botón nuevo e inserta la variable mostrada, luego debes seleccionar aceptar, se cerrará la pantalla, y cuando aparezca propiedades del sistema, debes volver a seleccionar aceptar.
+}
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Tras haber realizado estos pasos, debes abrir el buscador de aplicaciones, y buscar "Símbolo de sistema" o cmd, ejecutarlo, y pegar el siguiente comando: 
+pg_restore -U (tu usuario de postgres) -W -d (nombre de la base de datos creada) "(Ruta donde se encuentra la base de datos descargada) (recuerda que el nombre del archivo es uxsearch.sql)>"
+y te solicitará la contraseña de tu usuario de postgres.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Tras haber realizado estos pasos, puedes dirigirte a la aplicación pgAdmin, abrir la base de datos creada, y verificar que las tablas fueron correctamente clonadas.
 
-### `npm test`
+Ahora estas listo para continuar con el siguiente paso.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+2. Clonar el repositorio desde github
+Con el link del proyecto puedes realizar la clonación del proyecto completo, (Elseba13/UXSearchFront-End), si posees la aplicación de github, puedes pegar el link directamente, y se realizará la clonación en tu dispositivo.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Tras realizar correctamente la clonación, debes abrir la aplicación (o en el posible caso descargar si no la posees) visual studio code (VCS), donde se mostrará el código de la aplicación.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Cambiar las variables de entorno
+Tras haber clonado el repositorio, encontrarás el código en tu aplicación de VCS.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Una vez abierto el código, debes dirigirte al archivo ".env" en la carpeta server, y cambiar los valores de los campos a los que correspondan en la configuración de tu dispositivo, por ejemplo para PG_DATABASE= (nombre de la base de datos creada en el paso 1), PG_PASSWORD="(contraseña de tu usuario de postresql)"
 
-### `npm run eject`
+4. Abrir una terminal dividida en VCS
+Tras haber completado exitosamente los pasos 1, 2 y 3, debes dirigirte a los 3 puntos que se encuentran junto a la palabra "Run", presionar "Terminal" y luego "Split Terminal", se abrirá una terminal dividida, para que puedas utilizar.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Primero deberás instalar algunas dependencias si es que no las posees, si no no podrás abrir el código.
+Solo ejecuta los siguientes comandos en una de las dos terminales abiertas:
+"npm install" y debes esperar a que se instalen todas las dependencias. Una vez listo, puedes ejecutar el comando "clear" que te permitirá limpiar los mensajes previos de la terminal.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Ahora estas listo para continuar!
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+En una de las terminales debes ejecutar los siguientes comandos: 
+"cd uxsearch"
+"cd server"
+"node server.js"
+Si ejecutaste correctamente el paso de cambiar las variables a las de tu dispositivo, se deberán mostrar los siguientes mensajes:
+DB_USER: (tu usuario)
+DB_PASSWORD: (tu contraseña)
+Servidor corriendo en el puerto 5000
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+En la segunda terminal debes ejecutar los siguientes comandos:
+"cd uxsearch"
+"npm start"
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Y listo, se abrirá la aplicación de manera local en tu dispositivo! 
 
-### Code Splitting
+Los manuales e instructivos del uso de la aplicación se encuentran en la misma aplicación, asi que ahora puedes utilizar UXMethodsSearcher de manera libre.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+5. Paso extra, acceso al usuario de administrador en UXMethodsSearcher
+Por seguridad y validación, en el sitio no fue implementado un apartado para crear un usuario, pero no importa, te compartimos las credenciales con las que podrías acceder, y ejecutar las funciones de administrador.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Credencial 1:
+correo electrónico: pruebacorreo@gmail.com
+contraseña: admincontra
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Deben ser correctamente ingresadas para poder acceder a las funciones de administrador.
