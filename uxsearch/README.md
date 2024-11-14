@@ -12,7 +12,7 @@ En el buscador de aplicaciones, busca: "Variables de entorno", selecciona opcion
 }
 
 Tras haber realizado estos pasos, debes abrir el buscador de aplicaciones, y buscar "Símbolo de sistema" o cmd, ejecutarlo, y pegar el siguiente comando: 
-pg_restore -U (tu usuario de postgres) -W -d (nombre de la base de datos creada) "(Ruta donde se encuentra la base de datos descargada) (recuerda que el nombre del archivo es uxsearch.sql)>"
+pg_restore -U (tu usuario de postgres) -W -d (nombre de la base de datos creada) "(Ruta donde se encuentra la base de datos descargada) (recuerda que el nombre del archivo es uxsearch.sql)"
 y te solicitará la contraseña de tu usuario de postgres.
 
 Tras haber realizado estos pasos, puedes dirigirte a la aplicación pgAdmin, abrir la base de datos creada, y verificar que las tablas fueron correctamente clonadas.
