@@ -15,6 +15,8 @@ Tras haber realizado estos pasos, debes abrir el buscador de aplicaciones, y bus
 pg_restore -U (tu usuario de postgres) -W -d (nombre de la base de datos creada) "(Ruta donde se encuentra la base de datos descargada) (recuerda que el nombre del archivo es uxsearch.sql)"
 y te solicitará la contraseña de tu usuario de postgres.
 
+Este comando funcionará unicamente en bases de datos nuevas/vacías, por lo que no funcionará si lo intentas en una base de datos poblada no funcionará, procurá seguir los pasos y crear una nueva base de datos para realizar el restore.
+
 Tras haber realizado estos pasos, puedes dirigirte a la aplicación pgAdmin, abrir la base de datos creada, y verificar que las tablas fueron correctamente clonadas.
 
 Ahora estas listo para continuar con el siguiente paso.
